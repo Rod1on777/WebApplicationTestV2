@@ -17,6 +17,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddHttpClient<WeatherService>();
+builder.Services.AddHttpClient<CatFactsService>();
 
 var app = builder.Build();
 

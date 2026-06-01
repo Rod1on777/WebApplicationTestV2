@@ -10,9 +10,11 @@ public class HomeController : Controller
     
     //Конструктор класса
     private readonly WeatherService _weatherService;
-    public HomeController(WeatherService weatherService)
+    private readonly CatFactsService _catFactsService;
+    public HomeController(WeatherService weatherService, CatFactsService catFactsService)
     {
         _weatherService = weatherService;
+        _catFactsService = catFactsService;
     }
     
     public async Task<IActionResult> Index()
@@ -22,11 +24,20 @@ public class HomeController : Controller
         double longitude = 151.2093;
 
         // Вызываем наш сервис погоды и ждем (await) результат
-        var weather = await _weatherService.GetWeatherAsync(latitude, longitude);
+        var weatherTask = _weatherService.GetWeatherAsync(latitude, longitude);
+        var catFactTask = _catFactsService.GetCatFactsAsync();
+        // Ждем выполнения обоих запросов
+        await Task.WhenAll(weatherTask, catFactTask);
+        // Упаковываем результаты в нашу общую ViewModel
+        var viewModel = new MainPageViewModel
+        {
+            Weather = await weatherTask,
+            CatFact = await catFactTask
+        };
 
         // Передаем полученный объект weather прямо в метод View().
         // Теперь HTML-страница Index.cshtml сможет прочитать эти данные через свойство @Model.
-        return View(weather);
+        return View(viewModel);
     }
 
     public IActionResult Privacy()

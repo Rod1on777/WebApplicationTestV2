@@ -1,8 +1,88 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using WebAppV3.Models
+@model MainPageViewModel
+
+@{
+    ViewData["Title"] = "Главная - Портфолио";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Мяу мяу мяу ыы</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="welcome-section text-center">
+    <h1>Родион Коршунов</h1>
+    <p class="lead">Разработчик бэкенда и интерактивных медиа. Добро пожаловать на мой сайт-портфолио!</p>
+</div>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        
+        <!--------------------------------------- КАРТОЧКА ДЛЯ ПОГОДЫ -------------------------------------->
+        <div class="col-md-5">
+
+            <div class="card weather-card">
+                <div class="weather-header text-center">
+                    Погода в Сиднее
+                </div>
+
+                <div class="weather-body text-center">
+                    @if (Model != null)
+                    {
+                        <div class="weather-temp">@Model.Weather.Temperature°C</div>
+
+                        <div class="row weather-details">
+                            <div class="col-6 border-end text-center">
+                                <span class="weather-detail-label">Скорость ветра</span>
+                                <span class="weather-detail-value">@Model.Weather.WindSpeed км/ч</span>
+                            </div>
+                            <div class="col-6 text-center">
+                                <span class="weather-detail-label">Код погоды</span>
+                                <span class="weather-detail-value">@Model.Weather.WeatherCode</span>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="weather-error">
+                            <p class="mb-0">⚠️ Сервер погоды временно недоступен</p>
+                        </div>
+                    }
+                </div>
+
+                <div class="weather-footer text-center">
+                    Синхронизировано с Open-Meteo через бэкенд .NET
+                </div>
+            </div>
+        </div>
+
+        <!--------------------------------------- КАРТОЧКА ДЛЯ КОТОВ -------------------------------------->
+        <div class="col-md-5">
+
+            <div class="card weather-card">
+                <div class="weather-header text-center">
+                    Факты о котах
+                </div>
+
+                <div class="weather-body text-center">
+                    @if (Model != null)
+                    {
+                        <div class="cat-fact-text">@Model.CatFact.CatFact</div>
+
+                        <div class="row weather-details">
+                            <div class="col-6 border-end text-center">
+                                <span class="weather-detail-label">Длина в символах</span>
+                                <span class="weather-detail-value">@Model.CatFact.CatFactLength</span>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="weather-error">
+                            <p class="mb-0">⚠️ Сервер фактов временно недоступен</p>
+                        </div>
+                    }
+                </div>
+
+                <div class="weather-footer text-center">
+                    Синхронизировано с Open-Meteo через бэкенд .NET
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
