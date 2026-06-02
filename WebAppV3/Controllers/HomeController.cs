@@ -2,6 +2,8 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using WebAppV3.Models;
 using WebAppV3.Services;
+using Microsoft.EntityFrameworkCore;
+using WebAppV3.Data;
 
 namespace WebAppV3.Controllers;
 
@@ -11,10 +13,12 @@ public class HomeController : Controller
     //Конструктор класса
     private readonly WeatherService _weatherService;
     private readonly CatFactsService _catFactsService;
-    public HomeController(WeatherService weatherService, CatFactsService catFactsService)
+    private readonly ApplicationDbContext _context;
+    public HomeController(WeatherService weatherService, CatFactsService catFactsService, ApplicationDbContext context)
     {
         _weatherService = weatherService;
         _catFactsService = catFactsService;
+        _context = context;
     }
     
     public async Task<IActionResult> Index()
@@ -26,13 +30,18 @@ public class HomeController : Controller
         // Вызываем наш сервис погоды и ждем (await) результат
         var weatherTask = _weatherService.GetWeatherAsync(latitude, longitude);
         var catFactTask = _catFactsService.GetCatFactsAsync();
+        
+        // Запрашиваем ВСЕ проекты из базы данных асинхронно
+        var projectsTask = _context.Projects.ToListAsync();
+        
         // Ждем выполнения обоих запросов
-        await Task.WhenAll(weatherTask, catFactTask);
+        await Task.WhenAll(weatherTask, catFactTask, projectsTask);
         // Упаковываем результаты в нашу общую ViewModel
         var viewModel = new MainPageViewModel
         {
             Weather = await weatherTask,
-            CatFact = await catFactTask
+            CatFact = await catFactTask,
+            Projects = await projectsTask
         };
 
         // Передаем полученный объект weather прямо в метод View().

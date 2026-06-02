@@ -19,6 +19,31 @@
     margin-bottom: 15px;
 }
 
+/* Стили для описания API секции */
+.api-description-section {
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #e0f2f7 0%, #c2e0e8 100%); /* Более светлый градиент */
+    color: #2c3e50; /* Темный текст для контраста */
+    border-radius: 16px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.api-description-section h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #1e3c72; /* Цвет заголовка, соответствующий welcome-section */
+}
+
+.api-description-section p.lead {
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: #4a5568;
+}
+
+
 /* Стили для виджета погоды */
 .weather-card {
     background: #ffffff;
@@ -93,10 +118,117 @@
     border-top: 1px solid #edf2f7;
 }
 
+/* -------------------------- Стили для Котов ------------------------- */
+
 .cat-fact-text {
     font-size: 1.5rem;
     font-weight: 800;
     color: #3182ce;
     line-height: 1;
     margin-bottom: 20px;
+}
+
+/* -------------------------- Стили для Рандомной картинки кота ------------------------- */
+.randomCat-body{
+    width: 100%;
+    max-width: 40vw;
+    max-height: 40vh;
+    /* height: 400px; */ /* Убрана фиксированная высота */
+    margin: 0 auto;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    overflow: hidden;
+    
+    object-position: center;
+    display: block;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.randomCat-body img {
+    width: 100%;
+    height: auto; /* Высота будет автоматически подстраиваться под ширину */
+    object-fit: contain;
+    object-position: center;
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* -------------------------- Стили для секции проектов ------------------------- */
+.projects-section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1a202c;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.projects-section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background-color: #3182ce;
+    border-radius: 2px;
+}
+
+.project-card {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    border: none;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.project-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.project-badge-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 15px;
+}
+
+.tech-badge {
+    background-color: #ebf8ff;
+    color: #2b6cb0;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 8px;
+    text-transform: uppercase;
+}
+
+.project-meta {
+    font-size: 0.85rem;
+    color: #718096;
+    margin-bottom: 10px;
+}
+
+.project-meta i {
+    color: #4a5568;
+}
+
+.btn-project-details {
+    background-color: #3182ce;
+    color: white;
+    font-weight: 600;
+    border-radius: 10px;
+    padding: 8px 20px;
+    transition: background-color 0.2s;
+}
+
+.btn-project-details:hover {
+    background-color: #2b6cb0;
+    color: white;
 }

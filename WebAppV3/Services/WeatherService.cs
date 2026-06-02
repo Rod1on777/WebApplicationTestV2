@@ -28,10 +28,10 @@ public class WeatherService
 
             return weatherData?.CurrentWeather;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            // Выведет точную причину ошибки в окно Run / Console в Rider
-            Console.WriteLine($"Ошибка при парсинге погоды: {ex.Message}");
+            // Если что-то пошло не так (нет интернета и т.д.), возвращаем null
+            System.Console.WriteLine("Error");
             return null;
         }
     }
