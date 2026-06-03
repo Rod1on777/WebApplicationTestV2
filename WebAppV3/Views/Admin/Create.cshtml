@@ -1,0 +1,82 @@
+﻿@using WebAppV3.Models
+@model Project
+
+@{
+    ViewData["Title"] = "Добавить новый проект";
+}
+
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="d-flex align-items-center mb-4">
+                <a href="@Url.Action("Index", "Admin")" class="btn btn-outline-secondary me-3 rounded-3">
+                    ⬅ Назад
+                </a>
+                <h2 class="fw-bold text-dark mb-0">Добавление нового проекта</h2>
+            </div>
+
+            <div class="card shadow-sm border-0 rounded-4 p-4">
+                <form asp-action="Create" method="post">
+                    
+                    <div class="mb-3">
+                        <label asp-for="Name" class="form-label fw-semibold text-secondary">Название проекта *</label>
+                        <input asp-for="Name" class="form-box form-control rounded-3" placeholder="Например: Celestial Light" required />
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="RoleInTeam" class="form-label fw-semibold text-secondary">Роль в команде</label>
+                            <input asp-for="RoleInTeam" class="form-control rounded-3" placeholder="Например: Solo Developer" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="DevelopmentTime" class="form-label fw-semibold text-secondary">Срок разработки</label>
+                            <input asp-for="DevelopmentTime" class="form-control rounded-3" placeholder="Например: 3 месяца" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="TeamMembersCount" class="form-label fw-semibold text-secondary">Количество человек в команде</label>
+                            <input asp-for="TeamMembersCount" type="number" class="form-control rounded-3" min="1" value="1" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="SourceCodeLink" class="form-label fw-semibold text-secondary">Ссылка на исходный код (GitHub)</label>
+                            <input asp-for="SourceCodeLink" type="url" class="form-control rounded-3" placeholder="https://github.com/..." />
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="TechnologyStack" class="form-label fw-semibold text-secondary">Стек технологий (через запятую)</label>
+                        <input asp-for="TechnologyStack" class="form-control rounded-3" placeholder="Java, Spring Boot, SQLite, Git" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="InfoPreview" class="form-label fw-semibold text-secondary">Краткое описание (для карточки на главной) *</label>
+                        <input asp-for="InfoPreview" class="form-control rounded-3" placeholder="Короткое превью проекта..." required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="DetailedInfo" class="form-label fw-semibold text-secondary">Детальное описание проекта</label>
+                        <textarea asp-for="DetailedInfo" class="form-control rounded-3" rows="4" placeholder="Подробный рассказ о проекте, архитектуре и задачах..."></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="ProjectFeatures" class="form-label fw-semibold text-secondary">Ключевые фичи проекта</label>
+                        <textarea asp-for="ProjectFeatures" class="form-control rounded-3" rows="2" placeholder="Перечисление ключевого функционала..."></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Screenshots" class="form-label fw-semibold text-secondary">Путь к скриншоту</label>
+                        <input asp-for="Screenshots" class="form-control rounded-3" placeholder="/images/projects/photo.png" />
+                    </div>
+
+                    <hr class="text-muted my-4">
+
+                    <button type="submit" class="btn btn-success w-100 fw-bold py-2 rounded-3 shadow-sm">
+                        💾 Сохранить проект в базу данных
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
