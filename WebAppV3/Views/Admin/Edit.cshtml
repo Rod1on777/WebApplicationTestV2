@@ -2,80 +2,82 @@
 @model Project
 
 @{
-    ViewData["Title"] = "Добавить новый проект";
+    ViewData["Title"] = "Редактировать проект";
 }
 
 <link rel="stylesheet" href="~/css/admin-styles.css" />
 
-<div class="admin-edit-container"> @* Reusing admin-edit-container for similar layout *@
+<div class="admin-edit-container">
     <div class="admin-edit-row-center">
         <div class="admin-edit-col-md-8">
             <div class="admin-edit-header-group">
                 <a href="@Url.Action("Index", "Admin")" class="admin-back-button">
                     ⬅ Назад
                 </a>
-                <h2 class="admin-edit-title">Добавление нового проекта</h2>
+                <h2 class="admin-edit-title">Редактирование проекта: @Model.Name</h2>
             </div>
 
             <div class="admin-edit-card">
-                <form asp-action="Create" method="post">
+                <form asp-action="Edit" method="post">
+                    
+                    <input type="hidden" asp-for="Id" />
                     
                     <div class="admin-form-group">
                         <label asp-for="Name" class="admin-form-label">Название проекта *</label>
-                        <input asp-for="Name" class="admin-form-control" placeholder="Например: Celestial Light" required />
+                        <input asp-for="Name" class="admin-form-control" required />
                     </div>
 
                     <div class="admin-form-row">
                         <div class="admin-form-col-md-6 admin-form-group">
                             <label asp-for="RoleInTeam" class="admin-form-label">Роль в команде</label>
-                            <input asp-for="RoleInTeam" class="admin-form-control" placeholder="Например: Solo Developer" />
+                            <input asp-for="RoleInTeam" class="admin-form-control" />
                         </div>
                         <div class="admin-form-col-md-6 admin-form-group">
                             <label asp-for="DevelopmentTime" class="admin-form-label">Срок разработки</label>
-                            <input asp-for="DevelopmentTime" class="admin-form-control" placeholder="Например: 3 месяца" />
+                            <input asp-for="DevelopmentTime" class="admin-form-control" />
                         </div>
                     </div>
 
                     <div class="admin-form-row">
                         <div class="admin-form-col-md-6 admin-form-group">
                             <label asp-for="TeamMembersCount" class="admin-form-label">Количество человек в команде</label>
-                            <input asp-for="TeamMembersCount" type="number" class="admin-form-control" min="1" value="1" />
+                            <input asp-for="TeamMembersCount" type="number" class="admin-form-control" min="1" />
                         </div>
                         <div class="admin-form-col-md-6 admin-form-group">
-                            <label asp-for="SourceCodeLink" class="admin-form-label">Ссылка на исходный код (GitHub)</label>
-                            <input asp-for="SourceCodeLink" type="url" class="admin-form-control" placeholder="https://github.com/..." />
+                            <label asp-for="SourceCodeLink" class="admin-form-label">Ссылка на исходный код</label>
+                            <input asp-for="SourceCodeLink" type="url" class="admin-form-control" />
                         </div>
                     </div>
 
                     <div class="admin-form-group">
                         <label asp-for="TechnologyStack" class="admin-form-label">Стек технологий (через запятую)</label>
-                        <input asp-for="TechnologyStack" class="admin-form-control" placeholder="Java, Spring Boot, SQLite, Git" />
+                        <input asp-for="TechnologyStack" class="admin-form-control" />
                     </div>
 
                     <div class="admin-form-group">
-                        <label asp-for="InfoPreview" class="admin-form-label">Краткое описание (для карточки на главной) *</label>
-                        <input asp-for="InfoPreview" class="admin-form-control" placeholder="Короткое превью проекта..." required />
+                        <label asp-for="InfoPreview" class="admin-form-label">Краткое описание *</label>
+                        <input asp-for="InfoPreview" class="admin-form-control" required />
                     </div>
 
                     <div class="admin-form-group">
                         <label asp-for="DetailedInfo" class="admin-form-label">Детальное описание проекта</label>
-                        <textarea asp-for="DetailedInfo" class="admin-form-control" rows="4" placeholder="Подробный рассказ о проекте, архитектуре и задачах..."></textarea>
+                        <textarea asp-for="DetailedInfo" class="admin-form-control" rows="4"></textarea>
                     </div>
 
                     <div class="admin-form-group">
                         <label asp-for="ProjectFeatures" class="admin-form-label">Ключевые фичи проекта</label>
-                        <textarea asp-for="ProjectFeatures" class="admin-form-control" rows="2" placeholder="Перечисление ключевого функционала..."></textarea>
+                        <textarea asp-for="ProjectFeatures" class="admin-form-control" rows="2"></textarea>
                     </div>
 
                     <div class="admin-form-group">
                         <label asp-for="Screenshots" class="admin-form-label">Путь к скриншоту</label>
-                        <input asp-for="Screenshots" class="admin-form-control" placeholder="/images/projects/photo.png" />
+                        <input asp-for="Screenshots" class="admin-form-control" />
                     </div>
 
                     <hr class="admin-form-divider">
 
-                    <button type="submit" class="admin-submit-button" style="background-color: #198754; border-color: #198754;"> @* Using inline style for specific button color, could be a new class if needed elsewhere *@
-                        💾 Сохранить проект в базу данных
+                    <button type="submit" class="admin-submit-button">
+                        🔄 Обновить данные проекта
                     </button>
                 </form>
             </div>

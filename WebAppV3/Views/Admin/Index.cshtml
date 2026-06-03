@@ -43,8 +43,12 @@
                                 </td>
                                 <td class="admin-table-actions">
                                     <div class="admin-action-buttons">
-                                        <a href="#" class="admin-edit-button">Редактировать</a>
-                                        <a href="#" class="admin-delete-button">Удалить</a>
+                                        <a asp-action="Edit" asp-route-id="@project.Id" class="admin-edit-button">Редактировать</a>
+                                        <form asp-action="Delete" asp-route-id="@project.Id" method="post" onsubmit="return confirm('Вы уверены, что хотите безвозвратно удалить проект @project.Name?');">
+                                            <button type="submit" class="btn btn-sm btn-outline-danger rounded-2 px-3">
+                                                Удалить
+                                            </button>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>
