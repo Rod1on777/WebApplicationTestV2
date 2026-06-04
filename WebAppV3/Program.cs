@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebAppV3.Data;
+using WebAppV3.Models;
 using WebAppV3.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +16,15 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddAuthentication()
+    .AddGoogle(options =>
+    {
+        // Читаем данные, которые мы сохранили через user-secrets (или из appsettings.json)
+        options.ClientId = builder.Configuration["Authentication:Google:ClientId"]!;
+        options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"]!;
+    });
+
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddHttpClient<WeatherService>();
@@ -91,6 +101,25 @@ using (var scope = app.Services.CreateScope())
             await userManager.AddToRoleAsync(adminUser, "Admin");
         }
     }
+    
+    
+    // ------ Просто добавление дефолтных скиллов при первой инициализации базы данных ------
+    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    if (!context.Skills.Any())
+    {
+        context.Skills.AddRange(
+            new Skills { SkillName = "C#" },
+            new Skills { SkillName = ".NET Core / ASP.NET MVC" },
+            new Skills { SkillName = "Entity Framework Core" },
+            new Skills { SkillName = "SQLite" },
+            new Skills { SkillName = "Git & GitHub" }
+        );
+
+        // Физически сохраняем строки в файл app.db
+        await context.SaveChangesAsync();
+    }
 }
+
+
 
 app.Run();

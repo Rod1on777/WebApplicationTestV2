@@ -12,12 +12,17 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="10.0.8" />
         <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="10.0.8"/>
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.8"/>
         <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="10.0.8"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.8"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.8" PrivateAssets="all"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.8"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="wwwroot\images\projects\" />
     </ItemGroup>
 
 </Project>

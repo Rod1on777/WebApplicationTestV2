@@ -33,15 +33,17 @@ public class HomeController : Controller
         
         // Запрашиваем ВСЕ проекты из базы данных асинхронно
         var projectsTask = _context.Projects.ToListAsync();
+        var skillsTask = _context.Skills.ToListAsync();
         
         // Ждем выполнения обоих запросов
-        await Task.WhenAll(weatherTask, catFactTask, projectsTask);
+        await Task.WhenAll(weatherTask, catFactTask, projectsTask, skillsTask);
         // Упаковываем результаты в нашу общую ViewModel
         var viewModel = new MainPageViewModel
         {
             Weather = await weatherTask,
             CatFact = await catFactTask,
-            Projects = await projectsTask
+            Projects = await projectsTask,
+            Skills = await skillsTask
         };
 
         // Передаем полученный объект weather прямо в метод View().
@@ -52,6 +54,22 @@ public class HomeController : Controller
     public IActionResult Privacy()
     {
         return View();
+    }
+    
+    // Контроллер страницы деталей проекта
+    public async Task<IActionResult> Details(int id)
+    {
+        // Ищем проект в базе данных по его уникальному ID
+        var project = await _context.Projects.FindAsync(id);
+
+        // Если проекта с таким ID нет (например, пользователь подставил цифру в адресную строку вручную)
+        if (project == null)
+        {
+            return NotFound(); // Вернет стандартную страницу ошибки 404
+        }
+
+        // Передаем найденный проект в HTML-шаблон
+        return View(project);
     }
     
     // Ошибки

@@ -18,7 +18,7 @@
             </div>
 
             <div class="admin-edit-card">
-                <form asp-action="Edit" method="post">
+                <form asp-action="Edit" method="post" enctype="multipart/form-data">
                     
                     <input type="hidden" asp-for="Id" />
                     
@@ -69,9 +69,17 @@
                         <textarea asp-for="ProjectFeatures" class="admin-form-control" rows="2"></textarea>
                     </div>
 
-                    <div class="admin-form-group">
-                        <label asp-for="Screenshots" class="admin-form-label">Путь к скриншоту</label>
-                        <input asp-for="Screenshots" class="admin-form-control" />
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold text-secondary">Загрузить скриншот проекта</label>
+                        <input type="file" name="imageFile" class="form-control rounded-3" accept="image/*" />
+
+                        @if (Model != null && !string.IsNullOrEmpty(Model.Screenshots))
+                        {
+                            <div class="mt-2">
+                                <small class="text-muted d-block">Текущий скриншот:</small>
+                                <img src="@Model.Screenshots" class="img-thumbnail mt-1" style="max-height: 100px;" />
+                            </div>
+                        }
                     </div>
 
                     <hr class="admin-form-divider">

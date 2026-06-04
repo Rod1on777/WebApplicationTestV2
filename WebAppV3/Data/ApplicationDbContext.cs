@@ -16,6 +16,8 @@ public class ApplicationDbContext : IdentityDbContext
     // Это свойство — наша будущая таблица проектов в базе данных
     public DbSet<Project> Projects { get; set; }
     
+    public DbSet<Skills> Skills { get; set; }
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         

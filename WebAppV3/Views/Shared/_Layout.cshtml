@@ -9,37 +9,51 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/WebAppV3.styles.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/css/portfolio.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/layout-styles.css" asp-append-version="true" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+U:wght@100..900&display=swap" rel="stylesheet">
 </head>
 <body>
-<header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+<header class="main-header"> @* Moved main-header class to <header> *@
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light"> @* Removed redundant classes from <nav> *@
         <div class="container-fluid">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebAppV3</a>
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                <img class="navbar-image" src="~/images/frontend/logo192.png"/> 
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
+            <div class="navbar-collapse collapse d-sm-inline-flex navbar-content">
+                <ul class="navbar-nav navbar-nav-list">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        <a class="nav-link text-color-main" asp-area="" asp-controller="Home" asp-action="Index">HOME</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        <a class="nav-link nav-link-black" asp-area="" asp-controller="Home" asp-action="Privacy">PRIVACY</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-black" asp-area="" asp-controller="Admin" asp-action="Index">ADMIN</a>
                     </li>
                 </ul>
-                <partial name="_LoginPartial"/>
+                <div class="d-flex align-items-center">
+                    <button id="theme-toggle" class="btn btn-link nav-link-black me-2" aria-label="Toggle theme">
+                        ☀️
+                    </button>
+                    <partial name="_LoginPartial"/>
+                </div>
             </div>
         </div>
     </nav>
 </header>
 <div class="container">
-    <main role="main" class="pb-3">
+    <main role="main" class="main-content">
         @RenderBody()
     </main>
 </div>
 
-<footer class="border-top footer text-muted">
+<footer class="main-footer">
     <div class="container">
         &copy; 2026 - WebAppV3 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
     </div>

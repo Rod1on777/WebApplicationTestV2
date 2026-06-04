@@ -1,0 +1,97 @@
+﻿@using WebAppV3.Models
+@model Project
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="container mt-5 mb-5">
+    <div class="d-flex align-items-center mb-4">
+        <a asp-action="Index" asp-controller="Home" class="btn btn-outline-secondary me-3 rounded-3">
+            ⬅ К списку проектов
+        </a>
+        <h1 class="fw-bold text-dark mb-0">@Model.Name</h1>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0 rounded-4 overflow-hidden mb-4">
+                @if (!string.IsNullOrEmpty(Model.Screenshots))
+                {
+                    <img src="@Model.Screenshots" class="img-fluid w-100" style="max-height: 450px; object-fit: cover;" alt="@Model.Name screenshot">
+                }
+                else
+                {
+                    <div class="bg-light text-center py-5 border-bottom">
+                        <i class="bi bi-laptop display-1 text-muted"></i>
+                        <p class="text-muted mt-2">Скриншоты для этого проекта скоро появятся</p>
+                    </div>
+                }
+            </div>
+
+            <div class="card shadow-sm border-0 rounded-4 p-4 mb-4">
+                <h3 class="fw-bold mb-3 text-dark">📄 Описание проекта</h3>
+                <p class="text-secondary lh-lg" style="white-space: pre-line;">
+                    @(string.IsNullOrEmpty(Model.DetailedInfo) ? Model.InfoPreview : Model.DetailedInfo)
+                </p>
+            </div>
+
+            @if (!string.IsNullOrEmpty(Model.ProjectFeatures))
+            {
+                <div class="card shadow-sm border-0 rounded-4 p-4">
+                    <h3 class="fw-bold mb-3 text-dark">🚀 Ключевые особенности / Фичи</h3>
+                    <p class="text-secondary lh-lg" style="white-space: pre-line;">@Model.ProjectFeatures</p>
+                </div>
+            }
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card shadow-sm border-0 rounded-4 p-4 position-sticky" style="top: 20px;">
+                <h4 class="fw-bold mb-4 text-dark">📋 Детали разработки</h4>
+
+                <div class="mb-3">
+                    <span class="text-muted d-block small uppercase fw-semibold">Моя роль:</span>
+                    <span class="badge bg-primary fs-6 mt-1">@Model.RoleInTeam</span>
+                </div>
+
+                <div class="mb-3">
+                    <span class="text-muted d-block small uppercase fw-semibold">Технологический стек:</span>
+                    <div class="d-flex flex-wrap gap-1 mt-1">
+                        @if (!string.IsNullOrEmpty(Model.TechnologyStack))
+                        {
+                            @foreach (var tech in Model.TechnologyStack.Split(','))
+                            {
+                                <span class="badge bg-dark rounded-2">@tech.Trim()</span>
+                            }
+                        }
+                    </div>
+                </div>
+
+                @if (!string.IsNullOrEmpty(Model.DevelopmentTime))
+                {
+                    <div class="mb-3 border-top pt-3">
+                        <span class="text-muted small">⏱ Время на разработку:</span>
+                        <strong class="text-dark d-block">@Model.DevelopmentTime</strong>
+                    </div>
+                }
+
+                @if (Model.TeamMembersCount > 0)
+                {
+                    <div class="mb-3 border-top pt-3">
+                        <span class="text-muted small">👥 Размер команды:</span>
+                        <strong class="text-dark d-block">@Model.TeamMembersCount @(Model.TeamMembersCount == 1 ? "человек (Соло)" : "чел.")</strong>
+                    </div>
+                }
+
+                @if (!string.IsNullOrEmpty(Model.SourceCodeLink))
+                {
+                    <div class="mt-4 border-top pt-3">
+                        <a href="@Model.SourceCodeLink" target="_blank" class="btn btn-outline-dark w-100 fw-bold py-2 rounded-3">
+                            <i class="bi bi-github"></i> Исходный код на GitHub 🔗
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

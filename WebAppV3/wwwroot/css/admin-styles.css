@@ -19,7 +19,7 @@
 
 .admin-heading {
     font-weight: 700 !important; 
-    color: #212529 !important;
+    color: var(--admin-text-dark) !important;
     font-size: 1.5rem;
 }
 
@@ -28,8 +28,8 @@
     font-weight: 600; 
     line-height: 1.5;
     color: #fff;
-    background-color: #198754;
-    border: 1px solid #198754;
+    background-color: var(--admin-success-bg);
+    border: 1px solid var(--admin-success-border);
     padding: 0.5rem 1.5rem;
     border-radius: 0.3rem !important;
     text-decoration: none;
@@ -38,8 +38,8 @@
 
 .admin-add-button:hover {
     color: #fff;
-    background-color: #157347;
-    border-color: #146c43;
+    background-color: var(--admin-success-hover-bg);
+    border-color: var(--admin-success-hover-border);
 }
 
 .admin-card {
@@ -48,12 +48,13 @@
     flex-direction: column;
     min-width: 0;
     word-wrap: break-word;
-    background-color: #fff;
+    background-color: var(--admin-bg-white);
     background-clip: border-box;
     border: 0 solid rgba(0,0,0,.125);
     border-radius: 1rem !important;
-    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075) !important;
+    box-shadow: 0 .125rem .25rem var(--admin-shadow-sm) !important;
     overflow: hidden !important;
+    margin-bottom: 1.5rem;
 }
 
 .admin-card-body {
@@ -64,26 +65,26 @@
 .admin-table {
     width: 100%;
     margin-bottom: 0 !important;
-    color: #212529;
+    color: var(--admin-table-color);
     vertical-align: middle !important;
-    border-color: #dee2e6;
+    border-color: var(--admin-table-border-color);
 }
 
 .admin-table > :not(caption) > * > * {
     padding: 0.5rem 0.5rem;
-    background-color: var(--bs-table-bg);
+    background-color: var(--bs-table-bg); /* Keep Bootstrap variable for table row background */
     border-bottom-width: 1px;
-    box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+    box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg); /* Keep Bootstrap variable */
 }
 
 .admin-table-hover > tbody > tr:hover {
-    --bs-table-accent-bg: var(--bs-table-hover-bg);
-    color: var(--bs-table-hover-color);
+    --bs-table-accent-bg: var(--bs-table-hover-bg); /* Keep Bootstrap variable */
+    color: var(--bs-table-hover-color); /* Keep Bootstrap variable */
 }
 
 .admin-table-header {
-    background-color: #f8f9fa !important;
-    color: #6c757d !important;
+    background-color: var(--admin-table-header-bg) !important;
+    color: var(--admin-table-header-text) !important;
     text-transform: uppercase !important;
     font-size: 0.75rem !important;
 }
@@ -98,12 +99,12 @@
 .admin-table-cell-id {
     padding-left: 1.5rem !important;
     font-weight: 700 !important;
-    color: #6c757d !important;
+    color: var(--admin-text-muted) !important;
 }
 
 .admin-table-cell-name {
     font-weight: 600 !important;
-    color: #212529 !important;
+    color: var(--admin-text-dark) !important;
     font-size: 1rem !important;
 }
 
@@ -118,12 +119,12 @@
     white-space: nowrap;
     vertical-align: baseline;
     border-radius: 0.25rem;
-    background-color: #6c757d !important;
+    background-color: var(--admin-badge-bg) !important;
 }
 
 .admin-table-cell-tech {
     font-size: .875em !important;
-    color: #6c757d !important;
+    color: var(--admin-text-muted) !important;
 }
 
 .admin-table-actions {
@@ -140,9 +141,9 @@
     display: inline-block;
     font-weight: 400;
     line-height: 1.5;
-    color: #0d6efd;
+    color: var(--admin-primary-color);
     background-color: transparent;
-    border: 1px solid #0d6efd;
+    border: 1px solid var(--admin-primary-color);
     padding: 0.25rem 0.5rem;
     font-size: .875rem;
     border-radius: 0.2rem !important;
@@ -152,17 +153,17 @@
 
 .admin-edit-button:hover {
     color: #fff;
-    background-color: #0d6efd;
-    border-color: #0d6efd;
+    background-color: var(--admin-primary-hover-bg);
+    border-color: var(--admin-primary-hover-border);
 }
 
 .admin-delete-button {
     display: inline-block;
     font-weight: 400;
     line-height: 1.5;
-    color: #dc3545;
+    color: var(--admin-danger-color);
     background-color: transparent;
-    border: 1px solid #dc3545;
+    border: 1px solid var(--admin-danger-color);
     padding: 0.25rem 0.5rem;
     font-size: .875rem;
     border-radius: 0.2rem !important;
@@ -172,15 +173,15 @@
 
 .admin-delete-button:hover {
     color: #fff;
-    background-color: #dc3545;
-    border-color: #dc3545;
+    background-color: var(--admin-danger-hover-bg);
+    border-color: var(--admin-danger-hover-border);
 }
 
 .admin-empty-message {
     text-align: center !important;
     padding-top: 3rem !important;
     padding-bottom: 3rem !important;
-    color: #6c757d !important;
+    color: var(--admin-text-muted) !important;
 }
 
 /*---------------------- Styles for Admin/Edit.cshtml and Admin/Create.cshtml --------------------*/
@@ -215,9 +216,9 @@
     display: inline-block;
     font-weight: 400;
     line-height: 1.5;
-    color: #6c757d;
+    color: var(--admin-secondary-color);
     background-color: transparent;
-    border: 1px solid #6c757d;
+    border: 1px solid var(--admin-secondary-color);
     padding: 0.375rem 0.75rem;
     border-radius: 0.3rem !important;
     text-decoration: none;
@@ -227,13 +228,13 @@
 
 .admin-back-button:hover {
     color: #fff;
-    background-color: #6c757d;
-    border-color: #6c757d;
+    background-color: var(--admin-secondary-hover-bg);
+    border-color: var(--admin-secondary-hover-border);
 }
 
 .admin-edit-title {
     font-weight: 700 !important;
-    color: #212529 !important;
+    color: var(--admin-text-dark) !important;
     margin-bottom: 0 !important;
     font-size: 1.5rem;
 }
@@ -244,11 +245,11 @@
     flex-direction: column;
     min-width: 0;
     word-wrap: break-word;
-    background-color: #fff;
+    background-color: var(--admin-bg-white);
     background-clip: border-box;
     border: 0 solid rgba(0,0,0,.125);
     border-radius: 1rem !important;
-    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075) !important;
+    box-shadow: 0 .125rem .25rem var(--admin-shadow-sm) !important;
     padding: 1.5rem !important;
 }
 
@@ -259,7 +260,7 @@
 .admin-form-label {
     display: inline-block;
     font-weight: 600 !important;
-    color: #6c757d !important;
+    color: var(--admin-text-muted) !important;
     margin-bottom: 0.5rem;
 }
 
@@ -270,21 +271,20 @@
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
-    color: #212529;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #ced4da;
+    color: var(--admin-form-control-color);
+    background-color: var(--admin-form-control-bg);
+    border: 1px solid var(--admin-form-control-border);
     appearance: none;
     border-radius: 0.3rem !important;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
 .admin-form-control:focus {
-    color: #212529;
-    background-color: #fff;
-    border-color: #86b7fe;
+    color: var(--admin-form-control-color);
+    background-color: var(--admin-form-control-bg);
+    border-color: var(--admin-form-control-focus-border);
     outline: 0;
-    box-shadow: 0 0 0 0.25rem rgba(13,110,253,.25);
+    box-shadow: 0 0 0 0.25rem var(--admin-form-control-focus-shadow);
 }
 
 .admin-form-row {
@@ -314,11 +314,11 @@
 }
 
 .admin-form-divider {
-    border-top: 1px solid #dee2e6 !important;
+    border-top: 1px solid var(--admin-form-divider-border) !important;
     opacity: 1;
     margin-top: 1.5rem !important;
     margin-bottom: 1.5rem !important;
-    color: #6c757d !important;
+    color: var(--admin-text-muted) !important;
 }
 
 .admin-submit-button {
@@ -327,19 +327,19 @@
     font-weight: 700 !important;
     line-height: 1.5;
     color: #fff;
-    background-color: #0d6efd;
-    border: 1px solid #0d6efd;
+    background-color: var(--admin-primary-color);
+    border: 1px solid var(--admin-primary-color);
     padding: 0.5rem 1rem !important;
     border-radius: 0.3rem !important;
-    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075) !important;
+    box-shadow: 0 .125rem .25rem var(--admin-shadow-sm) !important;
     text-decoration: none;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
 .admin-submit-button:hover {
     color: #fff;
-    background-color: #0b5ed7;
-    border-color: #0a58ca;
+    background-color: var(--admin-primary-active-bg);
+    border-color: var(--admin-primary-active-border);
 }
 
 .admin-save-button {
@@ -348,17 +348,24 @@
     font-weight: 700 !important;
     line-height: 1.5;
     color: #fff;
-    background-color: #198754;
-    border: 1px solid #198754;
+    background-color: var(--admin-success-bg);
+    border: 1px solid var(--admin-success-bg);
     padding: 0.5rem 1rem !important;
     border-radius: 0.3rem !important;
-    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075) !important;
+    box-shadow: 0 .125rem .25rem var(--admin-shadow-sm) !important;
     text-decoration: none;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
 .admin-save-button:hover {
     color: #fff;
-    background-color: #157347;
-    border-color: #146c43;
+    background-color: var(--admin-success-hover-bg);
+    border-color: var(--admin-success-hover-border);
+}
+
+.project-division-line{
+    border: none;
+    border-top: 2px solid var(--admin-project-division-line);
+    width: 100%;
+    margin: 20px 0;
 }

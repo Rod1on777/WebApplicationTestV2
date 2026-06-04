@@ -1,5 +1,5 @@
 ﻿@using WebAppV3.Models
-@model IEnumerable<Project>
+@model MainPageViewModel
 
 @{
     ViewData["Title"] = "Панель управления";
@@ -19,32 +19,95 @@
         <div class="admin-card-body">
             <table class="admin-table admin-table-hover">
                 <thead class="admin-table-header">
+                <tr>
+                    <th class="ps-4">ID</th>
+                    <th>Название проекта</th>
+                    <th>Роль</th>
+                    <th>Технологии</th>
+                    <th class="text-end pe-4">Действия</th>
+                </tr>
+                </thead>
+                <tbody>
+                @if (Model != null && Model.Projects.Any())
+                {
+                    @foreach (var project in Model.Projects)
+                    {
+                        <tr>
+                            <td class="admin-table-cell-id">@project.Id</td>
+                            <td>
+                                <span class="admin-table-cell-name">@project.Name</span>
+                            </td>
+                            <td><span class="admin-badge">@project.RoleInTeam</span></td>
+                            <td>
+                                <small class="admin-table-cell-tech">@project.TechnologyStack</small>
+                            </td>
+                            <td class="admin-table-actions">
+                                <div class="admin-action-buttons">
+                                    <a asp-action="Edit" asp-route-id="@project.Id" class="admin-edit-button">Редактировать</a>
+                                    <form asp-action="Delete" asp-route-id="@project.Id" method="post"
+                                          onsubmit="return confirm('Вы уверены, что хотите безвозвратно удалить проект @project.Name?');">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger rounded-2 px-3">
+                                            Удалить
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5" class="admin-empty-message">
+                            Projects DataBase Error
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <hr class="project-division-line">
+    @*------------------ Таблица скиллов -------------------**@
+
+    <div class="admin-header-section">
+        <h2 class="admin-heading">Управление скиллами</h2>
+        <a asp-action="SkillCreate" asp-controller="Admin" class="btn btn-success fw-semibold px-4 py-2 rounded-3">
+            ➕ Добавить новый скилл
+        </a>
+    </div>
+    
+    
+    <div class="admin-card">
+        <div class="admin-card-body">
+            <table class="admin-table admin-table-hover">
+                <thead class="admin-table-header">
                     <tr>
                         <th class="ps-4">ID</th>
-                        <th>Название проекта</th>
-                        <th>Роль</th>
-                        <th>Технологии</th>
-                        <th class="text-end pe-4">Действия</th>
+                        <th>Скилл</th>
+                        <th>Категория</th>
+                        <th>Действия</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @if (Model != null && Model.Any())
+                    @if (Model != null && Model.Skills.Any())
                     {
-                        @foreach (var project in Model)
+                        @foreach (var skills in Model.Skills)
                         {
                             <tr>
-                                <td class="admin-table-cell-id">@project.Id</td>
+                                <td class="admin-table-cell-id">@skills.Id</td>
                                 <td>
-                                    <span class="admin-table-cell-name">@project.Name</span>
+                                    <span class="admin-table-cell-name">@skills.SkillName</span>
                                 </td>
-                                <td><span class="admin-badge">@project.RoleInTeam</span></td>
                                 <td>
-                                    <small class="admin-table-cell-tech">@project.TechnologyStack</small>
+                                    <span class="admin-table-cell-name">@skills.Category</span>
                                 </td>
                                 <td class="admin-table-actions">
                                     <div class="admin-action-buttons">
-                                        <a asp-action="Edit" asp-route-id="@project.Id" class="admin-edit-button">Редактировать</a>
-                                        <form asp-action="Delete" asp-route-id="@project.Id" method="post" onsubmit="return confirm('Вы уверены, что хотите безвозвратно удалить проект @project.Name?');">
+                                        <a asp-action="SkillsEdit" asp-route-id="@skills.Id" class="admin-edit-button">Редактировать</a>
+                                        <form asp-action="SkillDelete" asp-route-id="@skills.Id" method="post"
+                                              onsubmit="return confirm('Вы уверены, что хотите безвозвратно удалить скилл @skills.SkillName?');">
                                             <button type="submit" class="btn btn-sm btn-outline-danger rounded-2 px-3">
                                                 Удалить
                                             </button>
@@ -58,7 +121,7 @@
                     {
                         <tr>
                             <td colspan="5" class="admin-empty-message">
-                                В базе данных пока нет проектов. Нажмите кнопку выше, чтобы добавить первый!
+                                Skills DataBase Error
                             </td>
                         </tr>
                     }

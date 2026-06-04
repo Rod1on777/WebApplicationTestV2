@@ -1,0 +1,252 @@
+﻿/* Custom styles for _Layout.cshtml */
+
+:root {
+    --body-bg: #f4f7f6;
+    --text-color: #c7ceda;
+    --header-bg: rgba(255, 255, 255, 0.8);
+    --header-text-color: black;
+    --header-border-color: black;
+    --nav-link-color: #000;
+    --footer-text-color: #6c757d;
+    --card-bg: #ffffff;
+    --card-shadow: rgb(0 0 0 / 0.08);
+    --card-header-text: #000000;
+    --card-header-bg: #f8f9fa;
+    --card-header-border: #edf2f7;
+    --card-detail-label-color: #707375;
+    --card-detail-value-color: #2d3748;
+    --card-footer-bg: #f8f9fa;
+    --card-footer-border: #edf2f7;
+    --card-footer-text-color: #a0aec0;
+    --project-title-color: #1a202c;
+    --project-title-underline: #3182ce;
+    --project-preview-text-color: #718096;
+    --project-meta-color: #718096;
+    --tech-badge-bg: #ebf8ff;
+    --tech-badge-color: #2b6cb0;
+    --btn-project-details-bg: #3182ce;
+    --btn-project-details-hover-bg: #2b6cb0;
+    --api-description-bg: linear-gradient(135deg, #e0f2f7 0%, #c2e0e8 100%);
+    --api-description-title-color: #1e3c72;
+    --api-description-text-color: #4a5568;
+    --focus-shadow-color-1: white; /* For site.css focus shadow */
+    --focus-shadow-color-2: #258cfb; /* For site.css focus shadow */
+
+    /* Admin styles variables (Light Theme) */
+    --admin-text-dark: #212529;
+    --admin-text-muted: #6c757d;
+    --admin-bg-white: #fff;
+    --admin-shadow-sm: rgba(0,0,0,.075);
+    --admin-success-bg: #198754;
+    --admin-success-border: #198754;
+    --admin-success-hover-bg: #157347;
+    --admin-success-hover-border: #146c43;
+    --admin-table-color: #212529;
+    --admin-table-border-color: #dee2e6;
+    --admin-table-header-bg: #f8f9fa;
+    --admin-table-header-text: #6c757d;
+    --admin-badge-bg: #6c757d;
+    --admin-primary-color: #0d6efd;
+    --admin-primary-hover-bg: #0d6efd;
+    --admin-primary-hover-border: #0d6efd;
+    --admin-primary-active-bg: #0b5ed7;
+    --admin-primary-active-border: #0a58ca;
+    --admin-danger-color: #dc3545;
+    --admin-danger-hover-bg: #dc3545;
+    --admin-danger-hover-border: #dc3545;
+    --admin-secondary-color: #6c757d;
+    --admin-secondary-hover-bg: #6c757d;
+    --admin-secondary-hover-border: #6c757d;
+    --admin-form-control-color: #212529;
+    --admin-form-control-bg: #fff;
+    --admin-form-control-border: #ced4da;
+    --admin-form-control-focus-border: #86b7fe;
+    --admin-form-control-focus-shadow: rgba(13,110,253,.25);
+    --admin-form-divider-border: #dee2e6;
+    --admin-project-division-line: black;
+}
+
+.dark-theme {
+    --body-bg: #212121;
+    --text-color: #e0e0e0;
+    --header-bg: rgba(33, 33, 33, 0.8);
+    --header-text-color: white;
+    --header-border-color: white;
+    --nav-link-color: #fff;
+    --footer-text-color: #9e9e9e;
+    --card-bg: #303030;
+    --card-shadow: rgba(255, 255, 255, 0.08);
+    --card-header-text: #ffffff;
+    --card-header-bg: #424242;
+    --card-header-border: #616161;
+    --card-detail-label-color: #bdbdbd;
+    --card-detail-value-color: #e0e0e0;
+    --card-footer-bg: #424242;
+    --card-footer-border: #616161;
+    --card-footer-text-color: #9e9e9e;
+    --project-title-color: #e0e0e0;
+    --project-title-underline: #64b5f6;
+    --project-preview-text-color: #ccd1da;
+    --project-meta-color: #bdbdbd;
+    --tech-badge-bg: #424242;
+    --tech-badge-color: #90caf9;
+    --btn-project-details-bg: #64b5f6;
+    --btn-project-details-hover-bg: #42a5f5;
+    --api-description-bg: linear-gradient(135deg, #303030 0%, #424242 100%);
+    --api-description-title-color: #90caf9;
+    --api-description-text-color: #bdbdbd;
+    --focus-shadow-color-1: #424242; /* Darker background for focus shadow */
+    --focus-shadow-color-2: #64b5f6; /* Lighter blue for focus shadow */
+
+    /* Admin styles variables (Dark Theme) */
+    --admin-text-dark: #e0e0e0;
+    --admin-text-muted: #bdbdbd;
+    --admin-bg-white: #424242;
+    --admin-shadow-sm: rgba(255,255,255,.075);
+    --admin-success-bg: #28a745;
+    --admin-success-border: #28a745;
+    --admin-success-hover-bg: #218838;
+    --admin-success-hover-border: #1e7e34;
+    --admin-table-color: #e0e0e0;
+    --admin-table-border-color: #616161;
+    --admin-table-header-bg: #424242;
+    --admin-table-header-text: #bdbdbd;
+    --admin-badge-bg: #616161;
+    --admin-primary-color: #64b5f6;
+    --admin-primary-hover-bg: #64b5f6;
+    --admin-primary-hover-border: #64b5f6;
+    --admin-primary-active-bg: #42a5f5;
+    --admin-primary-active-border: #2196f3;
+    --admin-danger-color: #ef5350;
+    --admin-danger-hover-bg: #ef5350;
+    --admin-danger-hover-border: #e53935;
+    --admin-secondary-color: #bdbdbd;
+    --admin-secondary-hover-bg: #bdbdbd;
+    --admin-secondary-hover-border: #bdbdbd;
+    --admin-form-control-color: #e0e0e0;
+    --admin-form-control-bg: #303030;
+    --admin-form-control-border: #616161;
+    --admin-form-control-focus-border: #90caf9;
+    --admin-form-control-focus-shadow: rgba(144,202,249,.25);
+    --admin-form-divider-border: #616161;
+    --admin-project-division-line: #a6a6a6;
+}
+
+html {
+    overflow-x: hidden; /* Prevent horizontal scroll issues */
+}
+
+body {
+    min-height: 100vh; /* Ensure body is at least viewport height */
+    margin: 0; /* Remove default body margin */
+    background-color: var(--body-bg);
+    color: var(--text-color);
+    overflow-y: auto; /* Ensure body is the scrollable container */
+    display: flex; /* Enable flexbox */
+    flex-direction: column; /* Arrange children vertically */
+}
+
+/* Header/Navbar styles */
+.main-header {
+    background-color: var(--header-bg); /* Semi-transparent white */
+    backdrop-filter: blur(10px); /* Glass effect */
+    border-bottom: 1px solid var(--header-border-color); /* Black border */
+    color: var(--header-text-color); /* Black text for the header */
+    position: sticky; /* Make header sticky */
+    top: 0; /* Stick to the top */
+    z-index: 1030; /* Ensure it stays on top of other content, Bootstrap's navbar z-index is 1030 */
+    margin-bottom: 1rem; /* mb-3 */
+    overflow: visible; /* Ensure overflow doesn't hide sticky behavior */
+}
+
+.main-header .navbar-brand {
+    color: var(--header-text-color); /* Ensure brand text is black */
+}
+
+.navbar-content {
+    display: flex;
+    flex-wrap: inherit;
+    align-items: center;
+    justify-content: space-between; /* justify-content-between */
+}
+
+.navbar-nav-list {
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+    flex-grow: 1; /* flex-grow-1 */
+}
+
+.nav-link-black { /* Changed from nav-link-white */
+    color: var(--nav-link-color) !important; /* Black text for nav links */
+}
+
+/* Main content styles */
+.main-content {
+    padding-bottom: 1rem; /* pb-3 */
+    flex-grow: 1; /* Make main content fill available space */
+}
+
+/* Footer styles */
+.main-footer {
+    border-top: 1px solid rgba(0, 0, 0, 0.175); /* border-top */
+    color: var(--footer-text-color) !important; /* text-muted */
+}
+
+@media (min-width: 576px) {
+    .navbar-content {
+        flex-direction: row;
+    }
+    .navbar-nav-list {
+        flex-direction: row;
+    }
+}
+
+/* Skill Item Styles */
+.skill-item {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border-color: var(--card-header-border) !important; /* Use a border color that fits the theme */
+    transition: all 0.2s ease-in-out; /* Smooth transition for hover effects */
+    cursor: pointer; /* Indicate it's interactive */
+    font-weight: 500; /* Slightly bolder text */
+}
+
+.skill-item:hover {
+    background-color: var(--text-color); /* Inverted background color */
+    color: var(--body-bg); /* Inverted text color */
+    transform: scale(1.05); /* Slightly larger */
+    box-shadow: 0 4px 8px var(--card-shadow); /* Add a subtle shadow */
+}
+
+/* Ensure category titles are visible and styled */
+.category-title {
+    color: var(--project-title-color); /* Use a color that stands out, similar to project titles */
+    font-weight: bold;
+    border-bottom: 2px solid var(--project-title-underline); /* Underline for emphasis */
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+/* Adjustments for skill section title */
+.skills-section-title {
+    color: var(--project-title-color);
+    font-weight: bold;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+.skills-section-title::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    height: 3px;
+    width: 60px; /* Shorter underline for section title */
+    background-color: var(--project-title-underline);
+    border-radius: 2px;
+}

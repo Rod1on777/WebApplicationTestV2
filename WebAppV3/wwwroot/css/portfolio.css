@@ -1,16 +1,57 @@
-﻿body {
-    background-color: #f4f7f6;
-    color: #2c3e50;
+﻿/* Custom styles for portfolio.css */
+
+body {
+    /* These are now handled by :root and .dark-theme in layout-styles.css */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+nav.navbar-collapse{
+    background-color: black; /* Consider making this a variable if needed */
+    color: #3dff00; /* Consider making this a variable if needed */
+    border-radius: 10px;
+}
+
+.navbar-image{
+    width: 30px;
+    height: 30px;
+}
+
+.nav-item{
+    color: var(--header-text-color) !important;
+    font-family: "M PLUS U", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    transition: color 0.3s ease;
+}
+
+.card-title{
+    color: var(--card-header-text);
+}
+
+.card-text{
+    color: var(--project-preview-text-color) !important;
+}
+
+.font-header{
+    color: var(--header-text-color) !important;
+    font-family: "M PLUS U", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    transition: color 0.3s ease;
+}
+
+.text-color-main{
+    color: #ff0059; /* Consider making this a variable if needed */
 }
 
 .welcome-section {
     padding: 60px 20px;
-    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-    color: white;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); /* Consider making this a variable if needed */
     border-radius: 16px;
     margin-bottom: 40px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Consider making this a variable if needed */
 }
 
 .welcome-section h1 {
@@ -22,33 +63,33 @@
 /* Стили для описания API секции */
 .api-description-section {
     padding: 40px 20px;
-    background: linear-gradient(135deg, #e0f2f7 0%, #c2e0e8 100%); /* Более светлый градиент */
-    color: #2c3e50; /* Темный текст для контраста */
+    background: var(--api-description-bg);
+    color: var(--api-description-text-color);
     border-radius: 16px;
     margin-top: 40px;
     margin-bottom: 40px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 15px var(--card-shadow);
 }
 
 .api-description-section h3 {
     font-size: 2rem;
     font-weight: 700;
     margin-bottom: 15px;
-    color: #1e3c72; /* Цвет заголовка, соответствующий welcome-section */
+    color: var(--api-description-title-color);
 }
 
 .api-description-section p.lead {
     font-size: 1.15rem;
     line-height: 1.6;
-    color: #4a5568;
+    color: var(--api-description-text-color);
 }
 
 
-/* Стили для виджета погоды */
+/* --------------------------- Стили для виджета погоды ---------------------------- */
 .weather-card {
-    background: #ffffff;
+    background: var(--card-bg);
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 10px 30px var(--card-shadow);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: none;
     overflow: hidden;
@@ -56,16 +97,16 @@
 
 .weather-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 15px 35px var(--card-shadow); /* Using same shadow for hover for simplicity */
 }
 
 .weather-header {
-    background-color: #f8f9fa;
+    background-color: var(--card-header-bg);
     padding: 20px;
     font-size: 1.2rem;
     font-weight: 600;
-    color: #4a5568;
-    border-bottom: 1px solid #edf2f7;
+    color: var(--card-detail-value-color); /* Using a general text color for header */
+    border-bottom: 1px solid var(--card-header-border);
 }
 
 .weather-body {
@@ -75,13 +116,13 @@
 .weather-temp {
     font-size: 3.5rem;
     font-weight: 800;
-    color: #3182ce;
+    color: var(--project-title-underline); /* Reusing a blue-ish color */
     line-height: 1;
     margin-bottom: 20px;
 }
 
 .weather-details {
-    border-top: 1px solid #edf2f7;
+    border-top: 1px solid var(--card-header-border);
     padding-top: 20px;
 }
 
@@ -91,7 +132,7 @@
 
 .weather-detail-label {
     font-size: 0.85rem;
-    color: #718096;
+    color: var(--card-detail-label-color);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 5px;
@@ -101,21 +142,21 @@
 .weather-detail-value {
     font-size: 1.1rem;
     font-weight: 600;
-    color: #2d3748;
+    color: var(--card-detail-value-color);
 }
 
 .weather-error {
-    color: #e53e3e;
+    color: #e53e3e; /* Error color usually remains constant */
     padding: 20px;
     font-weight: 500;
 }
 
 .weather-footer {
-    background-color: #f8f9fa;
+    background-color: var(--card-footer-bg);
     padding: 12px 20px;
     font-size: 0.75rem;
-    color: #a0aec0;
-    border-top: 1px solid #edf2f7;
+    color: var(--card-footer-text-color);
+    border-top: 1px solid var(--card-footer-border);
 }
 
 /* -------------------------- Стили для Котов ------------------------- */
@@ -123,7 +164,7 @@
 .cat-fact-text {
     font-size: 1.5rem;
     font-weight: 800;
-    color: #3182ce;
+    color: var(--project-title-underline); /* Reusing a blue-ish color */
     line-height: 1;
     margin-bottom: 20px;
 }
@@ -133,9 +174,8 @@
     width: 100%;
     max-width: 40vw;
     max-height: 40vh;
-    /* height: 400px; */ /* Убрана фиксированная высота */
     margin: 0 auto;
-    background-color: #f8f9fa;
+    background-color: var(--card-header-bg); /* Reusing a light background color */
     border-radius: 8px;
     overflow: hidden;
     
@@ -146,7 +186,7 @@
 
 .randomCat-body img {
     width: 100%;
-    height: auto; /* Высота будет автоматически подстраиваться под ширину */
+    height: auto;
     object-fit: contain;
     object-position: center;
     display: block;
@@ -161,7 +201,7 @@
 .projects-section-title {
     font-size: 2rem;
     font-weight: 700;
-    color: #1a202c;
+    color: var(--project-title-color);
     position: relative;
     padding-bottom: 10px;
 }
@@ -174,14 +214,14 @@
     transform: translateX(-50%);
     width: 60px;
     height: 4px;
-    background-color: #3182ce;
+    background-color: var(--project-title-underline);
     border-radius: 2px;
 }
 
 .project-card {
-    background: #ffffff;
+    background: var(--card-bg);
     border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 20px var(--card-shadow);
     border: none;
     transition: all 0.3s ease;
     overflow: hidden;
@@ -189,7 +229,7 @@
 
 .project-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 12px 30px var(--card-shadow); /* Using same shadow for hover for simplicity */
 }
 
 .project-badge-stack {
@@ -200,8 +240,8 @@
 }
 
 .tech-badge {
-    background-color: #ebf8ff;
-    color: #2b6cb0;
+    background-color: var(--tech-badge-bg);
+    color: var(--tech-badge-color);
     font-size: 0.75rem;
     font-weight: 600;
     padding: 4px 10px;
@@ -211,17 +251,17 @@
 
 .project-meta {
     font-size: 0.85rem;
-    color: #718096;
+    color: var(--project-meta-color);
     margin-bottom: 10px;
 }
 
 .project-meta i {
-    color: #4a5568;
+    color: var(--card-detail-value-color); /* Reusing a general text color */
 }
 
 .btn-project-details {
-    background-color: #3182ce;
-    color: white;
+    background-color: var(--btn-project-details-bg);
+    color: white; /* Button text color */
     font-weight: 600;
     border-radius: 10px;
     padding: 8px 20px;
@@ -229,6 +269,6 @@
 }
 
 .btn-project-details:hover {
-    background-color: #2b6cb0;
-    color: white;
+    background-color: var(--btn-project-details-hover-bg);
+    color: white; /* Button text color */
 }

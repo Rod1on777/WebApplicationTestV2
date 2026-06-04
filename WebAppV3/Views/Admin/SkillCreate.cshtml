@@ -1,0 +1,47 @@
+﻿@using WebAppV3.Models
+@model Skills
+
+@{
+    ViewData["Title"] = "Добавить новый скилл";
+}
+
+<link rel="stylesheet" href="~/css/admin-styles.css" />
+
+<div class="admin-edit-container">
+    <div class="admin-edit-row-center">
+        <div class="admin-edit-col-md-8">
+            <div class="admin-edit-header-group">
+                <a href="@Url.Action("Index", "Admin")" class="admin-back-button">
+                    ⬅ Назад
+                </a>
+                <h2 class="admin-edit-title">Добавление нового скилла</h2>
+            </div>
+
+            <div class="admin-edit-card">
+                <form asp-action="SkillCreate" method="post" enctype="multipart/form-data">
+                    
+                    <div class="admin-form-group">
+                        <label asp-for="SkillName" class="admin-form-label">Название скилла *</label>
+                        <input asp-for="SkillName" class="admin-form-control" placeholder="Например: С#" required />
+                        <label asp-for="SkillName" class="admin-form-label">Категория скилла</label>
+                        <select asp-for="Category" class="form-select rounded-3">
+                            <option value="General">General</option>
+                            <option value="Databases">Databases</option>
+                            <option value="Algorithms_and_data_structures">Algorithms and data structures</option>
+                            <option value="Soft_Skills">Soft Skills</option>
+                            <option value="Web_Development">Web Development</option>
+                            <option value="Project_assemblers">Project assemblers</option>
+                            <option value="Architecture_and_design">Architecture and design</option>
+                        </select>
+                    </div>
+                    
+                    <hr class="admin-form-divider">
+
+                    <button type="submit" class="admin-submit-button" style="background-color: #198754; border-color: #198754;"> @* Using inline style for specific button color, could be a new class if needed elsewhere *@
+                        💾 Сохранить скилл в базу данных
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
