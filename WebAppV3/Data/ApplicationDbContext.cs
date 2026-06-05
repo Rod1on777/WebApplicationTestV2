@@ -18,6 +18,8 @@ public class ApplicationDbContext : IdentityDbContext
     
     public DbSet<Skills> Skills { get; set; }
     
+    public DbSet<Work> Works { get; set; }
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         

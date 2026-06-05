@@ -120,18 +120,22 @@
         </div>
         @if (Model.Skills != null && Model.Skills.Any())
         {
-            @foreach (var categoryGroup in Model.Skills.GroupBy(s => s.Category))
-            {
-                <h4 class="category-title mt-4 mb-3">@categoryGroup.Key</h4>
-                <div class="skills-category-list mb-4">
-                    @foreach (var skill in categoryGroup)
-                    {
-                        <div class="skill-item text-center p-3 border rounded mb-2">
-                            @skill.SkillName
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                @foreach (var categoryGroup in Model.Skills.GroupBy(s => s.Category))
+                {
+                    <div class="col">
+                        <h4 class="category-title mt-4 mb-3">@categoryGroup.Key</h4>
+                        <div class="skills-category-list mb-4">
+                            @foreach (var skill in categoryGroup)
+                            {
+                                <div class="skill-item text-center p-3 border rounded mb-2">
+                                    @skill.SkillName
+                                </div>
+                            }
                         </div>
-                    }
-                </div>
-            }
+                    </div>
+                }
+            </div>
         }
         else
         {

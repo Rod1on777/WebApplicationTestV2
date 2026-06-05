@@ -118,6 +118,17 @@ using (var scope = app.Services.CreateScope())
         // Физически сохраняем строки в файл app.db
         await context.SaveChangesAsync();
     }
+    
+    // ------ Просто добавление дефолтных Работ при первой инициализации базы данных ------
+    if (!context.Works.Any())
+    {
+        context.Works.AddRange(
+            new Work { CompanyName = "Wells Fargo", JobTitle = "Software Engineering Simulation Internship", WorkTime = "October 2023 - November 2023", DetailedInfo = "Simulation Internship...", KeyAchievements = "Conducted a thorough analysis", TechnologyStack = "Git, Java" }
+        );
+
+        // Физически сохраняем строки в файл app.db
+        await context.SaveChangesAsync();
+    }
 }
 
 

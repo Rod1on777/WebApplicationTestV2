@@ -23,12 +23,14 @@ public class AdminController : Controller
         // Вытаскиваем из базы абсолютно все проекты
         var projectsTask = _context.Projects.ToListAsync();
         var skillsTask = _context.Skills.ToListAsync();
+        var workTask = _context.Works.ToListAsync();
         
         // Передаем список в шаблон (View)
         var viewModel = new MainPageViewModel
         {
             Projects = await projectsTask,
-            Skills = await skillsTask
+            Skills = await skillsTask,
+            Works = await workTask
         };
         
         return View(viewModel);
@@ -43,6 +45,12 @@ public class AdminController : Controller
     
     [HttpGet]
     public IActionResult SkillCreate()
+    {
+        return View();
+    }
+    
+    [HttpGet]
+    public IActionResult WorkCreate()
     {
         return View();
     }
@@ -81,6 +89,40 @@ public class AdminController : Controller
         return View(project);
     }
     
+    // --------------------- Форма создания работы ---------------------
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> WorkCreate(Work work, IFormFile? imageFile)
+    {
+        if (ModelState.IsValid)
+        {
+            // Если пользователь выбрал и загрузил файл
+            if (imageFile != null && imageFile.Length > 0)
+            {
+                // Генерируем уникальное имя файла, чтобы картинки с одинаковым именем (например, "1.png") не перезаписывали друг друга
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(imageFile.FileName);
+            
+                // Собираем абсолютный физический путь на сервере: wwwroot/images/projects/имя_файла.png
+                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images", "works");
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                // Физически сохраняем файл на жесткий диск сервера
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await imageFile.CopyToAsync(fileStream);
+                }
+
+                // Записываем в модель относительный путь для HTML (то, что будет в теге <img src="...">)
+                work.CompanyLogo = "/images/works/" + uniqueFileName;
+            }
+
+            _context.Works.Add(work);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+        return View(work);
+    }
+    
     // --------------------- Форма создания скилла ---------------------
     [HttpPost]
     [ValidateAntiForgeryToken]
@@ -107,6 +149,20 @@ public class AdminController : Controller
         }
         
         return View(project);
+    }
+    
+    // --------------------- Страница редактирования работы ---------------------
+    [HttpGet]
+    public async Task<IActionResult> WorkEdit(int id)
+    {
+        var work = await _context.Works.FindAsync(id);
+        
+        if (work == null)
+        {
+            return NotFound();
+        }
+        
+        return View(work);
     }
     
     // --------------------- Страница редактирование скилла ---------------------
@@ -180,6 +236,63 @@ public class AdminController : Controller
         return View(project);
     }
     
+    // --------------------- Редактирование работы ---------------------
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> WorkEdit(int id, Work work, IFormFile? imageFile)
+    {
+        if (id != work.Id) return NotFound();
+
+        if (ModelState.IsValid)
+        {
+            try
+            {
+                // Если загружен новый файл
+                if (imageFile != null && imageFile.Length > 0)
+                {
+                    // 1. Удаляем старый файл с диска, если он существовал, чтобы не копить мусор
+                    if (!string.IsNullOrEmpty(work.CompanyLogo))
+                    {
+                        var oldFilePath = Path.Combine(_webHostEnvironment.WebRootPath, work.CompanyLogo.TrimStart('/'));
+                        if (System.IO.File.Exists(oldFilePath))
+                        {
+                            System.IO.File.Delete(oldFilePath);
+                        }
+                    }
+
+                    // 2. Сохраняем новую картинку
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(imageFile.FileName);
+                    string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images", "works");
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await imageFile.CopyToAsync(fileStream);
+                    }
+
+                    // Обновляем путь в модели
+                    work.CompanyLogo = "/images/works/" + uniqueFileName;
+                }
+                else
+                {
+                    // КРИТИЧЕСКИ ВАЖНО: Если файл не загружался, EF может затереть путь. 
+                    // Чтобы этого не произошло, отслеживаем старое значение пути из базы данных.
+                    _context.Entry(work).Property(x => x.CompanyLogo).IsModified = imageFile == null ? false : true;
+                }
+
+                _context.Update(work);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!_context.Projects.Any(e => e.Id == work.Id)) return NotFound();
+                else throw;
+            }
+            return RedirectToAction(nameof(Index));
+        }
+        return View(work);
+    }
+    
     // --------------------- Редактирование скилла ---------------------
     [HttpPost]
     [ValidateAntiForgeryToken]
@@ -223,6 +336,30 @@ public class AdminController : Controller
             }
 
             _context.Projects.Remove(project);
+            await _context.SaveChangesAsync();
+        }
+        return RedirectToAction(nameof(Index));
+    }
+    
+    // --------------------- Удаление работы ---------------------
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> WorkDelete(int id)
+    {
+        var work = await _context.Works.FindAsync(id);
+        if (work != null)
+        {
+            // Если у проекта был скриншот, удаляем его файл с диска
+            if (!string.IsNullOrEmpty(work.CompanyLogo))
+            {
+                string filePath = Path.Combine(_webHostEnvironment.WebRootPath, work.CompanyLogo.TrimStart('/'));
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+                }
+            }
+
+            _context.Works.Remove(work);
             await _context.SaveChangesAsync();
         }
         return RedirectToAction(nameof(Index));

@@ -8,4 +8,6 @@ public class MainPageViewModel
     public List<Project> Projects { get; set; } = new List<Project>();
     
     public List<Skills> Skills { get; set; } = new List<Skills>();
+    
+    public List<Work> Works { get; set; } = new List<Work>();
 }

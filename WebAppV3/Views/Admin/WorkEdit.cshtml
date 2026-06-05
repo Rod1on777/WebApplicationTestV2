@@ -1,0 +1,78 @@
+﻿@using WebAppV3.Models
+@model Work
+
+@{
+    ViewData["Title"] = "Редактировать работу";
+}
+
+<link rel="stylesheet" href="~/css/admin-styles.css" />
+
+<div class="admin-edit-container">
+    <div class="admin-edit-row-center">
+        <div class="admin-edit-col-md-8">
+            <div class="admin-edit-header-group">
+                <a href="@Url.Action("Index", "Admin")" class="admin-back-button">
+                    ⬅ Назад
+                </a>
+                <h2 class="admin-edit-title">Редактирование работы: @Model.CompanyName</h2>
+            </div>
+
+            <div class="admin-edit-card">
+                <form asp-action="WorkEdit" method="post" enctype="multipart/form-data">
+                    
+                    <input type="hidden" asp-for="Id" />
+                    
+                    <div class="admin-form-group">
+                        <label asp-for="CompanyName" class="admin-form-label">Company Name *</label>
+                        <input asp-for="CompanyName" class="admin-form-control" placeholder="Например: Celestial Light" required />
+                    </div>
+
+                    <div class="admin-form-row">
+                        <div class="admin-form-col-md-6 admin-form-group">
+                            <label asp-for="JobTitle" class="admin-form-label">Job Title</label>
+                            <input asp-for="JobTitle" class="admin-form-control" placeholder="Например: Solo Developer" />
+                        </div>
+                        <div class="admin-form-col-md-6 admin-form-group">
+                            <label asp-for="WorkTime" class="admin-form-label">Work Time</label>
+                            <input asp-for="WorkTime" class="admin-form-control" placeholder="Например: 3 месяца" />
+                        </div>
+                    </div>
+
+                    <div class="admin-form-group">
+                        <label asp-for="DetailedInfo" class="admin-form-label">Detailed Info</label>
+                        <input asp-for="DetailedInfo" class="admin-form-control" placeholder="Detailed Info" />
+                    </div>
+
+                    <div class="admin-form-group">
+                        <label asp-for="KeyAchievements" class="admin-form-label">Key Achievements</label>
+                        <textarea asp-for="KeyAchievements" class="admin-form-control" placeholder="KeyAchievements" required rows="5"></textarea>
+                    </div>
+
+                    <div class="admin-form-group">
+                        <label asp-for="TechnologyStack" class="admin-form-label">Стек технологий (через запятую)</label>
+                        <input asp-for="TechnologyStack" class="admin-form-control" placeholder="Java, Spring Boot, SQLite, Git" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold text-secondary">Загрузить скриншот проекта</label>
+                        <input type="file" name="imageFile" class="form-control rounded-3" accept="image/*" />
+
+                        @if (Model != null && !string.IsNullOrEmpty(Model.CompanyLogo))
+                        {
+                            <div class="mt-2">
+                                <small class="text-muted d-block">Текущий скриншот:</small>
+                                <img src="@Model.CompanyLogo" class="img-thumbnail mt-1" style="max-height: 100px;" />
+                            </div>
+                        }
+                    </div>
+
+                    <hr class="admin-form-divider">
+
+                    <button type="submit" class="admin-submit-button">
+                        🔄 Обновить данные проекта
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

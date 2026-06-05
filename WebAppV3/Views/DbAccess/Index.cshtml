@@ -1,0 +1,97 @@
+﻿@model MainPageViewModel
+
+@{
+    ViewData["Title"] = "DB Public Access";
+}
+
+<link rel="stylesheet" href="~/css/admin-styles.css" />
+
+<div class="admin-main-container">
+    <div class="admin-header-section">
+        <h2 class="admin-heading">DB Read-only public Access</h2>
+    </div>
+    
+    <div class="admin-card">
+        <div class="admin-card-body">
+            <table class="admin-table admin-table-hover">
+                <thead class="admin-table-header">
+                <tr>
+                    <th class="ps-4">ID</th>
+                    <th>Название проекта</th>
+                    <th>Роль</th>
+                    <th>Технологии</th>
+                </tr>
+                </thead>
+                <tbody>
+                @if (Model != null && Model.Projects.Any())
+                {
+                    @foreach (var project in Model.Projects)
+                    {
+                        <tr>
+                            <td class="admin-table-cell-id">@project.Id</td>
+                            <td>
+                                <span class="admin-table-cell-name">@project.Name</span>
+                            </td>
+                            <td><span class="admin-badge">@project.RoleInTeam</span></td>
+                            <td>
+                                <small class="admin-table-cell-tech">@project.TechnologyStack</small>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5" class="admin-empty-message">
+                            Projects DataBase Error
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <hr class="project-division-line">
+
+
+    @*------------------ Таблица скиллов -------------------**@
+    <div class="admin-card">
+        <div class="admin-card-body">
+            <table class="admin-table admin-table-hover">
+                <thead class="admin-table-header">
+                <tr>
+                    <th class="ps-4">ID</th>
+                    <th>Скилл</th>
+                    <th>Категория</th>
+                </tr>
+                </thead>
+                <tbody>
+                @if (Model != null && Model.Skills.Any())
+                {
+                    @foreach (var skills in Model.Skills)
+                    {
+                        <tr>
+                            <td class="admin-table-cell-id">@skills.Id</td>
+                            <td>
+                                <span class="admin-table-cell-name">@skills.SkillName</span>
+                            </td>
+                            <td>
+                                <span class="admin-table-cell-name">@skills.Category</span>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5" class="admin-empty-message">
+                            Skills DataBase Error
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
