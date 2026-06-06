@@ -1,0 +1,79 @@
+﻿@using WebAppV3.Models
+@model Certifications
+
+@{
+    ViewData["Title"] = "Редактировать сертификат";
+}
+
+<link rel="stylesheet" href="~/css/admin-styles.css" />
+
+<div class="admin-edit-container">
+    <div class="admin-edit-row-center">
+        <div class="admin-edit-col-md-8">
+            <div class="admin-edit-header-group">
+                <a href="@Url.Action("Index", "Admin")" class="admin-back-button">
+                    ⬅ Назад
+                </a>
+                <h2 class="admin-edit-title">Редактирование сертификата: @Model.Name</h2>
+            </div>
+
+            <div class="admin-edit-card">
+                <form asp-action="CertEdit" method="post" enctype="multipart/form-data">
+                    
+                    <input type="hidden" asp-for="Id" />
+                    
+                    <div class="admin-form-group">
+                        <label asp-for="Name" class="admin-form-label">Название сертификата *</label>
+                        <input asp-for="Name" class="admin-form-control" placeholder="Например: Celestial Light" required />
+                    </div>
+
+                    <div class="admin-form-row">
+                        <div class="admin-form-col-md-6 admin-form-group">
+                            <label asp-for="IssuingOrganization" class="admin-form-label">Issuing Organization</label>
+                            <input asp-for="IssuingOrganization" class="admin-form-control" placeholder="IssuingOrganization" />
+                        </div>
+                        <div class="admin-form-col-md-6 admin-form-group">
+                            <label asp-for="IssueDate" class="admin-form-label">Issue Date</label>
+                            <input asp-for="IssueDate" class="admin-form-control" placeholder="IssueDate" />
+                        </div>
+                    </div>
+
+                    <div class="admin-form-row">
+                        <div class="admin-form-col-md-6 admin-form-group">
+                            <label asp-for="CredentialId" class="admin-form-label">Credential Id</label>
+                            <input asp-for="CredentialId" class="admin-form-control" placeholder="IssueDate" />
+                        </div>
+                        <div class="admin-form-col-md-6 admin-form-group">
+                            <label asp-for="VerificationLink" class="admin-form-label">VerificationLink</label>
+                            <input asp-for="VerificationLink" type="url" class="admin-form-control" placeholder="https://github.com/..." />
+                        </div>
+                    </div>
+                    
+                    <div class="admin-form-group">
+                        <label asp-for="Description" class="admin-form-label">Description</label>
+                        <textarea asp-for="Description" class="admin-form-control" rows="2" placeholder="Перечисление ключевого функционала..."></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold text-secondary">Загрузить скриншот сертификата</label>
+                        <input type="file" name="imageFile" class="form-control rounded-3" accept="image/*" />
+
+                        @if (Model != null && !string.IsNullOrEmpty(Model.BadgeImageUrl))
+                        {
+                            <div class="mt-2">
+                                <small class="text-muted d-block">Текущий скриншот:</small>
+                                <img src="@Model.BadgeImageUrl" class="img-thumbnail mt-1" style="max-height: 100px;" />
+                            </div>
+                        }
+                    </div>
+
+                    <hr class="admin-form-divider">
+
+                    <button type="submit" class="admin-submit-button">
+                        🔄 Обновить данные сертификата
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

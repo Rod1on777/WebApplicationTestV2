@@ -20,6 +20,8 @@ public class ApplicationDbContext : IdentityDbContext
     
     public DbSet<Work> Works { get; set; }
     
+    public DbSet<Certifications> Certs { get; set; }
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         

@@ -24,13 +24,15 @@ public class AdminController : Controller
         var projectsTask = _context.Projects.ToListAsync();
         var skillsTask = _context.Skills.ToListAsync();
         var workTask = _context.Works.ToListAsync();
+        var certTask = _context.Certs.ToListAsync();
         
         // Передаем список в шаблон (View)
         var viewModel = new MainPageViewModel
         {
             Projects = await projectsTask,
             Skills = await skillsTask,
-            Works = await workTask
+            Works = await workTask,
+            Certs = await certTask
         };
         
         return View(viewModel);
@@ -51,6 +53,12 @@ public class AdminController : Controller
     
     [HttpGet]
     public IActionResult WorkCreate()
+    {
+        return View();
+    }
+    
+    [HttpGet]
+    public IActionResult CertCreate()
     {
         return View();
     }
@@ -87,6 +95,40 @@ public class AdminController : Controller
             return RedirectToAction(nameof(Index));
         }
         return View(project);
+    }
+    
+    // --------------------- Форма создания сертификата ---------------------
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> CertCreate(Certifications cert, IFormFile? imageFile)
+    {
+        if (ModelState.IsValid)
+        {
+            // Если пользователь выбрал и загрузил файл
+            if (imageFile != null && imageFile.Length > 0)
+            {
+                // Генерируем уникальное имя файла, чтобы картинки с одинаковым именем (например, "1.png") не перезаписывали друг друга
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(imageFile.FileName);
+            
+                // Собираем абсолютный физический путь на сервере: wwwroot/images/projects/имя_файла.png
+                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images", "certs");
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                // Физически сохраняем файл на жесткий диск сервера
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await imageFile.CopyToAsync(fileStream);
+                }
+
+                // Записываем в модель относительный путь для HTML (то, что будет в теге <img src="...">)
+                cert.BadgeImageUrl = "/images/certs/" + uniqueFileName;
+            }
+
+            _context.Certs.Add(cert);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+        return View(cert);
     }
     
     // --------------------- Форма создания работы ---------------------
@@ -149,6 +191,20 @@ public class AdminController : Controller
         }
         
         return View(project);
+    }
+    
+    // --------------------- Страница редактирование сертификата ---------------------
+    [HttpGet]
+    public async Task<IActionResult> CertEdit(int id)
+    {
+        var cert = await _context.Certs.FindAsync(id);
+        
+        if (cert == null)
+        {
+            return NotFound();
+        }
+        
+        return View(cert);
     }
     
     // --------------------- Страница редактирования работы ---------------------
@@ -235,6 +291,63 @@ public class AdminController : Controller
         }
         return View(project);
     }
+    
+    // --------------------- Редактирование сертификата ---------------------
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CertEdit(int id, Certifications cert, IFormFile? imageFile)
+        {
+            if (id != cert.Id) return NotFound();
+    
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Если загружен новый файл
+                    if (imageFile != null && imageFile.Length > 0)
+                    {
+                        // 1. Удаляем старый файл с диска, если он существовал, чтобы не копить мусор
+                        if (!string.IsNullOrEmpty(cert.BadgeImageUrl))
+                        {
+                            var oldFilePath = Path.Combine(_webHostEnvironment.WebRootPath, cert.BadgeImageUrl.TrimStart('/'));
+                            if (System.IO.File.Exists(oldFilePath))
+                            {
+                                System.IO.File.Delete(oldFilePath);
+                            }
+                        }
+    
+                        // 2. Сохраняем новую картинку
+                        string uniqueFileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(imageFile.FileName);
+                        string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images", "certs");
+                        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+    
+                        using (var fileStream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await imageFile.CopyToAsync(fileStream);
+                        }
+    
+                        // Обновляем путь в модели
+                        cert.BadgeImageUrl = "/images/cert/" + uniqueFileName;
+                    }
+                    else
+                    {
+                        // КРИТИЧЕСКИ ВАЖНО: Если файл не загружался, EF может затереть путь. 
+                        // Чтобы этого не произошло, отслеживаем старое значение пути из базы данных.
+                        _context.Entry(cert).Property(x => x.BadgeImageUrl).IsModified = imageFile == null ? false : true;
+                    }
+    
+                    _context.Update(cert);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!_context.Certs.Any(e => e.Id == cert.Id)) return NotFound();
+                    else throw;
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(cert);
+        }
     
     // --------------------- Редактирование работы ---------------------
     [HttpPost]
@@ -336,6 +449,30 @@ public class AdminController : Controller
             }
 
             _context.Projects.Remove(project);
+            await _context.SaveChangesAsync();
+        }
+        return RedirectToAction(nameof(Index));
+    }
+    
+    // --------------------- Удаление сертификата ---------------------
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> CertDelete(int id)
+    {
+        var cert = await _context.Certs.FindAsync(id);
+        if (cert != null)
+        {
+            // Если у проекта был скриншот, удаляем его файл с диска
+            if (!string.IsNullOrEmpty(cert.BadgeImageUrl))
+            {
+                string filePath = Path.Combine(_webHostEnvironment.WebRootPath, cert.BadgeImageUrl.TrimStart('/'));
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+                }
+            }
+
+            _context.Certs.Remove(cert);
             await _context.SaveChangesAsync();
         }
         return RedirectToAction(nameof(Index));

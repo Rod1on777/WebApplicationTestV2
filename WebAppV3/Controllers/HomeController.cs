@@ -34,16 +34,20 @@ public class HomeController : Controller
         // Запрашиваем ВСЕ проекты из базы данных асинхронно
         var projectsTask = _context.Projects.ToListAsync();
         var skillsTask = _context.Skills.ToListAsync();
+        var worksTask = _context.Works.ToListAsync();
+        var certTask = _context.Certs.ToListAsync();
         
         // Ждем выполнения обоих запросов
-        await Task.WhenAll(weatherTask, catFactTask, projectsTask, skillsTask);
+        await Task.WhenAll(weatherTask, catFactTask, projectsTask, skillsTask, worksTask, certTask);
         // Упаковываем результаты в нашу общую ViewModel
         var viewModel = new MainPageViewModel
         {
             Weather = await weatherTask,
             CatFact = await catFactTask,
             Projects = await projectsTask,
-            Skills = await skillsTask
+            Skills = await skillsTask,
+            Works = await worksTask,
+            Certs = await certTask
         };
 
         // Передаем полученный объект weather прямо в метод View().

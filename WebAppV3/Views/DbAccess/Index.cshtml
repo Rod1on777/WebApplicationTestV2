@@ -94,4 +94,92 @@
             </table>
         </div>
     </div>
+    
+    <hr class="project-division-line">
+    @*------------------ Таблица работ -------------------**@
+    
+    <div class="admin-card">
+        <div class="admin-card-body">
+            <table class="admin-table admin-table-hover">
+                <thead class="admin-table-header">
+                <tr>
+                    <th class="ps-4">ID</th>
+                    <th>Company Name</th>
+                    <th>Job Title</th>
+                    <th>Work Time</th>
+                </tr>
+                </thead>
+                <tbody>
+                @if (Model != null && Model.Works.Any())
+                {
+                    @foreach (var work in Model.Works)
+                    {
+                        <tr>
+                            <td class="admin-table-cell-id">@work.Id</td>
+                            <td>
+                                <span class="admin-table-cell-name">@work.CompanyName</span>
+                            </td>
+                            <td><span class="admin-badge">@work.JobTitle</span></td>
+                            <td>
+                                <small class="admin-table-cell-tech">@work.WorkTime</small>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5" class="admin-empty-message">
+                            Work DataBase Error
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <hr class="project-division-line">
+    @*------------------ Таблица сертификатов -------------------**@
+    
+    <div class="admin-card">
+        <div class="admin-card-body">
+            <table class="admin-table admin-table-hover">
+                <thead class="admin-table-header">
+                <tr>
+                    <th class="ps-4">ID</th>
+                    <th>Name</th>
+                    <th>Issuing Organization</th>
+                    <th>Issue Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                @if (Model != null && Model.Certs.Any())
+                {
+                    @foreach (var cert in Model.Certs)
+                    {
+                        <tr>
+                            <td class="admin-table-cell-id">@cert.Id</td>
+                            <td>
+                                <span class="admin-table-cell-name">@cert.Name</span>
+                            </td>
+                            <td><span class="admin-badge">@cert.IssuingOrganization</span></td>
+                            <td>
+                                <small class="admin-table-cell-tech">@cert.IssueDate</small>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5" class="admin-empty-message">
+                            Certificates DataBase Error
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

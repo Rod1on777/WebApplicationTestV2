@@ -129,6 +129,24 @@ using (var scope = app.Services.CreateScope())
         // Физически сохраняем строки в файл app.db
         await context.SaveChangesAsync();
     }
+    
+    if (!context.Certs.Any())
+    {
+        context.Certs.AddRange(
+            new Certifications
+            {
+                Name = "AWS Certified Solutions Architect – Associate",
+                IssuingOrganization = "Amazon Web Services (AWS)",
+                IssueDate = new DateTime(2026, 03, 1), // Март 2026
+                CredentialId = "AWS-SAA-C03-SAMPLE", // Сюда потом вставишь свой реальный ID бэйджа
+                VerificationLink = "https://www.credly.com/org/amazon-web-services/badge/aws-certified-solutions-architect-associate",
+                BadgeImageUrl = "/images/certs/aws-saa.png", // Путь к скачанной с Credly иконке в wwwroot
+                Description = "Подтверждает навыки проектирования отказоустойчивых, высокодоступных и экономически эффективных распределенных систем на платформе AWS. Включает работу с Compute, Storage, Database и Networking сервисами."
+            });
+
+        // Физически сохраняем строки в файл app.db
+        await context.SaveChangesAsync();
+    }
 }
 
 

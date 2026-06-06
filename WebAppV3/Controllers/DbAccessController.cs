@@ -21,12 +21,16 @@ public class DbAccessController : Controller
         // Вытаскиваем из базы абсолютно все проекты
         var projectsTask = _context.Projects.ToListAsync();
         var skillsTask = _context.Skills.ToListAsync();
+        var workTask = _context.Works.ToListAsync();
+        var certTask = _context.Certs.ToListAsync();
         
         // Передаем список в шаблон (View)
         var viewModel = new MainPageViewModel
         {
             Projects = await projectsTask,
-            Skills = await skillsTask
+            Skills = await skillsTask,
+            Works = await workTask,
+            Certs = await certTask
         };
         
         return View(viewModel);

@@ -193,5 +193,69 @@
             </table>
         </div>
     </div>
+
     
+    
+    <hr class="project-division-line">
+    @*------------------ Таблица сертификатов -------------------**@
+
+    <div class="admin-header-section">
+        <h2 class="admin-heading">Управление сертификатами</h2>
+        <a asp-action="CertCreate" asp-controller="Admin" class="btn btn-success fw-semibold px-4 py-2 rounded-3">
+            ➕ Добавить новый сертификат
+        </a>
+    </div>
+
+    <div class="admin-card">
+        <div class="admin-card-body">
+            <table class="admin-table admin-table-hover">
+                <thead class="admin-table-header">
+                <tr>
+                    <th class="ps-4">ID</th>
+                    <th>Name</th>
+                    <th>Issuing Organization</th>
+                    <th>Issue Date</th>
+                    <th class="text-end pe-4">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                @if (Model != null && Model.Certs.Any())
+                {
+                @foreach (var cert in Model.Certs)
+                {
+                <tr>
+                    <td class="admin-table-cell-id">@cert.Id</td>
+                    <td>
+                        <span class="admin-table-cell-name">@cert.Name</span>
+                    </td>
+                    <td><span class="admin-badge">@cert.IssuingOrganization</span></td>
+                    <td>
+                        <small class="admin-table-cell-tech">@cert.IssueDate</small>
+                    </td>
+                    <td class="admin-table-actions">
+                        <div class="admin-action-buttons">
+                            <a asp-action="CertEdit" asp-route-id="@cert.Id" class="admin-edit-button">Редактировать</a>
+                            <form asp-action="CertDelete" asp-route-id="@cert.Id" method="post"
+                                  onsubmit="return confirm('Вы уверены, что хотите безвозвратно удалить проект @cert.Name?');">
+                                <button type="submit" class="btn btn-sm btn-outline-danger rounded-2 px-3">
+                                    Удалить
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                }
+                }
+                else
+                {
+                <tr>
+                    <td colspan="5" class="admin-empty-message">
+                        Certificates DataBase Error
+                    </td>
+                </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

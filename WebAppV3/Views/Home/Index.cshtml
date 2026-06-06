@@ -113,6 +113,53 @@
         </p>
     </div>
 
+    <!--------------------------------------- БЛОК ДЛЯ СЕРТИФИКАТОВ -------------------------------------->
+    <div class="main-content-section certifications-section">
+        <div class="section-header text-center">
+            <h2 class="section-title">Мои Сертификаты</h2>
+        </div>
+
+        @if (Model.Certs != null && Model.Certs.Any())
+        {
+            <div class="certifications-list">
+                @foreach (var cert in Model.Certs)
+                {
+                    <div class="certification-item">
+                        @if (!string.IsNullOrEmpty(cert.BadgeImageUrl))
+                        {
+                            <div class="cert-logo-wrapper">
+                                <img src="@cert.BadgeImageUrl" alt="@cert.Name Logo" class="cert-logo"/>
+                            </div>
+                        }
+                        <div class="cert-details">
+                            <h4 class="cert-name">@cert.Name</h4>
+                            <p class="cert-organization">@cert.IssuingOrganization</p>
+                            <p class="cert-issue-date">Выдано: @cert.IssueDate.ToString("d MMMM yyyy")</p>
+                            @if (!string.IsNullOrEmpty(cert.CredentialId))
+                            {
+                                <p class="cert-credential-id">ID: @cert.CredentialId</p>
+                            }
+                            @if (!string.IsNullOrEmpty(cert.VerificationLink))
+                            {
+                                <a href="@cert.VerificationLink" target="_blank" class="cert-verification-link">Проверить сертификат →</a>
+                            }
+                            @if (!string.IsNullOrEmpty(cert.Description))
+                            {
+                                <p class="cert-description">@cert.Description</p>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="no-content-message text-center">
+                <p>Сертификаты в базе данных не найдены. Время добавить парочку!</p>
+            </div>
+        }
+    </div>
+
     <!--------------------------------------- БЛОК ДЛЯ СКИЛЛОВ -------------------------------------->
     <div class="container mt-5 pt-4 mb-5">
         <div class="text-center mb-5">
@@ -205,5 +252,65 @@
             }
 
         </div>
+    </div>
+
+    <!--------------------------------------- БЛОК ДЛЯ РАБОТ -------------------------------------->
+    <div class="main-content-section work-experience-section">
+        <div class="section-header text-center">
+            <h2 class="section-title">Мой Опыт Работы</h2>
+        </div>
+
+        @if (Model.Works != null && Model.Works.Any())
+        {
+            <div class="work-list">
+                @foreach (var work in Model.Works)
+                {
+                    <div class="work-item">
+                        @if (!string.IsNullOrEmpty(work.CompanyLogo))
+                        {
+                            <div class="work-logo-wrapper">
+                                <img src="@work.CompanyLogo" alt="@work.CompanyName Logo" class="work-logo"/>
+                            </div>
+                        }
+                        <div class="work-details">
+                            <h4 class="work-job-title">@work.JobTitle</h4>
+                            <h5 class="work-company-name">@work.CompanyName</h5>
+                            <p class="work-time">@work.WorkTime</p>
+                            @if (!string.IsNullOrEmpty(work.DetailedInfo))
+                            {
+                                <p class="work-description">@work.DetailedInfo</p>
+                            }
+                            @if (!string.IsNullOrEmpty(work.TechnologyStack))
+                            {
+                                <div class="work-tech-stack">
+                                    @foreach (var tech in work.TechnologyStack.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                                    {
+                                        <span class="tech-badge">@tech.Trim()</span>
+                                    }
+                                </div>
+                            }
+                            @if (!string.IsNullOrEmpty(work.KeyAchievements))
+                            {
+                                <div class="work-achievements">
+                                    <strong>Ключевые достижения:</strong>
+                                    <ul>
+                                        @foreach (var achievement in work.KeyAchievements.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                                        {
+                                            <li>@achievement.Trim()</li>
+                                        }
+                                    </ul>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="no-content-message text-center">
+                <p>Опыт работы в базе данных не найден. Время добавить парочку!</p>
+            </div>
+        }
     </div>
 </div>

@@ -31,6 +31,7 @@
     --api-description-text-color: #4a5568;
     --focus-shadow-color-1: white; /* For site.css focus shadow */
     --focus-shadow-color-2: #258cfb; /* For site.css focus shadow */
+    --work-logo-bg: #ffffff;
 
     /* Admin styles variables (Light Theme) */
     --admin-text-dark: #212529;
@@ -97,6 +98,7 @@
     --api-description-text-color: #bdbdbd;
     --focus-shadow-color-1: #424242; /* Darker background for focus shadow */
     --focus-shadow-color-2: #64b5f6; /* Lighter blue for focus shadow */
+    --work-logo-bg: #3a3a3a;
 
     /* Admin styles variables (Dark Theme) */
     --admin-text-dark: #e0e0e0;

@@ -272,3 +272,320 @@ nav.navbar-collapse{
     background-color: var(--btn-project-details-hover-bg);
     color: white; /* Button text color */
 }
+
+/* -------------------------- Стили для секции опыта работы ------------------------- */
+.work-experience-section {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.work-experience-section .section-header {
+    margin-bottom: 40px;
+}
+
+.work-experience-section .section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--project-title-color);
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.work-experience-section .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background-color: var(--project-title-underline);
+    border-radius: 2px;
+}
+
+.work-list {
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* Промежуток между карточками опыта работы */
+    align-items: center; /* Центрируем карточки */
+}
+
+.work-item {
+    background: var(--card-bg);
+    border-radius: 16px;
+    box-shadow: 0 4px 20px var(--card-shadow);
+    border: none;
+    transition: all 0.3s ease;
+    padding: 25px;
+    display: flex;
+    align-items: flex-start; /* Выравнивание элементов по верху */
+    width: 100%;
+    max-width: 900px; /* Ограничение ширины карточки */
+}
+
+.work-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px var(--card-shadow);
+}
+
+.work-logo-wrapper {
+    flex-shrink: 0; /* Предотвращаем сжатие логотипа */
+    width: 90px; /* Фиксированный размер контейнера для лого */
+    height: 90px;
+    margin-right: 25px;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--card-bg); /* Фон для логотипа */
+}
+
+.work-logo {
+    max-width: 80%;
+    max-height: 80%;
+    object-fit: contain;
+}
+
+.work-details {
+    flex-grow: 1; /* Позволяем деталям занимать все доступное пространство */
+}
+
+.work-job-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--card-header-text);
+    margin-bottom: 5px;
+}
+
+.work-company-name {
+    font-size: 1.1rem;
+    color: var(--project-meta-color);
+    margin-bottom: 5px;
+}
+
+.work-time {
+    font-size: 0.9rem;
+    color: var(--card-detail-label-color);
+    margin-bottom: 15px;
+}
+
+.work-description {
+    font-size: 1rem;
+    color: var(--project-preview-text-color);
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.work-tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.work-achievements {
+    margin-top: 15px;
+}
+
+.work-achievements strong {
+    color: var(--card-header-text);
+    display: block;
+    margin-bottom: 8px;
+}
+
+.work-achievements ul {
+    list-style: none; /* Убираем стандартные маркеры списка */
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.work-achievements li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 8px;
+    color: var(--project-preview-text-color);
+}
+
+.work-achievements li::before {
+    content: '•'; /* Кастомный маркер списка */
+    color: var(--project-title-underline); /* Цвет маркера */
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.no-content-message {
+    padding: 50px 20px;
+    background: var(--api-description-bg);
+    border-radius: 16px;
+    box-shadow: 0 4px 15px var(--card-shadow);
+    color: var(--api-description-text-color);
+    font-size: 1.1rem;
+}
+
+/* Медиа-запросы для адаптивности */
+@media (max-width: 768px) {
+    .work-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .work-logo-wrapper {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .work-achievements ul {
+        text-align: left; /* Выравниваем список достижений влево на мобильных */
+    }
+}
+
+/* -------------------------- Стили для секции сертификатов ------------------------- */
+.certifications-section {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.certifications-section .section-header {
+    margin-bottom: 40px;
+}
+
+.certifications-section .section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--project-title-color); /* Используем переменную из layout-styles.css */
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.certifications-section .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background-color: var(--project-title-underline); /* Используем переменную */
+    border-radius: 2px;
+}
+
+.certifications-list {
+    display: grid;
+    grid-template-columns: 1fr; /* По умолчанию одна колонка */
+    gap: 30px; /* Промежуток между карточками сертификатов */
+    justify-content: center; /* Центрируем карточки */
+}
+
+@media (min-width: 768px) { /* Для экранов от 768px и шире */
+    .certifications-list {
+        grid-template-columns: 1fr 1fr; /* Две колонки */
+    }
+}
+
+@media (min-width: 1200px) { /* Для очень широких экранов, если нужно больше колонок */
+    .certifications-list {
+        grid-template-columns: repeat(2, 1fr); /* Две колонки */
+    }
+}
+
+.certification-item {
+    background: var(--card-bg); /* Используем переменную */
+    border-radius: 16px;
+    box-shadow: 0 4px 20px var(--card-shadow); /* Используем переменную */
+    border: none;
+    transition: all 0.3s ease;
+    padding: 25px;
+    display: flex;
+    flex-direction: column; /* Элементы внутри карточки вертикально */
+    align-items: center; /* Центрируем содержимое карточки */
+    text-align: center; /* Выравниваем текст по центру */
+    height: 100%; /* Чтобы карточки были одинаковой высоты в ряду */
+}
+
+.certification-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px var(--card-shadow); /* Используем переменную */
+}
+
+.cert-logo-wrapper {
+    flex-shrink: 0;
+    width: 100px; /* Фиксированный размер контейнера для лого */
+    height: 100px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--card-bg); /* Фон для логотипа */
+}
+
+.cert-logo {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+}
+
+.cert-details {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Распределяем пространство между элементами */
+    width: 100%;
+}
+
+.cert-name {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--card-header-text); /* Используем переменную */
+    margin-bottom: 8px;
+}
+
+.cert-organization {
+    font-size: 1rem;
+    color: var(--project-meta-color); /* Используем переменную */
+    margin-bottom: 5px;
+}
+
+.cert-issue-date {
+    font-size: 0.9rem;
+    color: var(--card-detail-label-color); /* Используем переменную */
+    margin-bottom: 10px;
+}
+
+.cert-credential-id {
+    font-size: 0.9rem;
+    color: var(--project-preview-text-color); /* Используем переменную */
+    margin-bottom: 10px;
+    word-break: break-all; /* Перенос длинных ID */
+}
+
+.cert-verification-link {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 15px;
+    background-color: var(--btn-project-details-bg); /* Используем переменную */
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.cert-verification-link:hover {
+    background-color: var(--btn-project-details-hover-bg); /* Используем переменную */
+    color: white;
+}
+
+.cert-description {
+    font-size: 0.95rem;
+    color: var(--project-preview-text-color); /* Используем переменную */
+    line-height: 1.5;
+    margin-top: 15px;
+}
