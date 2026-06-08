@@ -4,313 +4,369 @@
 @{
     ViewData["Title"] = "Главная - Портфолио";
 }
-
-<div class="welcome-section text-center">
-    <h1>Родион Коршунов</h1>
-    <p class="lead">Разработчик бэкенда и интерактивных медиа. Добро пожаловать на мой сайт-портфолио!</p>
+<div class="background-bg">
+    <img src="images/frontend/digital-art-beautiful-mountains.jpg" alt="Фоновое изображение">
 </div>
-
-<div class="container mt-5">
-    <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
-        
-        <!--------------------------------------- КАРТОЧКА ДЛЯ ПОГОДЫ -------------------------------------->
-        <div class="col">
-
-            <div class="card weather-card">
-                <div class="weather-header text-center">
-                    Погода в Сиднее
-                </div>
-
-                <div class="weather-body text-center">
-                    @if (Model != null)
-                    {
-                        <div class="weather-temp">@Model.Weather.Temperature°C</div>
-
-                        <div class="row weather-details">
-                            <div class="col-6 border-end text-center">
-                                <span class="weather-detail-label">Скорость ветра</span>
-                                <span class="weather-detail-value">@Model.Weather.WindSpeed км/ч</span>
-                            </div>
-                            <div class="col-6 text-center">
-                                <span class="weather-detail-label">Код погоды</span>
-                                <span class="weather-detail-value">@Model.Weather.WeatherCode</span>
-                            </div>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="weather-error">
-                            <p class="mb-0">⚠️ Сервер погоды временно недоступен</p>
-                        </div>
-                    }
-                </div>
-
-                <div class="weather-footer text-center">
-                    Синхронизировано с Open-Meteo через бэкенд .NET
-                </div>
-            </div>
+<div class="container-main">
+    <div class="welcome-section text-left">
+        <h1 style="display: inline-block; margin-right: 15px; font-size: 5rem" class="monomaniac-one-regular">Hello, I'm </h1>
+        <h1 class="animated-gradient-text font-header" style="display: inline-block; font-size: 5rem">Rodion Kor</h1>
+        <p class="font-header" style="font-size: 2rem; color: white !important;">DevOps & Back-end Developer</p>
+        <div class="button-borders" style="display: inline-block; margin-right: 15px; margin-top: 1rem;">
+            <button class="primary-button" onclick="window.location.href='https://github.com/Rod1on777';">
+                <img class="button-icon" src="images/frontend/icons/github.png"/>
+                <span>GitHub</span>
+            </button>
         </div>
-
-        <!--------------------------------------- КАРТОЧКА ДЛЯ КОТОВ -------------------------------------->
-        <div class="col">
-
-            <div class="card weather-card">
-                <div class="weather-header text-center">
-                    Факты о котах
-                </div>
-
-                <div class="weather-body text-center">
-                    @if (Model != null)
-                    {
-                        <div class="cat-fact-text">@Model.CatFact.CatFact</div>
-
-                        <div class="row weather-details">
-                            <div class="col-6 border-end text-center">
-                                <span class="weather-detail-label">Длина в символах</span>
-                                <span class="weather-detail-value">@Model.CatFact.CatFactLength</span>
-                            </div>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="weather-error">
-                            <p class="mb-0">⚠️ Сервер фактов временно недоступен</p>
-                        </div>
-                    }
-                </div>
-
-                <div class="weather-footer text-center">
-                    Синхронизировано с Open-Meteo через бэкенд .NET
-                </div>
-            </div>
+        <div class="button-borders" style="display: inline-block; margin-right: 15px">
+            <button class="primary-button" onclick="window.location.href='https://www.linkedin.com/in/rodion-korshunov-4548b5292/';">
+                <img class="button-icon" src="images/frontend/icons/business.png"/>
+                <span>LinkedIn</span>
+            </button>
         </div>
-        
-        <!--------------------------------------- КАРТОЧКА ДЛЯ КАРТИНКИ КОТА -------------------------------------->
-        <div class="col">
-
-            <div class="card weather-card">
-                <div class="weather-header text-center">
-                    Рандомная картинка кота
-                </div>
-
-                <div class="randomCat-body text-center">
-                    <img src="https://cataas.com/cat" alt="Изображение с сервера" loading="lazy"/>
-                </div>
-
-                <div class="weather-footer text-center">
-                    Синхронизировано с Open-Meteo через бэкенд .NET
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="api-description-section text-center mt-5 mb-5">
-        <h3>Интеграции с внешними API</h3>
-        <p class="lead">
-            Выше представлены примеры интеграций с различными внешними API, демонстрирующие мои навыки работы с бэкендом.
-            Здесь вы можете увидеть данные о погоде, интересные факты о котах и случайные изображения котов, полученные
-            через запросы к сторонним сервисам. Все данные обрабатываются и доставляются через мой бэкенд на .NET.
+        <p class="font-header" style="font-size: 2rem; color: white; margin-top: 1rem; width: 60%;">Cloud-oriented <span style="color: var(--custom-font-color);">Backend Developer</span> specializing in <span style="color: var(--custom-font-color);">AWS infrastructure</span> design and <span style="color: var(--custom-font-color);">Java and C# (.NET)</span> web applications
         </p>
     </div>
-
-    <!--------------------------------------- БЛОК ДЛЯ СЕРТИФИКАТОВ -------------------------------------->
-    <div class="main-content-section certifications-section">
-        <div class="section-header text-center">
-            <h2 class="section-title">Мои Сертификаты</h2>
-        </div>
-
-        @if (Model.Certs != null && Model.Certs.Any())
-        {
-            <div class="certifications-list">
-                @foreach (var cert in Model.Certs)
-                {
-                    <div class="certification-item">
-                        @if (!string.IsNullOrEmpty(cert.BadgeImageUrl))
-                        {
-                            <div class="cert-logo-wrapper">
-                                <img src="@cert.BadgeImageUrl" alt="@cert.Name Logo" class="cert-logo"/>
-                            </div>
-                        }
-                        <div class="cert-details">
-                            <h4 class="cert-name">@cert.Name</h4>
-                            <p class="cert-organization">@cert.IssuingOrganization</p>
-                            <p class="cert-issue-date">Выдано: @cert.IssueDate.ToString("d MMMM yyyy")</p>
-                            @if (!string.IsNullOrEmpty(cert.CredentialId))
-                            {
-                                <p class="cert-credential-id">ID: @cert.CredentialId</p>
-                            }
-                            @if (!string.IsNullOrEmpty(cert.VerificationLink))
-                            {
-                                <a href="@cert.VerificationLink" target="_blank" class="cert-verification-link">Проверить сертификат →</a>
-                            }
-                            @if (!string.IsNullOrEmpty(cert.Description))
-                            {
-                                <p class="cert-description">@cert.Description</p>
-                            }
-                        </div>
-                    </div>
-                }
-            </div>
-        }
-        else
-        {
-            <div class="no-content-message text-center">
-                <p>Сертификаты в базе данных не найдены. Время добавить парочку!</p>
-            </div>
-        }
-    </div>
-
-    <!--------------------------------------- БЛОК ДЛЯ СКИЛЛОВ -------------------------------------->
-    <div class="container mt-5 pt-4 mb-5">
-        <div class="text-center mb-5">
-            <h2 class="skills-section-title">Мои Навыки</h2>
-        </div>
-        @if (Model.Skills != null && Model.Skills.Any())
-        {
-            <div class="row row-cols-1 row-cols-md-3 g-4">
-                @foreach (var categoryGroup in Model.Skills.GroupBy(s => s.Category))
-                {
-                    <div class="col">
-                        <h4 class="category-title mt-4 mb-3">@categoryGroup.Key</h4>
-                        <div class="skills-category-list mb-4">
-                            @foreach (var skill in categoryGroup)
-                            {
-                                <div class="skill-item text-center p-3 border rounded mb-2">
-                                    @skill.SkillName
-                                </div>
-                            }
-                        </div>
-                    </div>
-                }
-            </div>
-        }
-        else
-        {
-            <div class="col-12 text-center py-5">
-                <p class="text-muted fs-5">Навыки в базе данных не найдены. Время добавить парочку!</p>
-            </div>
-        }
-    </div>
     
-    <div class="container mt-5 pt-4 mb-5">
-        <div class="text-center mb-5">
-            <h2 class="projects-section-title">Мои Проекты</h2>
+    <div class="about-me-section">
+        <div class="section-header text-center">
+            <h2 class="section-title">About</h2>
         </div>
+        <div class="about-me-content">
+            <div class="about-me-block about-me-main">
+                <h3 class="block-title">About me</h3>
+                <p>
+                    Sydney-based software engineer specializing in building scalable web 
+                    applications and cloud architecture using <span style="color: var(--custom-font-color);">Java, C#, and AWS</span>. In my work, 
+                    I actively combine backend development, AI-driven automation, and interactive 
+                    media design. My goal is to engineer reliable, <span style="color: var(--custom-font-color);">high-performance solutions</span> and 
+                    implement smart technologies to optimize <span style="color: var(--custom-font-color);">IT infrastructure efficiency</span>.
+                </p>
+                <p>
+                    In this portfolio, you will find my <span style="color: var(--custom-font-color);">projects, certifications, and work 
+                    experience</span> that demonstrate my skills and problem-solving approach. 
+                    I am always open to new challenges and opportunities for growth.
+                </p>
+            </div>
+            <div class="about-me-block about-me-degree">
+                @*<img src="images/frontend/Australian_Hearing_Hub.jpg" alt="Фоновое изображение">*@
+                <h3 class="block-title" style="position: relative; z-index: 2; color: white">My degree</h3>
+                <p style="z-index: 2; position: relative; color: white; !important">
+                    <strong>Bachelor of Information Technology</strong><br/>
+                    Macquarie University, NSW Sydney<br/>
+                    2023 - 2025
+                </p>
+                <p style="z-index: 2; position: relative; color: white; !important">
+                    Specialization: Software Engineering and Information Systems.
+                </p>
+            </div>
+        </div>
+    </div>
 
-        <div class="row row-cols-1 row-cols-md-2 g-4">
-            
-            @if (Model.Projects != null && Model.Projects.Any())
+    <div class="container-page mt-5">
+
+        <!--------------------------------------- БЛОК ДЛЯ СЕРТИФИКАТОВ -------------------------------------->
+        <div class="main-content-section certifications-section">
+            <div class="section-header text-center">
+                <h2 class="section-title">My Certifications</h2>
+            </div>
+
+            @if (Model.Certs != null && Model.Certs.Any())
             {
-                @foreach (var project in Model.Projects)
-                {
-                    <div class="col">
-                        <div class="card project-card h-100 p-4 d-flex flex-column">
-                            <div class="card-body p-0 d-flex flex-column">
-                                
-                                <h4 class="card-title font-header fw-bold mb-2">@project.Name</h4>
-                                
-                                <div class="project-meta">
-                                    <span><strong>Роль:</strong> @project.RoleInTeam</span> | 
-                                    <span><strong>Срок:</strong> @project.DevelopmentTime</span>
+                <div class="certifications-list">
+                    @foreach (var cert in Model.Certs)
+                    {
+                        <div class="certification-item">
+                            @if (!string.IsNullOrEmpty(cert.BadgeImageUrl))
+                            {
+                                <div class="cert-logo-wrapper">
+                                    <img src="@cert.BadgeImageUrl" alt="@cert.Name Logo" class="cert-logo"/>
                                 </div>
-
-                                <div class="project-badge-stack mt-2">
-                                    @foreach (var tech in project.TechnologyStack.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-                                    {
-                                        <span class="tech-badge">@tech.Trim()</span>
-                                    }
-                                </div>
-
-                                <p class="card-text text-muted mt-3 mb-4">
-                                    @project.InfoPreview
-                                </p>
-                                
-                                <div class="mt-auto d-flex justify-content-between align-items-center">
-                                    <a asp-action="Details" asp-controller="Home" asp-route-id="@project.Id" class="btn btn-primary fw-semibold rounded-3">
-                                        Подробнее →
-                                    </a>
-                                    @if (!string.IsNullOrEmpty(project.SourceCodeLink))
-                                    {
-                                        <a href="@project.SourceCodeLink" target="_blank" class="text-decoration-none text-secondary fw-semibold fs-6">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-github me-1" viewBox="0 0 16 16">
-                                                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"/>
-                                            </svg> Source Code
-                                        </a>
-                                    }
-                                </div>
-                                
+                            }
+                            <div class="cert-details">
+                                <h4 class="cert-name">@cert.Name</h4>
+                                <p class="cert-organization">@cert.IssuingOrganization</p>
+                                <p class="cert-issue-date">Issued on: @cert.IssueDate.ToString("d MMMM yyyy")</p>
+                                @if (!string.IsNullOrEmpty(cert.CredentialId))
+                                {
+                                    <p class="cert-credential-id">ID: @cert.CredentialId</p>
+                                }
+                                @if (!string.IsNullOrEmpty(cert.VerificationLink))
+                                {
+                                    <a href="@cert.VerificationLink" target="_blank" class="cert-verification-link">Check certificate →</a>
+                                }
+                                @if (!string.IsNullOrEmpty(cert.Description))
+                                {
+                                    <p class="cert-description">@cert.Description</p>
+                                }
                             </div>
                         </div>
-                    </div>
-                }
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="no-content-message text-center">
+                    <p>Сертификаты в базе данных не найдены. Время добавить парочку!</p>
+                </div>
+            }
+        </div>
+
+        <!--------------------------------------- БЛОК ДЛЯ СКИЛЛОВ -------------------------------------->
+        <div class="container mt-5 pt-4 mb-5">
+            <div class="text-center mb-5">
+                <h2 class="skills-section-title">My Skills</h2>
+            </div>
+            @if (Model.Skills != null && Model.Skills.Any())
+            {
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    @foreach (var categoryGroup in Model.Skills.GroupBy(s => s.Category))
+                    {
+                        <div class="col">
+                            <h4 class="category-title mt-4 mb-3">@categoryGroup.Key</h4>
+                            <div class="skills-category-list mb-4">
+                                @foreach (var skill in categoryGroup)
+                                {
+                                    <div class="skill-item text-center p-3 border rounded mb-2">
+                                        @skill.SkillName
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
             }
             else
             {
                 <div class="col-12 text-center py-5">
-                    <p class="text-muted fs-5">Проекты в базе данных не найдены. Время добавить парочку!</p>
+                    <p class="text-muted fs-5">Навыки в базе данных не найдены. Время добавить парочку!</p>
                 </div>
             }
-
-        </div>
-    </div>
-
-    <!--------------------------------------- БЛОК ДЛЯ РАБОТ -------------------------------------->
-    <div class="main-content-section work-experience-section">
-        <div class="section-header text-center">
-            <h2 class="section-title">Мой Опыт Работы</h2>
         </div>
 
-        @if (Model.Works != null && Model.Works.Any())
-        {
-            <div class="work-list">
-                @foreach (var work in Model.Works)
-                {
-                    <div class="work-item">
-                        @if (!string.IsNullOrEmpty(work.CompanyLogo))
+        <!--------------------------------------- БЛОК ДЛЯ РАБОТ -------------------------------------->
+        <div class="main-content-section work-experience-section">
+            <div class="section-header text-center">
+                <h2 class="section-title">My Work Experience</h2>
+            </div>
+
+            @if (Model.Works != null && Model.Works.Any())
+            {
+                <div class="work-list">
+                    @foreach (var work in Model.Works.OrderByDescending(w => w.Id))
+                    {
+                        <div class="work-item">
+                            @if (!string.IsNullOrEmpty(work.CompanyLogo))
+                            {
+                                <div class="work-logo-wrapper">
+                                    <img src="@work.CompanyLogo" alt="@work.CompanyName Logo" class="work-logo" style="border-radius: 10px"/>
+                                </div>
+                            }
+                            <div class="work-details">
+                                <h4 class="work-job-title">@work.JobTitle</h4>
+                                <h5 class="work-company-name">@work.CompanyName</h5>
+                                <p class="work-time">@work.WorkTime</p>
+                                @if (!string.IsNullOrEmpty(work.DetailedInfo))
+                                {
+                                    <p class="work-description">@work.DetailedInfo</p>
+                                }
+                                @if (!string.IsNullOrEmpty(work.TechnologyStack))
+                                {
+                                    <div class="work-tech-stack">
+                                        @foreach (var tech in work.TechnologyStack.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries))
+                                        {
+                                            <span class="tech-badge">@tech.Trim()</span>
+                                        }
+                                    </div>
+                                }
+                                @if (!string.IsNullOrEmpty(work.KeyAchievements))
+                                {
+                                    <div class="work-achievements">
+                                        <strong>Key achievements:</strong>
+                                        <ul>
+                                            @foreach (var achievement in work.KeyAchievements.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries))
+                                            {
+                                                <li>@achievement.Trim()</li>
+                                            }
+                                        </ul>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="no-content-message text-center">
+                    <p>Опыт работы в базе данных не найден. Время добавить парочку!</p>
+                </div>
+            }
+        </div>
+
+        <div class="api-description-section text-center mt-5 mb-5">
+            <h3 style="color: var(--custom-font-color)">Integration with external API</h3>
+            <p class="lead">
+                Below are examples of integrations with various external APIs, demonstrating my backend skills.
+                Here you can see weather data, interesting facts about cats, and random cat images obtained through 
+                requests to third-party services. All data is processed and delivered through my .NET backend.
+            </p>
+        </div>
+
+        <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
+
+            <!--------------------------------------- КАРТОЧКА ДЛЯ ПОГОДЫ -------------------------------------->
+            <div class="col">
+
+                <div class="card weather-card">
+                    <div class="weather-header text-center">
+                        Weather in Sydney
+                    </div>
+
+                    <div class="weather-body text-center">
+                        @if (Model != null)
                         {
-                            <div class="work-logo-wrapper">
-                                <img src="@work.CompanyLogo" alt="@work.CompanyName Logo" class="work-logo"/>
+                            <div class="weather-temp">@Model.Weather.Temperature°C</div>
+
+                            <div class="row weather-details">
+                                <div class="col-6 border-end text-center">
+                                    <span class="weather-detail-label">Wind speed</span>
+                                    <span class="weather-detail-value">@Model.Weather.WindSpeed km/h</span>
+                                </div>
+                                <div class="col-6 text-center">
+                                    <span class="weather-detail-label">Weather code</span>
+                                    <span class="weather-detail-value">@Model.Weather.WeatherCode</span>
+                                </div>
                             </div>
                         }
-                        <div class="work-details">
-                            <h4 class="work-job-title">@work.JobTitle</h4>
-                            <h5 class="work-company-name">@work.CompanyName</h5>
-                            <p class="work-time">@work.WorkTime</p>
-                            @if (!string.IsNullOrEmpty(work.DetailedInfo))
-                            {
-                                <p class="work-description">@work.DetailedInfo</p>
-                            }
-                            @if (!string.IsNullOrEmpty(work.TechnologyStack))
-                            {
-                                <div class="work-tech-stack">
-                                    @foreach (var tech in work.TechnologyStack.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-                                    {
-                                        <span class="tech-badge">@tech.Trim()</span>
-                                    }
+                        else
+                        {
+                            <div class="weather-error">
+                                <p class="mb-0">⚠️ The weather server is temporarily unavailable</p>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="weather-footer text-center">
+                        Synchronized with Open-Meteo via .NET backend
+                    </div>
+                </div>
+            </div>
+
+            <!--------------------------------------- КАРТОЧКА ДЛЯ КАРТИНКИ КОТА -------------------------------------->
+            <div class="col">
+
+                <div class="card weather-card">
+                    <div class="weather-header text-center">
+                        Random picture of a cat
+                    </div>
+
+                    <div class="randomCat-body text-center">
+                        <img src="https://cataas.com/cat" alt="Изображение с сервера" loading="lazy"/>
+                    </div>
+
+                    <div class="weather-footer text-center">
+                        Synchronized with RandomCatImages via .NET backend
+                    </div>
+                </div>
+            </div>
+            
+            <!--------------------------------------- КАРТОЧКА ДЛЯ КОТОВ -------------------------------------->
+            <div class="col">
+
+                <div class="card weather-card">
+                    <div class="weather-header text-center">
+                        Random fact about cats
+                    </div>
+
+                    <div class="weather-body text-center">
+                        @if (Model != null)
+                        {
+                            <div class="cat-fact-text">@Model.CatFact.CatFact</div>
+
+                            <div class="row weather-details">
+                                <div class="text-center">
+                                    <span class="weather-detail-label">Length in characters</span>
+                                    <span class="weather-detail-value">@Model.CatFact.CatFactLength</span>
                                 </div>
-                            }
-                            @if (!string.IsNullOrEmpty(work.KeyAchievements))
-                            {
-                                <div class="work-achievements">
-                                    <strong>Ключевые достижения:</strong>
-                                    <ul>
-                                        @foreach (var achievement in work.KeyAchievements.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-                                        {
-                                            <li>@achievement.Trim()</li>
-                                        }
-                                    </ul>
-                                </div>
-                            }
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="weather-error">
+                                <p class="mb-0">⚠️ The fact server is temporarily unavailable</p>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="weather-footer text-center">
+                        Synchronized with RandomCatFacts via .NET backend
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--------------------------------------- БЛОК ДЛЯ ПРОЕКТОВ -------------------------------------->
+        <div class="container mt-5 pt-4 mb-5">
+            <div class="text-center mb-5">
+                <h2 class="projects-section-title">My Projects</h2>
+            </div>
+
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+
+                @if (Model.Projects != null && Model.Projects.Any())
+                {
+                @foreach (var project in Model.Projects)
+                {
+                <div class="col">
+                    <div class="card project-card h-100 p-4 d-flex flex-column">
+                        <div class="card-body p-0 d-flex flex-column">
+
+                            <h4 class="card-title font-header fw-bold mb-2">@project.Name</h4>
+
+                            <div class="project-meta">
+                                <span><strong>Роль:</strong> @project.RoleInTeam</span> |
+                                <span><strong>Срок:</strong> @project.DevelopmentTime</span>
+                            </div>
+
+                            <div class="project-badge-stack mt-2">
+                                @foreach (var tech in project.TechnologyStack.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                                {
+                                <span class="tech-badge">@tech.Trim()</span>
+                                }
+                            </div>
+
+                            <p class="card-text text-muted mt-3 mb-4">
+                                @project.InfoPreview
+                            </p>
+
+                            <div class="mt-auto d-flex justify-content-between align-items-center">
+                                <a asp-action="Details" asp-controller="Home" asp-route-id="@project.Id" class="btn btn-primary fw-semibold rounded-3">
+                                    Подробнее →
+                                </a>
+                                @if (!string.IsNullOrEmpty(project.SourceCodeLink))
+                                {
+                                <a href="@project.SourceCodeLink" target="_blank" class="text-decoration-none text-secondary fw-semibold fs-6">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-github me-1" viewBox="0 0 16 16">
+                                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"/>
+                                    </svg> Source Code
+                                </a>
+                                }
+                            </div>
+
                         </div>
                     </div>
+                </div>
                 }
+                }
+                else
+                {
+                <div class="col-12 text-center py-5">
+                    <p class="text-muted fs-5">Проекты в базе данных не найдены. Время добавить парочку!</p>
+                </div>
+                }
+
             </div>
-        }
-        else
-        {
-            <div class="no-content-message text-center">
-                <p>Опыт работы в базе данных не найден. Время добавить парочку!</p>
-            </div>
-        }
+        </div>
     </div>
 </div>

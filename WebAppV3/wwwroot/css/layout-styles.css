@@ -1,8 +1,13 @@
 ﻿/* Custom styles for _Layout.cshtml */
 
 :root {
-    --body-bg: #f4f7f6;
-    --text-color: #c7ceda;
+    --custom-font-color: #ff0059;
+    --custom-font-color-gradient: #ff669b;
+    
+    --body-bg: rgb(225 225 225 / 1);
+    --body-bg-shade: rgb(225 225 225 / 0);
+    --text-color: #ffffff;
+    --text-skill-color: #1c1c1c;
     --header-bg: rgba(255, 255, 255, 0.8);
     --header-text-color: black;
     --header-border-color: black;
@@ -19,13 +24,13 @@
     --card-footer-border: #edf2f7;
     --card-footer-text-color: #a0aec0;
     --project-title-color: #1a202c;
-    --project-title-underline: #3182ce;
+    --project-title-underline: #ff0059;
     --project-preview-text-color: #718096;
     --project-meta-color: #718096;
     --tech-badge-bg: #ebf8ff;
     --tech-badge-color: #2b6cb0;
-    --btn-project-details-bg: #3182ce;
-    --btn-project-details-hover-bg: #2b6cb0;
+    --btn-project-details-bg: #c30145;
+    --btn-project-details-hover-bg: #c3c3c3;
     --api-description-bg: linear-gradient(135deg, #e0f2f7 0%, #c2e0e8 100%);
     --api-description-title-color: #1e3c72;
     --api-description-text-color: #4a5568;
@@ -68,8 +73,13 @@
 }
 
 .dark-theme {
-    --body-bg: #212121;
-    --text-color: #e0e0e0;
+    --custom-font-color: #ff0059;
+    --custom-font-color-gradient: #ff90b7;
+    
+    --body-bg: rgb(20 20 20 / 1);
+    --body-bg-shade: rgb(20 20 20 / 0);
+    --text-color: #ffffff;
+    --text-skill-color: #dddddd;
     --header-bg: rgba(33, 33, 33, 0.8);
     --header-text-color: white;
     --header-border-color: white;
@@ -86,13 +96,13 @@
     --card-footer-border: #616161;
     --card-footer-text-color: #9e9e9e;
     --project-title-color: #e0e0e0;
-    --project-title-underline: #64b5f6;
+    --project-title-underline: #ff0059;
     --project-preview-text-color: #ccd1da;
     --project-meta-color: #bdbdbd;
     --tech-badge-bg: #424242;
     --tech-badge-color: #90caf9;
-    --btn-project-details-bg: #64b5f6;
-    --btn-project-details-hover-bg: #42a5f5;
+    --btn-project-details-bg: #c30145;
+    --btn-project-details-hover-bg: #c3c3c3;
     --api-description-bg: linear-gradient(135deg, #303030 0%, #424242 100%);
     --api-description-title-color: #90caf9;
     --api-description-text-color: #bdbdbd;
@@ -141,6 +151,7 @@ html {
 body {
     min-height: 100vh; /* Ensure body is at least viewport height */
     margin: 0; /* Remove default body margin */
+    padding: 0;
     background-color: var(--body-bg);
     color: var(--text-color);
     overflow-y: auto; /* Ensure body is the scrollable container */
@@ -157,7 +168,6 @@ body {
     position: sticky; /* Make header sticky */
     top: 0; /* Stick to the top */
     z-index: 1030; /* Ensure it stays on top of other content, Bootstrap's navbar z-index is 1030 */
-    margin-bottom: 1rem; /* mb-3 */
     overflow: visible; /* Ensure overflow doesn't hide sticky behavior */
 }
 
@@ -191,6 +201,10 @@ body {
     flex-grow: 1; /* Make main content fill available space */
 }
 
+.container-main{
+    padding: 3rem;
+}
+
 /* Footer styles */
 .main-footer {
     border-top: 1px solid rgba(0, 0, 0, 0.175); /* border-top */
@@ -209,7 +223,7 @@ body {
 /* Skill Item Styles */
 .skill-item {
     background-color: var(--card-bg);
-    color: var(--text-color);
+    color: var(--text-skill-color);
     border-color: var(--card-header-border) !important; /* Use a border color that fits the theme */
     transition: all 0.2s ease-in-out; /* Smooth transition for hover effects */
     cursor: pointer; /* Indicate it's interactive */
@@ -217,7 +231,7 @@ body {
 }
 
 .skill-item:hover {
-    background-color: var(--text-color); /* Inverted background color */
+    background-color: var(--text-skill-color); /* Inverted background color */
     color: var(--body-bg); /* Inverted text color */
     transform: scale(1.05); /* Slightly larger */
     box-shadow: 0 4px 8px var(--card-shadow); /* Add a subtle shadow */

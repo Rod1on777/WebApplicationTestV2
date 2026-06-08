@@ -5,6 +5,59 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+.background-bg {
+    /* Позиционирование: fixed привязывает к экрану, absolute — к документу */
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    /* Растягиваем блок на весь экран */
+    width: 100vw;
+    height: 100vh;
+
+    /* Отправляем блок на задний план, чтобы другие его перекрывали */
+    z-index: -1;
+
+    /* Центрируем картинку внутри самого div */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.background-bg img {
+    /* Заставляем картинку красиво заполнять весь блок без искажений */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.background-bg::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0 0 0 / 0.7);
+    z-index: 1;
+}
+
+.background-bg::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background: linear-gradient(
+            to bottom,
+            var(--body-bg-shade), /* Полностью прозрачный в самом верху */ var(--body-bg) /* На 70% черный в самом низу */
+    );
+    z-index: 1;
+}
+
 nav.navbar-collapse{
     background-color: black; /* Consider making this a variable if needed */
     color: #3dff00; /* Consider making this a variable if needed */
@@ -33,6 +86,7 @@ nav.navbar-collapse{
     color: var(--project-preview-text-color) !important;
 }
 
+
 .font-header{
     color: var(--header-text-color) !important;
     font-family: "M PLUS U", sans-serif;
@@ -42,16 +96,69 @@ nav.navbar-collapse{
     transition: color 0.3s ease;
 }
 
+.michroma-regular {
+    font-family: "Michroma", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.monomaniac-one-regular {
+    font-family: "Monomaniac One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+
+.animated-gradient-text {
+    font-family: "Monomaniac One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    /* 1. Создаем градиент, который в два раза шире самого текста */
+    background: linear-gradient(
+            to right,
+            var(--custom-font-color) 0%,
+            var(--custom-font-color-gradient) 50%,
+            var(--custom-font-color) 100%
+    );
+    background-size: 200% auto; /* Растягиваем фон по горизонтали */
+
+    /* 2. Магия: привязываем фон к тексту и делаем сам текст прозрачным */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+
+    /* 3. Подключаем бесконечную анимацию */
+    animation: shine 4s linear infinite;
+}
+
+/* 4. Описываем движение фонового градиента */
+@keyframes shine {
+    0% {
+        background-position: 0% center; /* Начальное положение */
+    }
+    100% {
+        background-position: 200% center; /* Смещаем фон в конец, создавая эффект перелива */
+    }
+}
+
 .text-color-main{
-    color: #ff0059; /* Consider making this a variable if needed */
+    color: var(--custom-font-color) !important; /* Consider making this a variable if needed */
+}
+
+.container-page{
+    padding: 0;
+    margin: 0;
 }
 
 .welcome-section {
     padding: 60px 20px;
-    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); /* Consider making this a variable if needed */
+    width: 100%;
+    /*background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); */  /* Consider making this a variable if needed */
     border-radius: 16px;
     margin-bottom: 40px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Consider making this a variable if needed */
+    /*box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);*/  /* Consider making this a variable if needed */
 }
 
 .welcome-section h1 {
@@ -59,6 +166,120 @@ nav.navbar-collapse{
     font-weight: 700;
     margin-bottom: 15px;
 }
+
+/* -------------------------- Стили для секции "Обо мне" ------------------------- */
+.about-me-section {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.about-me-section .section-header {
+    margin-bottom: 40px;
+}
+
+.about-me-section .section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--project-title-color);
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.about-me-section .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background-color: var(--project-title-underline);
+    border-radius: 2px;
+}
+
+.about-me-content {
+    display: flex;
+    flex-wrap: wrap; /* Позволяет блокам переноситься на новую строку на маленьких экранах */
+    gap: 30px; /* Промежуток между блоками */
+    justify-content: center; /* Центрируем блоки */
+    max-width: 1200px; /* Ограничение ширины контента */
+    margin: 0 auto; /* Центрируем сам контейнер */
+}
+
+.about-me-block {
+    background: var(--card-bg);
+    border-radius: 16px;
+    box-shadow: 8px 8px 0px var(--custom-font-color);
+    border: none;
+    transition: all 0.3s ease;
+    padding: 25px;
+    color: var(--project-preview-text-color);
+    line-height: 1.6;
+}
+
+.about-me-block:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px var(--card-shadow);
+}
+
+.about-me-main {
+    flex: 2; /* Занимает больше места */
+    min-width: 300px; /* Минимальная ширина для блока */
+}
+
+.about-me-degree {
+    position: relative;
+    background-image: url("../images/frontend/Australian_Hearing_Hub.jpg");
+    background-color: #0a53be;
+    object-fit: cover;
+    flex: 1; /* Занимает меньше места */
+    min-width: 250px; /* Минимальная ширина для блока */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.about-me-degree::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0 0 0 / 0.7);
+    border-radius: 16px;
+    z-index: 0;
+}
+
+.about-me-block .block-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--card-header-text);
+    margin-bottom: 15px;
+    z-index: 3;
+}
+
+.about-me-block p {
+    margin-bottom: 10px;
+}
+
+/* Медиа-запросы для адаптивности секции "Обо мне" */
+@media (max-width: 768px) {
+    .about-me-content {
+        flex-direction: column; /* Блоки располагаются вертикально на маленьких экранах */
+        align-items: center;
+    }
+
+    .about-me-main,
+    .about-me-degree {
+        flex: none; /* Отключаем flex-grow */
+        width: 90%; /* Занимают почти всю ширину */
+        max-width: 500px; /* Ограничиваем максимальную ширину */
+    }
+}
+
 
 /* Стили для описания API секции */
 .api-description-section {
@@ -516,8 +737,8 @@ nav.navbar-collapse{
 
 .cert-logo-wrapper {
     flex-shrink: 0;
-    width: 100px; /* Фиксированный размер контейнера для лого */
-    height: 100px;
+    width: 300px; /* Фиксированный размер контейнера для лого */
+    height: 300px;
     margin-bottom: 20px;
     border-radius: 12px;
     overflow: hidden;
@@ -588,4 +809,107 @@ nav.navbar-collapse{
     color: var(--project-preview-text-color); /* Используем переменную */
     line-height: 1.5;
     margin-top: 15px;
+}
+
+
+/* ------------------------- КНОПКИ ДЛЯ ССЫЛОК ---------------------------*/
+.primary-button {
+    font-family: "M PLUS U", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    /* font-family: 'Valorant', sans-serif; */
+    color: white;
+    cursor: pointer;
+    font-size: 13px;
+    letter-spacing: 0.05rem;
+    border: 1px solid #ffffff;
+    padding: 0.8rem 0.8rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 531.28 200'%3E%3Cdefs%3E%3Cstyle%3E .shape %7B fill: %23FF4655 /* fill: %230E1822; */ %7D %3C/style%3E%3C/defs%3E%3Cg id='Layer_2' data-name='Layer 2'%3E%3Cg id='Layer_1-2' data-name='Layer 1'%3E%3Cpolygon class='shape' points='415.81 200 0 200 115.47 0 531.28 0 415.81 200' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E%0A");
+    background-color: #0E1822;
+    background-size: 200%;
+    background-position: 200%;
+    background-repeat: no-repeat;
+    transition: 0.3s ease-in-out;
+    transition-property: background-position, border, color;
+    position: relative;
+    z-index: 1;
+}
+
+.primary-button:hover {
+    border: 1px solid var(--custom-font-color);
+    color: white;
+    background-position: 40%;
+}
+
+.primary-button:before {
+    content: "";
+    position: absolute;
+    background-color: #0E1822;
+    width: 0.2rem;
+    height: 0.2rem;
+    top: -1px;
+    left: -1px;
+    transition: background-color 0.15s ease-in-out;
+}
+
+.primary-button:hover:before {
+    background-color: white;
+}
+
+.primary-button:hover:after {
+    background-color: white;
+}
+
+.primary-button:after {
+    content: "";
+    position: absolute;
+    background-color: var(--custom-font-color);
+    width: 0.3rem;
+    height: 0.3rem;
+    bottom: -1px;
+    right: -1px;
+    transition: background-color 0.15s ease-in-out;
+}
+
+.button-borders {
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+}
+
+.button-borders:before {
+    content: "";
+    position: absolute;
+    width: calc(100% + 0.5em);
+    height: 50%;
+    left: -0.3em;
+    top: -0.3em;
+    border: 1px solid #0E1822;
+    border-bottom: 0px;
+    /* opacity: 0.3; */
+}
+
+.button-borders:after {
+    content: "";
+    position: absolute;
+    width: calc(100% + 0.5em);
+    height: 50%;
+    left: -0.3em;
+    bottom: -0.3em;
+    border: 1px solid #0E1822;
+    border-top: 0px;
+    /* opacity: 0.3; */
+    z-index: 0;
+}
+
+.shape {
+    fill: #0E1822;
+}
+
+.button-icon {
+    position: relative;
+    margin-right: 10px; /* Отступ между иконкой и текстом */
+    font-size: 1.1rem;   /* Размер иконки */
+    width: 1.5rem;
+    filter: invert(100%);
 }
