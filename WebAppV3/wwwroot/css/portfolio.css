@@ -78,6 +78,15 @@ nav.navbar-collapse{
     transition: color 0.3s ease;
 }
 
+.nav-item-admin{
+    color: #7a7a7a !important;
+    font-family: "M PLUS U", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    transition: color 0.3s ease;
+}
+
 .card-title{
     color: var(--card-header-text);
 }
@@ -453,6 +462,10 @@ nav.navbar-collapse{
     box-shadow: 0 12px 30px var(--card-shadow); /* Using same shadow for hover for simplicity */
 }
 
+.bage-primary{
+    background-color: var(--custom-font-color-gradient);
+}
+
 .project-badge-stack {
     display: flex;
     flex-wrap: wrap;
@@ -462,7 +475,7 @@ nav.navbar-collapse{
 
 .tech-badge {
     background-color: var(--tech-badge-bg);
-    color: var(--tech-badge-color);
+    color: var(--custom-font-color-gradient);
     font-size: 0.75rem;
     font-weight: 600;
     padding: 4px 10px;
@@ -912,4 +925,330 @@ nav.navbar-collapse{
     font-size: 1.1rem;   /* Размер иконки */
     width: 1.5rem;
     filter: invert(100%);
+}
+
+
+
+.projects-more {
+    outline: none;
+    cursor: pointer;
+    border: none;
+    padding: 0.9rem 2rem;
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    position: relative;
+    display: inline-block;
+    letter-spacing: 0.05rem;
+    font-weight: 700;
+    font-size: 17px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--custom-font-color);
+    color: ghostwhite;
+}
+
+.projects-more a {
+    position: relative;
+    z-index: 10;
+    transition: color 0.4s;
+    color: var(--custom-font-color);
+}
+
+.projects-more:hover a {
+    color: black;
+}
+
+.projects-more::before,
+.projects-more::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.projects-more::before {
+    content: "";
+    background: var(--body-bg);
+    width: 120%;
+    left: -10%;
+    transform: skew(30deg);
+    transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
+}
+
+.projects-more:hover::before {
+    transform: translate3d(100%, 0, 0);
+}
+
+.lang-section-icon{
+    width: 38px;
+    height: 38px;
+    border-radius: 100%;
+    border: 1px black solid;
+}
+
+.lang-section-title{
+    padding-top: 3rem;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--project-title-color);
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.lang-section-lang{
+    font-family: "M PLUS U", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    transition: color 0.3s ease;
+    
+    margin-right: 1rem;
+    font-size: 1.5rem;
+    padding: 0.5rem 1rem;
+    display: inline-block;
+    width: auto;
+    border: 1px white solid;
+    border-radius: 10px;
+    background-color: var(--lang-section-bg) !important;
+    color: var(--lang-section-color) !important;
+}
+
+/* ------------------ BACKGROUND FOR CONTAINERS ----------------- */
+
+/* Collaboration Section */
+.collaboration-section-box{
+    margin: 0;
+    height: 20vh; 
+    margin-bottom: 10vh;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+}
+
+.button-icon-wrap{
+    border: 4px black solid;
+    padding: 17px;
+    border-radius: 100%;
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    top: 50px;
+    right: 50px;
+    background-color: var(--custom-font-color);
+}
+
+.collaboration-icon{
+    width: 100%;
+    height: 100%;
+    
+}
+
+.collaboration-section {
+    border: 2px black solid;
+    position: relative;
+    color: var(--header-text-color) !important;
+    font-family: "M PLUS U", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    text-align: left;
+    
+    background-color: var(--card-bg);
+    border-radius: 15px;
+    padding: 50px;
+    width: 50%;
+    transition: all 0.3s ease;
+
+    box-shadow: 0 10px 20px var(--card-shadow);
+}
+
+
+.collaboration-section:hover{
+    background-color: var(--custom-font-color);
+    transition: all 0.3s ease;
+}
+
+.collaboration-section h2 {
+    color: var(--header-text-color) !important;
+    font-family: "M PLUS U", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 2.5rem;
+    margin-left: 40px;
+    text-align: left;
+}
+
+.collaboration-section p{
+    font-size: 2rem;
+}
+
+.collaboration-section .btn {
+    font-size: 1.2rem;
+    padding: 15px 40px;
+    border: none;
+    transition: all 0.3s ease;
+    background-color: #ffffff;
+    color: #007bff;
+    font-weight: bold;
+}
+
+.collaboration-section .btn:hover {
+    background-color: #e2e6ea;
+    color: #0056b3;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Contact Modal */
+
+.modal-content {
+    background-color: var(--card-bg);
+    color: var(--card-header-text);
+}
+
+.modal-header {
+    border-bottom: none;
+}
+
+.modal-title {
+    font-family: "M PLUS U", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    color: var(--card-header-text);
+    font-size: 2rem;
+}
+
+.modal-body p {
+    font-family: "M PLUS U", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    color: var(--card-header-text);
+    font-size: 1.5rem;
+}
+
+.modal-body .btn {
+    font-weight: 600;
+    padding: 12px 20px;
+    border-radius: 50rem; /* Pill shape */
+}
+
+.modal-body .btn-primary {
+    position: relative;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-info{
+    position: relative;
+}
+
+.btn-dark{
+    position: relative;
+}
+
+.modal-icon{
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    width: 30px;
+    height: 30px;
+    transform: translate(-50%, -50%);
+    filter: invert(100%);
+}
+
+.modal-body .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.modal-body .btn-info {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+}
+
+.modal-body .btn-info:hover {
+    background-color: #117a8b;
+    border-color: #117a8b;
+}
+
+.modal-body .btn-dark {
+    background-color: #343a40;
+    border-color: #343a40;
+}
+
+.modal-body .btn-dark:hover {
+    background-color: #1d2124;
+    border-color: #1d2124;
+}
+
+.modal-footer {
+    border-top: none;
+}
+
+.modal-footer .btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.modal-footer .btn-secondary:hover {
+    background-color: #545b62;
+    border-color: #545b62;
+}
+
+.contact-more {
+    outline: none;
+    cursor: pointer;
+    border: none;
+    padding: 0.9rem 2rem;
+    margin: 0 2rem;
+    font-family: inherit;
+    font-size: inherit;
+    position: relative;
+    display: inline-block;
+    letter-spacing: 0.05rem;
+    font-weight: 700;
+    font-size: 17px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--custom-font-color);
+}
+
+.contact-more a {
+    color: var(--header-text-color) !important;
+    position: relative;
+    z-index: 10;
+    transition: color 0.4s;
+}
+
+.contact-more:hover a {
+    color: black;
+}
+
+.contact-more::before,
+.contact-more::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.contact-more::before {
+    content: "";
+    background: var(--body-bg);
+    width: 120%;
+    left: -10%;
+    transform: skew(30deg);
+    transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
+}
+
+.contact-more:hover::before {
+    transform: translate3d(100%, 0, 0);
 }

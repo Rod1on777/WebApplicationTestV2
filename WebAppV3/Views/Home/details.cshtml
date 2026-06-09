@@ -8,9 +8,9 @@
 <div class="container mt-5 mb-5">
     <div class="d-flex align-items-center mb-4">
         <a asp-action="Index" asp-controller="Home" class="btn btn-outline-secondary me-3 rounded-3">
-            ⬅ К списку проектов
+            ⬅ list of projects
         </a>
-        <h1 class="fw-bold text-dark mb-0">@Model.Name</h1>
+        <h1 class="fw-bold font-header mb-0">@Model.Name</h1>
     </div>
 
     <div class="row g-4">
@@ -24,13 +24,13 @@
                 {
                     <div class="bg-light text-center py-5 border-bottom">
                         <i class="bi bi-laptop display-1 text-muted"></i>
-                        <p class="text-muted mt-2">Скриншоты для этого проекта скоро появятся</p>
+                        <p class="text-muted mt-2">Screenshots for this project will be available soon.</p>
                     </div>
                 }
             </div>
 
             <div class="card shadow-sm border-0 rounded-4 p-4 mb-4">
-                <h3 class="fw-bold mb-3 text-dark">📄 Описание проекта</h3>
+                <h3 class="fw-bold mb-3 text-dark">📄 Project Description</h3>
                 <p class="text-secondary lh-lg" style="white-space: pre-line;">
                     @(string.IsNullOrEmpty(Model.DetailedInfo) ? Model.InfoPreview : Model.DetailedInfo)
                 </p>
@@ -39,23 +39,29 @@
             @if (!string.IsNullOrEmpty(Model.ProjectFeatures))
             {
                 <div class="card shadow-sm border-0 rounded-4 p-4">
-                    <h3 class="fw-bold mb-3 text-dark">🚀 Ключевые особенности / Фичи</h3>
-                    <p class="text-secondary lh-lg" style="white-space: pre-line;">@Model.ProjectFeatures</p>
+                    <h3 class="fw-bold mb-3 text-dark">🚀 Key Features</h3>
+                    @*<p class="text-secondary lh-lg" style="white-space: pre-line;">@Model.ProjectFeatures</p>*@
+                    <ul>
+                        @foreach (var feature in Model.ProjectFeatures.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries))
+                        {
+                            <li>@feature.Trim()</li>
+                        }
+                    </ul>
                 </div>
             }
         </div>
 
         <div class="col-lg-4">
             <div class="card shadow-sm border-0 rounded-4 p-4 position-sticky" style="top: 20px;">
-                <h4 class="fw-bold mb-4 text-dark">📋 Детали разработки</h4>
+                <h4 class="fw-bold mb-4 text-dark">📋 Development details</h4>
 
                 <div class="mb-3">
-                    <span class="text-muted d-block small uppercase fw-semibold">Моя роль:</span>
-                    <span class="badge bg-primary fs-6 mt-1">@Model.RoleInTeam</span>
+                    <span class="text-muted d-block small uppercase fw-semibold">My role:</span>
+                    <span class="badge bage-primary fs-6 mt-1">@Model.RoleInTeam</span>
                 </div>
 
                 <div class="mb-3">
-                    <span class="text-muted d-block small uppercase fw-semibold">Технологический стек:</span>
+                    <span class="text-muted d-block small uppercase fw-semibold">Tech stack:</span>
                     <div class="d-flex flex-wrap gap-1 mt-1">
                         @if (!string.IsNullOrEmpty(Model.TechnologyStack))
                         {
@@ -70,7 +76,7 @@
                 @if (!string.IsNullOrEmpty(Model.DevelopmentTime))
                 {
                     <div class="mb-3 border-top pt-3">
-                        <span class="text-muted small">⏱ Время на разработку:</span>
+                        <span class="text-muted small">⏱ Development time:</span>
                         <strong class="text-dark d-block">@Model.DevelopmentTime</strong>
                     </div>
                 }
@@ -78,8 +84,8 @@
                 @if (Model.TeamMembersCount > 0)
                 {
                     <div class="mb-3 border-top pt-3">
-                        <span class="text-muted small">👥 Размер команды:</span>
-                        <strong class="text-dark d-block">@Model.TeamMembersCount @(Model.TeamMembersCount == 1 ? "человек (Соло)" : "чел.")</strong>
+                        <span class="text-muted small">👥 Team size:</span>
+                        <strong class="text-dark d-block">@Model.TeamMembersCount @(Model.TeamMembersCount == 1 ? "" : "")</strong>
                     </div>
                 }
 
@@ -87,10 +93,53 @@
                 {
                     <div class="mt-4 border-top pt-3">
                         <a href="@Model.SourceCodeLink" target="_blank" class="btn btn-outline-dark w-100 fw-bold py-2 rounded-3">
-                            <i class="bi bi-github"></i> Исходный код на GitHub 🔗
+                            <i class="bi bi-github"></i> Source code on GitHub 🔗
                         </a>
                     </div>
                 }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="collaboration-section-box">
+    <button class="collaboration-section py-5 mt-5" data-bs-toggle="modal" data-bs-target="#contactModal">
+        <h2 class="monomaniac-one-regular">Like my project?</h2>
+        <h2 class="fw-bold animated-gradient-text mb-4" style="margin-bottom: 0 !important;">Let's Collaborate!</h2>
+        <div class="button-icon-wrap">
+            <img class="collaboration-icon" src="~/images/frontend/icons/top-right (1).png"/>
+        </div>
+    </button>
+</div>
+
+
+<!-- Contact Modal -->
+<div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 shadow-lg">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title fw-bold" id="contactModalLabel">Connect with me</h5>
+                <button type="button" class="btn-close" style="background-color: white;" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <p class="modal-text">Feel free to reach out through any of the following channels:</p>
+                <div class="d-grid gap-3">
+                    <a href="mailto:rodiomkor533@gmail.com" class="btn btn-primary btn-lg rounded-pill">
+                        <img class="modal-icon" src="~/images/frontend/icons/mail.png"/>
+                        <i class="bi bi-envelope-fill text-left me-2"></i> Email
+                    </a>
+                    <a href="https://www.linkedin.com/in/rodion-korshunov-4548b5292/" target="_blank" class="btn btn-info btn-lg rounded-pill text-white">
+                        <img class="modal-icon" src="~/images/frontend/icons/business.png"/>
+                        <i class="bi bi-linkedin me-2"></i> LinkedIn
+                    </a>
+                    <a href="https://github.com/Rod1on777" target="_blank" class="btn btn-dark btn-lg rounded-pill">
+                        <img class="modal-icon" src="~/images/frontend/icons/github.png"/>
+                        <i class="bi bi-github me-2"></i> GitHub
+                    </a>
+                </div>
+            </div>
+            <div class="modal-footer border-0 pt-0">
+                <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

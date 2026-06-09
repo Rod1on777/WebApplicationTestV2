@@ -37,15 +37,38 @@
                         <a class="nav-link text-color-main" asp-area="" asp-controller="Home" asp-action="Index">HOME</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-link-black" asp-area="" asp-controller="Home" asp-action="Privacy">PRIVACY</a>
+                        <a class="nav-link nav-link-black" 
+                           asp-area="" 
+                           asp-controller="Home" 
+                           asp-action="Index" 
+                           asp-fragment="certifications">CERTIFICATIONS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-black" 
+                           asp-area="" 
+                           asp-controller="Home" 
+                           asp-action="Index" 
+                           asp-fragment="work-exp">WORK EXPERIENCE</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-black" 
+                           asp-area="" 
+                           asp-controller="Home" 
+                           asp-action="Index" 
+                           asp-fragment="projects">PROJECTS</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link nav-link-black" asp-area="" asp-controller="DbAccess" asp-action="Index">DB READ-ONLY</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-link-black" asp-area="" asp-controller="Admin" asp-action="Index">ADMIN</a>
+                        <a class="nav-link nav-item-admin" asp-area="" asp-controller="Admin" asp-action="Index">ADMIN</a>
                     </li>
                 </ul>
+                <button class="contact-more" data-bs-toggle="modal" data-bs-target="#contactModal">
+                    <a>
+                        CONTACT 📧
+                    </a>
+                </button>
                 <div class="d-flex align-items-center">
                     <button id="theme-toggle" class="btn btn-link nav-link-black me-2" aria-label="Toggle theme">
                         ☀️
@@ -61,6 +84,38 @@
         @RenderBody()
     </main>
 </div>
+
+<!-- Contact Modal -->
+    <div class="modal fade" style="padding: 0;" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 shadow-lg">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title fw-bold" id="contactModalLabel">Connect with me</h5>
+                    <button type="button" class="btn-close" style="background-color: white;" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <p class="modal-text">Feel free to reach out through any of the following channels:</p>
+                    <div class="d-grid gap-3">
+                        <a href="mailto:rodionkor533@gmail.com" class="btn btn-primary btn-lg rounded-pill">
+                            <img class="modal-icon" src="~/images/frontend/icons/mail.png"/>
+                            <i class="bi bi-envelope-fill text-left me-2"></i> Email
+                        </a>
+                        <a href="https://www.linkedin.com/in/rodion-korshunov-4548b5292/" target="_blank" class="btn btn-info btn-lg rounded-pill text-white">
+                            <img class="modal-icon" src="~/images/frontend/icons/business.png"/>
+                            <i class="bi bi-linkedin me-2"></i> LinkedIn
+                        </a>
+                        <a href="https://github.com/Rod1on777" target="_blank" class="btn btn-dark btn-lg rounded-pill">
+                            <img class="modal-icon" src="~/images/frontend/icons/github.png"/>
+                            <i class="bi bi-github me-2"></i> GitHub
+                        </a>
+                    </div>
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                    <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 <footer class="main-footer">
     <div class="container">

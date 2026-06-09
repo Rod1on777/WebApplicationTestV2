@@ -6,6 +6,7 @@
     
     --body-bg: rgb(225 225 225 / 1);
     --body-bg-shade: rgb(225 225 225 / 0);
+    --button-body-bg: rgb(225 225 225 / 0.5);
     --text-color: #ffffff;
     --text-skill-color: #1c1c1c;
     --header-bg: rgba(255, 255, 255, 0.8);
@@ -14,6 +15,7 @@
     --nav-link-color: #000;
     --footer-text-color: #6c757d;
     --card-bg: #ffffff;
+    --collaborate-bg: #e3e3e3;
     --card-shadow: rgb(0 0 0 / 0.08);
     --card-header-text: #000000;
     --card-header-bg: #f8f9fa;
@@ -37,7 +39,9 @@
     --focus-shadow-color-1: white; /* For site.css focus shadow */
     --focus-shadow-color-2: #258cfb; /* For site.css focus shadow */
     --work-logo-bg: #ffffff;
-
+    --lang-section-bg: #ffffff;
+    --lang-section-color: #000000;
+    
     /* Admin styles variables (Light Theme) */
     --admin-text-dark: #212529;
     --admin-text-muted: #6c757d;
@@ -78,6 +82,7 @@
     
     --body-bg: rgb(20 20 20 / 1);
     --body-bg-shade: rgb(20 20 20 / 0);
+    --button-body-bg: rgb(0 0 0 / 0.5);
     --text-color: #ffffff;
     --text-skill-color: #dddddd;
     --header-bg: rgba(33, 33, 33, 0.8);
@@ -85,7 +90,8 @@
     --header-border-color: white;
     --nav-link-color: #fff;
     --footer-text-color: #9e9e9e;
-    --card-bg: #303030;
+    --card-bg: #202020;
+    --collaborate-bg: #303030;
     --card-shadow: rgba(255, 255, 255, 0.08);
     --card-header-text: #ffffff;
     --card-header-bg: #424242;
@@ -109,7 +115,9 @@
     --focus-shadow-color-1: #424242; /* Darker background for focus shadow */
     --focus-shadow-color-2: #64b5f6; /* Lighter blue for focus shadow */
     --work-logo-bg: #3a3a3a;
-
+    --lang-section-bg: #ffffff;
+    --lang-section-color: #000000;
+    
     /* Admin styles variables (Dark Theme) */
     --admin-text-dark: #e0e0e0;
     --admin-text-muted: #bdbdbd;
