@@ -1,0 +1,41 @@
+﻿@using System.Runtime.InteropServices
+@using WebAppV3.Models
+@model Project
+
+@{
+    ViewData["Title"] = "Architecture";
+}
+
+<div class="container mt-5 mb-5">
+    <div class="d-flex align-items-center mb-4">
+        <a asp-action="Index" asp-controller="Home" class="btn btn-outline-secondary me-3 rounded-3">
+            ⬅ Home
+        </a>
+        <h1 class="fw-bold font-header mb-0">Architecture</h1>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0 rounded-4 overflow-hidden mb-4">
+                <img src="~/images/frontend/digital-art-beautiful-mountains.jpg" class="img-fluid w-100" style="max-height: 450px; object-fit: cover;">
+            </div>
+
+            <div class="card shadow-sm border-0 rounded-4 p-4 mb-4">
+                <h3 class="fw-bold mb-3 text-dark">📄 Project Description</h3>
+                <p class="text-secondary lh-lg" style="white-space: pre-line;">
+                    123456
+                </p>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card shadow-sm border-0 rounded-4 p-4 position-sticky" style="top: 20px;">
+                <h4 class="fw-bold mb-4 text-dark">📋 Development details</h4>
+
+                <div class="mb-3">
+                    <span class="text-muted d-block small uppercase fw-semibold">123456</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

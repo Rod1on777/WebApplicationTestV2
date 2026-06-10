@@ -60,6 +60,21 @@ public class HomeController : Controller
         return View();
     }
     
+    public IActionResult Terraform()
+    {
+        return View();
+    }
+    
+    public IActionResult Github()
+    {
+        return View();
+    }
+    
+    public IActionResult Architecture()
+    {
+        return View();
+    }
+    
     // Контроллер страницы деталей проекта
     public async Task<IActionResult> Details(int id)
     {
