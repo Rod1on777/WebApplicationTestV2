@@ -17,7 +17,10 @@ jobs:
           dotnet-version: '10.0.x'
 
       - name: Publish
-        run: dotnet publish -c Release -r linux-arm64 --self-contained true
+        run: dotnet publish -c Release -r linux-arm64 --self-contained true -o ./publish_output
+
+      - name: List files (Check)
+        run: ls -R ./publish_output
 
       - name: Copy files via SCP
         uses: appleboy/scp-action@master
@@ -25,9 +28,9 @@ jobs:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.USER_NAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "bin/Release/net8.0/linux-arm64/publish/*"
+          source: "./publish_output/*"
           target: "/home/ec2-user/myapp"
-          strip_components: 6
+          strip_components: 1 # Убираем один уровень папки, чтобы файлы легли прямо в myapp
 
       - name: Restart service
         uses: appleboy/ssh-action@master
