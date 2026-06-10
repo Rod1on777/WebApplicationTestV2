@@ -1,0 +1,18 @@
+﻿Оптимальный сценарий обновления (Best Practice)
+Чтобы не возникало конфликтов с «занятыми файлами» и сайт не «падал» на время копирования, используйте такой алгоритм:
+
+Сборка:
+Bash
+dotnet publish -c Release -r linux-arm64 --self-contained true
+
+
+Остановка службы: (Чтобы система не пыталась запустить приложение, пока вы меняете файлы).
+Bash
+sudo systemctl stop myapp
+
+Копирование:
+С помощью WinSCP замените все файлы в /home/ec2-user/myapp/ на новые из свежей папки publish.
+
+Запуск:
+Bash
+sudo systemctl start myapp
