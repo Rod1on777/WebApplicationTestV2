@@ -19,13 +19,16 @@ jobs:
       - name: Publish
         run: dotnet publish -c Release -r linux-arm64 --self-contained true
 
+      - name: List files (Debug)
+        run: ls -R bin/
+
       - name: Copy files via SCP
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.USER_NAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "bin/Release/net8.0/linux-arm64/publish/*"
+          source: "bin/Release/net10.0/linux-arm64/publish/*"
           target: "/home/ec2-user/myapp"
           strip_components: 6
 
