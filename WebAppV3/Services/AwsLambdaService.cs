@@ -14,12 +14,19 @@ public class AwsLambdaService
     {
         _httpClient = httpClient;
         
-        var urlFromConfig = configuration["AWSLambda:URL"];
-        Console.WriteLine($"[DEBUG AI] Прочитанный URL из конфигурации: '{urlFromConfig}'");
-
-        _lambdaUrl = urlFromConfig 
-                     ?? throw new ArgumentNullException("AWSLambda:URL не найден!");
+        var url = configuration["AWSLambda:URL"];
         
+        if (string.IsNullOrWhiteSpace(url))
+        {
+            url = Environment.GetEnvironmentVariable("AWSLambda__URL");
+        }
+        
+        if (string.IsNullOrWhiteSpace(url))
+        {
+            url = null;
+        }
+    
+        _lambdaUrl = url;
     }
     
     
