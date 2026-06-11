@@ -1261,3 +1261,116 @@ nav.navbar-collapse{
     text-align: left !important;
     font-size: 1rem;
 }
+
+/* ------------------------------- AI ANALYSER CSS --------------------*/
+
+/* Класс для скрытия элементов (замена d-none) */
+.hidden {
+    display: none !important;
+}
+
+.ai-glow-img {
+    animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Красивый ховер-эффект для кнопки */
+.ai-banner-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgb(253 13 13 / 0.5) !important;
+    background-color: #d70b0b !important;
+}
+
+.ai-card{
+    background: linear-gradient(135deg, #782f2f 0%, #1b0c0c 100%);
+    border-radius: 16px;
+    color: #1b0c0c;
+}
+
+.ai-gradient{
+    width: 300px;
+    height: 300px; 
+    background: rgb(255 0 0 / 0.15); 
+    filter: blur(80px); 
+    top: -100px; 
+    right: -100px; 
+    border-radius: 50%;
+}
+
+/* Класс для скрытия элементов (замена d-none) */
+.hidden {
+    display: none !important;
+}
+
+.ai-glow-img {
+    animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+.ai-banner-btn{
+    background-color: var(--custom-font-color);
+}
+
+/* Красивый ховер-эффект для кнопки */
+.ai-banner-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgb(253 13 13 / 0.5) !important;
+    background-color: #d70b0b !important;
+}
+
+.ai-card{
+    background: linear-gradient(135deg, #321d1d 0%, #1b0c0c 100%);
+    border-radius: 16px;
+    color: #1b0c0c;
+}
+
+.ai-gradient{
+    width: 300px;
+    height: 300px;
+    background: rgb(253 13 13 / 0.15);
+    filter: blur(80px);
+    top: -100px;
+    right: -100px;
+    border-radius: 50%;
+}
+
+.ai-background{
+    background-color: var(--custom-font-color);
+    color: white;
+    font-family: "M PLUS U", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    transition: color 0.3s ease;
+}
+
+.ai-background-black{
+    background-color: #323232;
+    color: white;
+    font-family: "M PLUS U", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    transition: color 0.3s ease;
+}
+
+.ai-button{
+    background-color: var(--custom-font-color);
+    color: white;
+    font-family: "M PLUS U", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    transition: color 0.3s ease;
+}
+

@@ -33,7 +33,6 @@ public class AiController : Controller
             return BadRequest(new { error = "Описание вакансии не может быть пустым" });
         }
 
-        // 1. Вытаскиваем твои реальные навыки из базы данных (только имена)
         var mySkills = await _context.Skills
             .Select(s => s.SkillName)
             .ToListAsync();

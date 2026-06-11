@@ -1,26 +1,26 @@
 ﻿@{
-    ViewData["Title"] = "ИИ Анализ Вакансии";
+    ViewData["Title"] = "Ai Job Analysys";
 }
 
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-6">
             <div class="card shadow-sm">
-                <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0">🤖 Анализ вакансии с помощью Gemini</h5>
+                <div class="card-header ai-background">
+                    <h5 class="mb-0">AI-Powered Job Analysis</h5>
                 </div>
                 <div class="card-body">
                     <form id="aiAnalysisForm">
                         <div class="mb-3">
-                            <label for="jobTitle" class="form-label">Название вакансии</label>
-                            <input type="text" class="form-control" id="jobTitle" placeholder="например, Junior Backend Developer" required>
+                            <label for="jobTitle" class="form-label">Job Title</label>
+                            <input type="text" class="form-control" id="jobTitle" placeholder="for example, Junior Backend Developer" required>
                         </div>
                         <div class="mb-3">
-                            <label for="jobDescription" class="form-label">Описание вакансии / Требования</label>
-                            <textarea class="form-control" id="jobDescription" rows="10" placeholder="Вставьте сюда текст вакансии со всем стеком технологий..." required></textarea>
+                            <label for="jobDescription" class="form-label">Job Description / Requirements</label>
+                            <textarea class="form-control" id="jobDescription" rows="10" placeholder="Paste the job description details here and click the button to start the analysis" required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary w-100" id="btnSubmit">
-                            <span id="btnText">Проверить совпадение</span>
+                        <button type="submit" class="btn ai-button w-100" id="btnSubmit">
+                            <span id="btnText">Check Match</span>
                             <span id="btnSpinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
                         </button>
                     </form>
@@ -30,30 +30,30 @@
 
         <div class="col-md-6 mt-4 mt-md-0">
             <div class="card shadow-sm h-100">
-                <div class="card-header bg-dark text-white">
-                    <h5 class="mb-0">📋 Вердикт ИИ-рекрутера</h5>
+                <div class="card-header ai-background-black">
+                    <h5 class="mb-0">📋 AI Recruiter Verdict</h5>
                 </div>
                 <div class="card-body d-flex flex-column justify-content-center align-items-center" id="resultPlaceholder">
-                    <p class="text-muted text-center" id="initialMessage">Введите данные вакансии слева и нажмите кнопку для начала анализа.</p>
+                    <p class="text-muted text-center" id="initialMessage">Paste the job description and click the button to start the analysis.</p>
                     
                     <div id="analysisResult" class="w-100 d-none">
                         <div class="text-center mb-4">
-                            <h6 class="text-uppercase text-muted fw-bold">Процент совпадения</h6>
-                            <div class="display-3 fw-bold text-success" id="resPercentage">0%</div>
+                            <h6 class="text-uppercase text-muted fw-bold">Match Score</h6>
+                            <div class="display-3 fw-bold text-success" id="resPercentage">100%</div>
                         </div>
                         
                         <div class="mb-3">
-                            <h6><strong>📌 Общий вердикт:</strong></h6>
+                            <h6><strong>📌 Overall Verdict:</strong></h6>
                             <p id="resSummary" class="text-justify"></p>
                         </div>
                         
                         <div class="mb-3">
-                            <h6><strong>✅ Что подходит (Сильные стороны):</strong></h6>
+                            <h6><strong>✅ Key Strengths (Matching Skills):</strong></h6>
                             <p id="resStrongPoints" class="text-success"></p>
                         </div>
                         
                         <div class="mb-3">
-                            <h6><strong>⚠️ Чего не хватает / Что подучить:</strong></h6>
+                            <h6><strong>⚠️ Skill Gaps / Areas to Improve</strong></h6>
                             <p id="resMissingSkills" class="text-danger"></p>
                         </div>
                     </div>
@@ -68,7 +68,6 @@
         document.getElementById('aiAnalysisForm').addEventListener('submit', async function (e) {
             e.preventDefault(); // Отменяем стандартную перезагрузку страницы
 
-            // Получаем элементы интерфейса
             const btnSubmit = document.getElementById('btnSubmit');
             const btnText = document.getElementById('btnText');
             const btnSpinner = document.getElementById('btnSpinner');
@@ -83,11 +82,11 @@
 
             // Включаем состояние загрузки (лоадер)
             btnSubmit.disabled = true;
-            btnText.innerText = "Анализируем стек...";
+            btnText.innerText = "Analyzing stack...";
             btnSpinner.classList.remove('d-none');
             
             // Временно прячем старые результаты или приветствие
-            initialMessage.innerText = "ИИ изучает требования вакансии и сопоставляет с твоей базой данных навыков. Пожалуйста, подождите...";
+            initialMessage.innerText = "AI is reviewing the job posting requirements and matching them with skills database. Please wait...";
             analysisResult.classList.add('d-none');
 
             try {
@@ -101,7 +100,7 @@
                 });
 
                 if (!response.ok) {
-                    throw new Error('Произошла ошибка при обращении к серверу.');
+                    throw new Error('An error occurred while contacting the server.');
                 }
 
                 const result = await response.json();
@@ -129,11 +128,11 @@
             } catch (error) {
                 // Если что-то пошло не так, выводим ошибку пользователю
                 initialMessage.classList.remove('d-none');
-                initialMessage.innerHTML = `<span class="text-danger">❌ Ошибка: ${error.message}</span>`;
+                initialMessage.innerHTML = `<span class="text-danger">❌ Error: ${error.message}</span>`;
             } finally {
                 // Возвращаем кнопку в исходное состояние
                 btnSubmit.disabled = false;
-                btnText.innerText = "Проверить совпадение";
+                btnText.innerText = "Check Match";
                 btnSpinner.classList.add('d-none');
             }
         });
