@@ -9,12 +9,20 @@ public class AwsLambdaService
     private readonly HttpClient _httpClient;
     private readonly string _lambdaUrl;
 
+
     public AwsLambdaService(HttpClient httpClient, IConfiguration configuration)
     {
         _httpClient = httpClient;
-        _lambdaUrl = configuration["AWSLambda:URL"] 
-                     ?? throw new ArgumentNullException("AWSLambda:URL не найден в конфигурации appsettings.json или User Secrets");
+        
+        var urlFromConfig = configuration["AWSLambda:URL"];
+        Console.WriteLine($"[DEBUG AI] Прочитанный URL из конфигурации: '{urlFromConfig}'");
+
+        _lambdaUrl = urlFromConfig 
+                     ?? throw new ArgumentNullException("AWSLambda:URL не найден!");
+        
     }
+    
+    
 
     public async Task<JobAnalysisResponse?> AnalyzeJobAsync(string title, string description, List<string> skills)
     {
@@ -46,7 +54,7 @@ public class AwsLambdaService
         }
         catch (Exception ex)
         {
-            return new JobAnalysisResponse { Summary = $"Error Connecting to AI model: {ex.Message}" };
+            return new JobAnalysisResponse { Summary = $"Error Connecting to AI model: {_lambdaUrl}" };
         }
     }
 }
