@@ -246,7 +246,7 @@
                     </div>
 
                     <div class="weather-body text-center">
-                        @if (Model != null)
+                        @if (Model.Weather != null)
                         {
                             <div class="weather-temp">@Model.Weather.Temperature°C</div>
 
@@ -302,7 +302,7 @@
                     </div>
 
                     <div class="weather-body text-center">
-                        @if (Model != null)
+                        @if (Model.CatFact != null)
                         {
                             <div class="cat-fact-text">@Model.CatFact.CatFact</div>
 

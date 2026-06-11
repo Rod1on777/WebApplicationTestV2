@@ -29,7 +29,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddHttpClient<WeatherService>();
 builder.Services.AddHttpClient<CatFactsService>();
-
+builder.Services.AddHttpClient<AwsLambdaService>();
 builder.Services.ConfigureApplicationCookie(options =>
 {
     // Путь к странице входа (замени на свой, если у тебя используется стандартный Identity Razor Pages)
