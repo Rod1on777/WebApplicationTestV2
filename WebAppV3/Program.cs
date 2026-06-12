@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using WebAppV3.Data;
 using WebAppV3.Models;
 using WebAppV3.Services;
+using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,6 +44,11 @@ builder.Services.ConfigureApplicationCookie(options =>
     
     // Разрешать обновлять куки при активности пользователя
     options.SlidingExpiration = true;
+});
+
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
 });
 
 var app = builder.Build();
