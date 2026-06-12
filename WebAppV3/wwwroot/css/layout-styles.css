@@ -3,6 +3,16 @@
 :root {
     --custom-font-color: #ff0059;
     --custom-font-color-gradient: #ff669b;
+
+    --bg-dark: #0f172a;
+    --info-card-bg: #1e293b;
+    --border-color: #334155;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --accent-aws: #ff9900;
+    --accent-gemini: #2463eb;
+    --accent-dotnet: #512bd4;
+    --ai-border-color: #ffffff;
     
     --body-bg: rgb(225 225 225 / 1);
     --body-bg-shade: rgb(225 225 225 / 0);
@@ -79,6 +89,16 @@
 .dark-theme {
     --custom-font-color: #ff0059;
     --custom-font-color-gradient: #ff90b7;
+
+    --bg-dark: #0f172a;
+    --info-card-bg: #1e293b;
+    --border-color: #334155;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --accent-aws: #ff9900;
+    --accent-gemini: #2463eb;
+    --accent-dotnet: #512bd4;
+    --ai-border-color: #222222;
     
     --body-bg: rgb(20 20 20 / 1);
     --body-bg-shade: rgb(20 20 20 / 0);

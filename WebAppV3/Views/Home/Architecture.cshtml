@@ -17,13 +17,30 @@
     <div class="row g-4">
         <div class="col-lg-8">
             <div class="card shadow-sm border-0 rounded-4 overflow-hidden mb-4">
-                <img src="~/images/frontend/digital-art-beautiful-mountains.jpg" class="img-fluid w-100" style="max-height: 450px; object-fit: cover;">
+                <img src="~/images/frontend/arcitecture.png" class="img-fluid w-100" style="max-height: 450px; object-fit: cover;">
             </div>
 
             <div class="card shadow-sm border-0 rounded-4 p-4 mb-4">
-                <h3 class="fw-bold mb-3 text-dark">📄 Project Description</h3>
-                <p class="text-secondary lh-lg" style="white-space: pre-line;">
-                    123456
+                <h3 class="fw-bold mb-3 text-dark">📄 Project Architecture Overview</h3>
+                <p class="lh-lg" style="white-space: pre-line; font-size: 1rem">
+1. Ingress & Traffic Routing (Route 53)
+The portfolio’s domain name is managed via AWS Route 53, which handles DNS resolution and seamlessly routes incoming recruiter and user traffic to the edge of the hosting infrastructure.
+
+2. Network Security & Reverse Proxy (Security Groups & Nginx)
+Edge/Ingress Security (Web-SG): Configured as a public-facing Security Group, explicitly allowing inbound HTTP (Port 80) and HTTPS (Port 443) traffic from anywhere (0.0.0.0/0). This layer acts as the entry point for the reverse proxy (Nginx).
+
+Application Isolation (App-SG): The underlying EC2 instance is fully isolated from the public internet for web traffic. It accepts inbound requests on Port 5000 strictly from the upstream proxy/load balancer (Web-SG). For management, inbound SSH (Port 22) is tightly scoped via IP-whitelisting, restricted exclusively to the developer's dynamic IP and authorized GitHub Actions Runners.
+
+3. Continuous Integration & Deployment (GitHub Actions)
+A robust CI/CD pipeline automates the entire release lifecycle. Upon a git push to the target branch, the workflow triggers to compile the application, execute automated unit tests (via xUnit/NUnit), and transfer the optimized release artifacts to the EC2 instance. The pipeline concludes by securely restarting the Linux daemon (systemctl restart webapp) for zero-friction deployments.
+
+4. Data Layer & Runtime Context (SQLite & Secret Isolation)
+Data Persistence: Application data is maintained locally using an embedded SQLite database on the EC2 instance, optimized for lightweight, low-overhead read/write operations.
+
+Configuration Management: To ensure high security and prevent credential leaks, sensitive configurations (including AWSLambda__URL and Google OAuth credentials) are injected directly into the system's memory runtime via Systemd Environment Context at service startup, keeping the codebase completely decoupled from secrets.
+
+5. Serverless AI Bridge (AWS Lambda & Gemini API)
+To offload heavy processing, the .NET core application performs secure outbound HTTPS requests to an isolated AWS Lambda Function URL. The serverless Python runtime constructs the prompt, handles the communication lifecycle with the Gemini API, and returns a clean structured JSON payload back to the EC2 instance, which is then asynchronously served to the client-side browser via AJAX.
                 </p>
             </div>
         </div>
@@ -33,7 +50,38 @@
                 <h4 class="fw-bold mb-4 text-dark">📋 Development details</h4>
 
                 <div class="mb-3">
-                    <span class="text-muted d-block small uppercase fw-semibold">123456</span>
+                    <p class="d-block small uppercase fw-semibold" style="font-weight:  700; color: black">
+                        Resilience & Fault Tolerance (Microservice Isolation): <br/>
+                    </p>
+                    <p class="text-muted d-block small uppercase fw-semibold">
+                        The architecture embraces loose coupling. Because the upstream AI 
+                        bridge components (AWS Lambda and Gemini API) are isolated from the 
+                        core application, any transient timeouts or outages in the serverless 
+                        layer do not impact the core availability of the web application. The 
+                        platform gracefully degrades, ensuring the site remains fully operational 
+                        even if the AI features are temporarily unavailable.
+                    </p>
+                    <p class="d-block small uppercase fw-semibold" style="font-weight:  700; color: black">
+                        SQLite (Cost-Efficiency vs. Scalability): <br/>
+                    </p>
+                    <p class="text-muted d-block small uppercase fw-semibold"> 
+                        SQLite was intentionally chosen over heavy, managed relational database 
+                        services (such as AWS RDS PostgreSQL or MySQL). This architectural decision 
+                        eliminates managed database overhead—reducing infrastructure costs to 
+                        $0/month—and eradicates network hops by keeping data local. For a portfolio 
+                        site or a lightweight SaaS application, in-memory or local disk I/O provides 
+                        more than enough performance while keeping the architecture incredibly lean.
+                    </p>
+                    <p class="d-block small uppercase fw-semibold" style="font-weight:  700; color: black">
+                        Decoupling from AWS Secrets Manager / Parameter Store <br/>
+                    </p>
+                    <p class="text-muted d-block small uppercase fw-semibold"> 
+                        To avoid the billing footprint of proprietary AWS configuration management services, 
+                        secrets are securely injected at the OS level using systemd environment context. 
+                        This approach strictly adheres to the 12-Factor App methodology (Config section) 
+                        by storing configuration in the environment, demonstrating production-grade security 
+                        practices without expanding the cloud budget.
+                    </p>
                 </div>
             </div>
         </div>

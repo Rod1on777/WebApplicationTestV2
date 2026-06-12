@@ -10,16 +10,130 @@
         <a asp-action="Index" asp-controller="Home" class="btn btn-outline-secondary me-3 rounded-3">
             ⬅ Home
         </a>
-        <h1 class="fw-bold font-header mb-0">Мяу мяу</h1>
+        <h1 class="fw-bold font-header mb-0">Continuous Deployment</h1>
     </div>
+    <section class="cicd-section">
+      <div class="cicd-container">
+        
+        <div class="cicd-visual">
+          <div class="pipeline-header">
+            <span class="branch-badge">branch: master</span>
+            <div class="pipeline-status">
+              <span class="status-dot pulsing"></span> Running
+            </div>
+          </div>
+          
+          <div class="pipeline-steps">
+            <div class="step-item done">
+              <div class="step-icon">✓</div>
+              <div class="step-details">
+                <span class="step-name">Set Up Job</span>
+                <span class="step-tech">Actions SDK & .NET 10</span>
+              </div>
+            </div>
+            
+            <div class="step-item done">
+              <div class="step-icon">✓</div>
+              <div class="step-details">
+                <span class="step-name">Run actions/checkout@v3</span>
+                <span class="step-tech">linux-arm64 --self-contained</span>
+              </div>
+            </div>
+            
+            <div class="step-item done">
+              <div class="step-icon">✓</div>
+              <div class="step-details">
+                <span class="step-name">Setup .NET</span>
+              </div>
+            </div>
+            
+            <div class="step-item done">
+              <div class="step-icon">✓</div>
+              <div class="step-details">
+                <span class="step-name">Publish</span>
+              </div>
+            </div>
+            
+            <div class="step-item done">
+              <div class="step-icon">✓</div>
+              <div class="step-details">
+                <span class="step-name">List files (Check)</span>
+              </div>
+            </div>
+            
+            <div class="step-item active">
+              <div class="step-icon-active">
+                <svg class="spinner" viewBox="0 0 50 50">
+                  <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+                </svg>
+              </div>
+              <div class="step-details">
+                <span class="step-name">Copy files via SCP</span>
+                <span class="step-tech">appleboy/scp-action</span>
+              </div>
+            </div>
+            
+            <div class="step-item pending">
+              <div class="step-icon-pending"></div>
+              <div class="step-details">
+                <span class="step-name">Restart service</span>
+              </div>
+            </div>
+            
+            <div class="step-item pending">
+              <div class="step-icon-pending"></div>
+              <div class="step-details">
+                <span class="step-name">Post Setup .NET</span>
+              </div>
+            </div>
+            
+            <div class="step-item pending">
+              <div class="step-icon-pending"></div>
+              <div class="step-details">
+                <span class="step-name">Post Run actions/checkout@v3</span>
+              </div>
+            </div>
+            
+            <div class="step-item pending">
+              <div class="step-icon-pending"></div>
+              <div class="step-details">
+                <span class="step-name">Complete job</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cicd-content">
+          
+          <div class="cicd-card">
+            <h3 class="cicd-subtitle">Automated CI/CD Pipeline <span>(GitHub Actions & Systemd)</span></h3>
+            <p class="cicd-text">
+              Every push to the <code>master</code> branch triggers an automated deployment pipeline on <strong>GitHub-hosted runners</strong>, removing manual friction from the release cycle.
+            </p>
+            
+            <div class="cicd-highlight">
+              <h4>Cross-Compilation Strategy</h4>
+              <p>
+                The runner compiles the source code specifically targetting the <code>linux-arm64</code> architecture with the <code>--self-contained</code> flag. This bundles the <strong>.NET 10 runtime</strong> directly into the binaries, ensuring the production EC2 server requires zero framework pre-installations.
+              </p>
+            </div>
+            
+            <p class="cicd-text footer-text">
+              Once compiled, deployment artifacts are securely pushed via <strong>encrypted SCP</strong> using GitHub Secrets. The pipeline concludes by opening a precise SSH tunnel to gracefully cycle the <code>systemd</code> service daemon (<code>myapp</code>) with zero user intervention.
+            </p>
+          </div>
+        </div>
+        
+      </div>
+    </section>
 
     <div class="row g-4">
-        <div class="col-lg-8">
+      <div class="">
 
-            <div class="card shadow-sm border-0 rounded-4 p-4 mb-4">
-                <h3 class="fw-bold mb-3 text-dark">📄 GitHub Actions configuration</h3>
-                <div class="terraform-code-container">
-                  <pre class="terraform-code"><code>
+        <div class="cicd-card shadow-sm border-0 rounded-4 p-4 mb-4">
+          <h3 class="fw-bold mb-3 text-white">📄 GitHub Actions Workflow</h3>
+          <div class="cicd-code-container">
+            <pre class="cicd-code"><code>
 name: Deploy to AWS
 
 on:
@@ -64,17 +178,9 @@ jobs:
             sudo systemctl stop myapp
             sudo systemctl start myapp
                     </code></pre>
-                </div>
-            </div>
+          </div>
         </div>
-
-        <div class="col-lg-4">
-            <div class="card shadow-sm border-0 rounded-4 p-4 position-sticky" style="top: 20px;">
-              <h4 class="fw-bold mb-4 text-dark">📋 Development details</h4>
-              <div class="mb-3">
-                <span class="text-muted d-block small uppercase fw-semibold">12345678</span>
-              </div>
-            </div>
-        </div>
+      </div>
+      
     </div>
 </div>

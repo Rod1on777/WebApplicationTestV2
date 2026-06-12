@@ -2,22 +2,86 @@
     ViewData["Title"] = "Ai Job Analysys";
 }
 
+<section class="architecture-section">
+    <div class="arch-container">
+
+        <div class="arch-visual">
+            <div class="arch-node center-node">
+                <span class="node-tag">Orchestrator</span>
+                <div class="node-icon">.NET App</div>
+                <span class="node-loc">AWS EC2</span>
+            </div>
+
+            <div class="arch-arrow">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="payload-badge">JSON Payload</span>
+            </div>
+
+            <div class="arch-node lambda-node">
+                <span class="node-tag text-lambda">Serverless</span>
+                <div class="node-icon bg-lambda">AWS Lambda</div>
+                <span class="node-loc">Python Script</span>
+            </div>
+
+            <div class="arch-arrow continuous">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="payload-badge">HTTPS</span>
+            </div>
+
+            <div class="arch-node gemini-node">
+                <span class="node-tag text-gemini">AI Core</span>
+                <div class="node-icon bg-gemini">Gemini API</div>
+                <span class="node-loc">flash-lite</span>
+            </div>
+        </div>
+        
+        <div class="arch-content">
+            <h2 class="arch-title">How it works?</h2>
+
+            <div class="arch-card">
+                <h3 class="arch-subtitle">Secure Serverless AI Bridge <span>(AWS Lambda & Python)</span></h3>
+                <p class="arch-text">
+                    The <strong>.NET application</strong> acts as an orchestrator and forwards a structured JSON payload containing the vacancy data and the developer's skills to an <strong>AWS Lambda Function URL</strong>.
+                </p>
+
+                <div class="why-lambda">
+                    <h4>Why Lambda?</h4>
+                    <p>
+                        Processing external API calls can introduce high latency. Offloading this task to AWS Lambda isolates the long-running network request. The main <strong>EC2 server remains free</strong> to handle other user traffic without resource starvation.
+                    </p>
+                </div>
+
+                <p class="arch-text footer-text">
+                    Inside the Lambda container, a lightweight <strong>Python script</strong> structures the final prompt, configures the <code class="ai-code">thinkingBudget</code>, and establishes a direct HTTPS connection to the <strong>Gemini API</strong> (<code class="ai-code">gemini-flash-lite-latest</code>).
+                </p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-6">
-            <div class="card shadow-sm">
+            <div class="ai-card-job card shadow-sm">
                 <div class="card-header ai-background">
                     <h5 class="mb-0">AI-Powered Job Analysis</h5>
                 </div>
-                <div class="card-body">
+                <div class="ai-card-body">
                     <form id="aiAnalysisForm">
                         <div class="mb-3">
                             <label for="jobTitle" class="form-label">Job Title</label>
-                            <input type="text" class="form-control" id="jobTitle" placeholder="for example, Junior Backend Developer" required>
+                            <input type="text" class="ai-form-control form-control" id="jobTitle" placeholder="for example, Junior Backend Developer" required>
                         </div>
                         <div class="mb-3">
                             <label for="jobDescription" class="form-label">Job Description / Requirements</label>
-                            <textarea class="form-control" id="jobDescription" rows="10" placeholder="Paste the job description details here and click the button to start the analysis" required></textarea>
+                            <textarea class="ai-form-control form-control" id="jobDescription" rows="10" placeholder="Paste the job description details here and click the button to start the analysis" required></textarea>
                         </div>
                         <button type="submit" class="btn ai-button w-100" id="btnSubmit">
                             <span id="btnText">Check Match</span>
@@ -29,16 +93,16 @@
         </div>
 
         <div class="col-md-6 mt-4 mt-md-0">
-            <div class="card shadow-sm h-100">
+            <div class="ai-card-job card shadow-sm h-100">
                 <div class="card-header ai-background-black">
                     <h5 class="mb-0">📋 AI Recruiter Verdict</h5>
                 </div>
-                <div class="card-body d-flex flex-column justify-content-center align-items-center" id="resultPlaceholder">
-                    <p class="text-muted text-center" id="initialMessage">Paste the job description and click the button to start the analysis.</p>
+                <div class="ai-card-body card-body d-flex flex-column justify-content-center align-items-center" id="resultPlaceholder">
+                    <p class="text-center" id="initialMessage">Paste the job description and click the button to start the analysis.</p>
                     
                     <div id="analysisResult" class="w-100 d-none">
                         <div class="text-center mb-4">
-                            <h6 class="text-uppercase text-muted fw-bold">Match Score</h6>
+                            <h6 class="text-uppercase fw-bold">Match Score</h6>
                             <div class="display-3 fw-bold text-success" id="resPercentage">100%</div>
                         </div>
                         

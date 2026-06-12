@@ -51,7 +51,7 @@ public class HomeController : Controller
         };
 
         // Передаем полученный объект weather прямо в метод View().
-        // Теперь HTML-страница Index.cshtml сможет прочитать эти данные через свойство @Model.
+        // Теперь HTML-страница ApiDoc.cshtml сможет прочитать эти данные через свойство @Model.
         return View(viewModel);
     }
 
@@ -71,6 +71,11 @@ public class HomeController : Controller
     }
     
     public IActionResult Architecture()
+    {
+        return View();
+    }
+    
+    public IActionResult ApiDoc()
     {
         return View();
     }

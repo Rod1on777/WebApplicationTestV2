@@ -1,0 +1,133 @@
+﻿@{
+    ViewData["Title"] = "Документация API";
+}
+
+<div class="container mt-5 mb-5">
+    <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold font-header" style="color: var(--header-text-color)">Public Portfolio API</h1>
+        <p class="lead font-header" style="color: var(--header-text-color)">Documentation & Interactive Sandbox for Internal Service Testing
+        </p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="list-group shadow-sm" id="api-list-tab" role="tablist">
+                <a class="list-group-item list-group-item-action active p-3" id="list-catfacts-list" data-bs-toggle="list" href="#list-catfacts" role="tab">
+                    <span class="badge bg-success me-2">GET</span> <strong class="font-monospace">/api/catfacts</strong>
+                    <div class="small text-muted mt-1">Random Cat Facts</div>
+                </a>
+                <a class="list-group-item list-group-item-action p-3" id="list-weather-list" data-bs-toggle="list" href="#list-weather" role="tab">
+                    <span class="badge bg-success me-2">GET</span> <strong class="font-monospace">/api/weather</strong>
+                    <div class="small text-muted mt-1">Current Weather Summary</div>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="tab-content shadow-sm bg-white rounded p-4 border" id="nav-tabContent">
+                
+                <div class="tab-pane fade show active" id="list-catfacts" role="tabpanel">
+                    <h3 class="fw-bold mb-3 text-black">Random Cat Fact</h3>
+                    <p class="text-muted">Returns a structured random feline fact retrieved from a cached database or an external API provider.</p>
+                    
+                    <hr>
+                    
+                    <h5 class="fw-bold text-black">Response Format (JSON)</h5>
+                    <pre class="bg-light p-3 rounded border font-monospace" style="font-size: 0.9rem;"><code class="text-dark">
+{
+  "fact": "Cats sleep 70% of their lives.",
+  "length": 30
+}
+</code></pre>
+
+                    <div class="card mt-4 border-endpoint">
+                        <div class="card-header bg-endpoint text-white fw-bold">⚡ Interactive Endpoint Test</div>
+                        <div class="card-body">
+                            <p class="small text-muted">Click the button below to send a live request to <code class="bg-light px-1 text-danger">/api/catfacts</code>.</p>
+                            <button class="btn btn-outline-success" onclick="testEndpoint('/api/catfacts', 'catfacts-output', 'catfacts-spinner')">
+                                Send Request 
+                                <span id="catfacts-spinner" class="spinner-border spinner-border-sm d-none" role="status"></span>
+                            </button>
+                            <div class="mt-3 d-none" id="catfacts-output-container">
+                                <h6 class="fw-bold text-muted small">Server Response:</h6>
+                                <pre id="catfacts-output" class="bg-dark text-success p-3 rounded font-monospace m-0" style="max-height: 250px; overflow-y: auto; font-size: 0.85rem;"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="list-weather" role="tabpanel">
+                    <h3 class="fw-bold mb-3 text-black">Current Weather Summary</h3>
+                    <p class="text-muted">Returns real-time meteorological data for the current server location (Sydney) featuring dynamic temperature calculation in the metric system.</p>
+                    
+                    <hr>
+                    
+                    <h5 class="fw-bold text-black">Response Format (JSON)</h5>
+                    <pre class="bg-light p-3 rounded border font-monospace" style="font-size: 0.9rem;"><code class="text-dark">
+{
+  "city": "Sydney",
+  "temperature": "18°C",
+  "windSpeed": "9,4 km/h",
+  "asOf": "12.06.2026 10:54"
+}
+</code></pre>
+
+                    <div class="card mt-4 border-endpoint">
+                        <div class="card-header bg-endpoint text-white fw-bold">⚡ Interactive Endpoint Test</div>
+                        <div class="card-body">
+                            <p class="small text-muted">Click the button below to send a live request to <code class="bg-light px-1 text-danger">/api/weather</code>.</p>
+                            <button class="btn btn-outline-success" onclick="testEndpoint('/api/weather', 'weather-output', 'weather-spinner')">
+                                Send Request 
+                                <span id="weather-spinner" class="spinner-border spinner-border-sm d-none" role="status"></span>
+                            </button>
+                            <div class="mt-3 d-none" id="weather-output-container">
+                                <h6 class="fw-bold text-muted small">Server Response:</h6>
+                                <pre id="weather-output" class="bg-dark text-success p-3 rounded font-monospace m-0" style="max-height: 250px; overflow-y: auto; font-size: 0.85rem;"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        async function testEndpoint(url, outputElementId, spinnerId) {
+            const outputElement = document.getElementById(outputElementId);
+            const containerElement = document.getElementById(outputElementId + '-container');
+            const spinner = document.getElementById(spinnerId);
+
+            // Показываем лоадер, сбрасываем старый текст
+            spinner.classList.remove('d-none');
+            containerElement.classList.remove('d-none');
+            outputElement.innerText = "Waiting for backend response...";
+            outputElement.className = "bg-dark text-info p-3 rounded font-monospace";
+
+            try {
+                // Делаем реальный запрос к твоему контроллеру на сайте
+                const response = await fetch(url);
+                
+                // Проверяем статус ответа
+                const statusText = `Status: ${response.status} ${response.statusText}\n\n`;
+                
+                if (!response.ok) {
+                    throw new Error(`${statusText}Internal server error processing the request.`);
+                }
+
+                const data = await response.json();
+                
+                outputElement.innerText = statusText + JSON.stringify(data, null, 2);
+                outputElement.className = "bg-dark text-success p-3 rounded font-monospace";
+
+            } catch (error) {
+                outputElement.innerText = error.message;
+                outputElement.className = "bg-dark text-danger p-3 rounded font-monospace";
+            } finally {
+                spinner.classList.add('d-none');
+            }
+        }
+    </script>
+}
