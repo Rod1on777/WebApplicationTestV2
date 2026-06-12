@@ -19,8 +19,13 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('theme', theme);
     }
 
-    // Get saved theme from localStorage or default to system preference
     const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        setTheme(savedTheme);
+    } else {
+        setTheme('dark'); // Дефолтная тема для первого визита
+    }
+
     if (savedTheme) {
         setTheme(savedTheme);
     } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
