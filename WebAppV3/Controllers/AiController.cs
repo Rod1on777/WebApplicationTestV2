@@ -306,23 +306,43 @@ public class AiController : Controller
             }
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
-                // Стандартные пути для Chromium в Linux (AWS EC2)
-                string[] linuxPaths = {
-                    "/usr/bin/chromium",
-                    "/usr/bin/chromium-browser",
-                    "/usr/bin/google-chrome"
-                };
-
-                foreach (var path in linuxPaths)
+                // 1. Сначала проверяем стандартный путь установки Playwright в домашней директории ec2-user
+                string playwrightBaseDir = "/home/ec2-user/.cache/ms-playwright";
+    
+                if (System.IO.Directory.Exists(playwrightBaseDir))
                 {
-                    if (System.IO.File.Exists(path))
+                    // Ищем подпапки, начинающиеся на "chromium-"
+                    var chromiumDirs = System.IO.Directory.GetDirectories(playwrightBaseDir, "chromium-*");
+                    foreach (var dir in chromiumDirs)
                     {
-                        chromePath = path;
-                        break;
+                        string expectedPath = System.IO.Path.Combine(dir, "chrome-linux", "chrome");
+                        if (System.IO.File.Exists(expectedPath))
+                        {
+                            chromePath = expectedPath;
+                            break;
+                        }
+                    }
+                }
+
+                // 2. Если в кэше Playwright не нашли, используем резервные глобальные пути
+                if (string.IsNullOrEmpty(chromePath))
+                {
+                    string[] fallbackPaths = {
+                        "/opt/chrome-linux/chrome",
+                        "/usr/bin/chromium",
+                        "/usr/bin/chromium-browser"
+                    };
+
+                    foreach (var path in fallbackPaths)
+                    {
+                        if (System.IO.File.Exists(path))
+                        {
+                            chromePath = path;
+                            break;
+                        }
                     }
                 }
             }
-
             // Если ни на одной ОС браузер не нашли
             if (string.IsNullOrEmpty(chromePath) || !System.IO.File.Exists(chromePath))
             {
