@@ -1,0 +1,287 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume - Rodion Korshunov</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        header {
+            border-bottom: 2px solid #2b579a;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            margin: 0;
+            color: #2b579a;
+            font-size: 28px;
+            text-align: center;
+        }
+        h2 {
+            margin: 5px 0 10px 0;
+            color: #555;
+            font-size: 18px;
+            font-weight: normal;
+            text-align: center;
+        }
+        .contact-info {
+            font-size: 14px;
+            color: #666;
+            text-align: center;
+        }
+        .contact-info a {
+            color: #2b579a;
+            text-decoration: none;
+            text-align: center;
+        }
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+        section {
+            margin-bottom: 25px;
+        }
+        h3 {
+            border-bottom: 1px solid #ddd;
+            color: #2b579a;
+            font-size: 18px;
+            margin-bottom: 10px;
+            padding-bottom: 3px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .summary p {
+            margin: 0;
+            text-align: justify;
+        }
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 8px;
+        }
+        
+        .skill{
+            margin:0;
+        }
+        
+        .skills-item {
+            font-size: 14px;
+        }
+        .skills-item strong {
+            color: #444;
+        }
+        .job, .project {
+            margin-bottom: 15px;
+        }
+        .job-header, .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            font-weight: bold;
+            color: #444;
+        }
+        .job-company, .project-org {
+            font-style: italic;
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        ul {
+            margin: 5px 0 0 0;
+            padding-left: 20px;
+            font-size: 14px;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        .education-item {
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Rodion Korshunov</h1>
+    <h2 class="job-title">Software Engineer</h2>
+    <div class="contact-info">
+        <a href="mailto:rodionk533@gmail.com">rodionk533@gmail.com</a> |
+        <span>NSW, Sydney</span> |
+        <a href="https://portfolio.rodion-dev.org" target="_blank">portfolio.rodion-dev.org</a> |
+        <a href="https://github.com/Rod1on777" target="_blank">GitHub (Rod1on777)</a>
+    </div>
+</header>
+<section class="summary">
+    <h3>Summary</h3>
+    <p class="summary-text">
+        AWS Certified Solutions Architect and Java Developer with over 3 years of commercial and project-based experience
+        building scalable web applications, cloud infrastructure, and deploying automated systems. Holding a Bachelor of
+        Information Technology from Macquarie University with hands-on expertise in backend ecosystems (Spring Boot, .NET),
+        continuous delivery (CD), maintaining 99.9% uptime, and collaborative software engineering within the IBM ecosystem.
+        Eager to build and operate scalable distributed systems at scale.
+    </p>
+</section>
+<section>
+    <h3>Skills</h3>
+    <div class="skills-grid">
+        <div class="skills-item"><strong>Programming Languages: </strong><span class="programming-languages-skill skill">Java (Spring Boot framework), Python, C# (.NET Core / ASP.NET MVC)</span></div>
+        <div class="skills-item"><strong>Cloud Computing: </strong><span class="cloud-computing-skill skill">AWS Cloud (EC2, Lambda, ECS / EKS Fargate, RDS, S3, SQS, IAM), Cloud Architecture, Terraform (laC)</span></div>
+        <div class="skills-item"><strong>Tools & Environments: </strong><span class="tools-and-invironments-skill skill">Linux/Unix, Git, CI/CD (GitHub Actions), Docker, Maven, NuGet, Postman, OAuth, Agile, Jira</span></div>
+        <div class="skills-item"><strong>Web & App Development: </strong><span class="web-and-app-development-skill skill">HTML5, CSS3, TypeScript, JavaScript, React.js, RESTful API Development, AI Integration</span></div>
+        <div class="skills-item"><strong>Databases: </strong><span class="databases-skill skill">MySQL, PostgreSQL, Hibernate, Data Storage Algorithms, ORM</span></div>
+        <div class="skills-item"><strong>Networking & Security: </strong><span class="networking-and-security-skill skill">TCP/IP, Network Security, DNS Routing, HTTPS Encryption</span></div>
+        <div class="skills-item"><strong>Languages: </strong><span class="skill">English (Fluent), Russian</span></div>
+        <div class="skills-item"><strong>Other: </strong><span class="other-skill skill">Microservices Architecture, Client-Server Systems, Object-Oriented Programming (OOP), Relational Database Design, UI Component Design, Test-Driven Development (TDD), Analytical Problem Solving, Kubernetes</span></div>
+    </div>
+</section>
+<section>
+    <h3>Work & Related Experience</h3>
+
+    <article class="job">
+        <div class="job-header">
+            <span>Automated Test & Integration Developer</span>
+            <span>January 2026 - June 2026</span>
+        </div>
+        <div class="job-company">Fulfilment Australia, Sydney, NSW</div>
+        <ul>
+            <li>System & Integration Testing: Conducted comprehensive QA and end-to-end testing for a newly deployed inventory management system, successfully integrating software components with over 8 physical industrial machines and hardware units.</li>
+            <li>Validated core data-storing and retrieval algorithms by executing 100+ database test cases, ensuring 99.8% data accuracy and optimising processing reliability across various storage states.</li>
+            <li>Collaborated with cross-functional teams to debug real-time data exchange protocols, helping reduce synchronisation latency between hardware and the backend by 15%.</li>
+        </ul>
+    </article>
+
+    <article class="job">
+        <div class="job-header">
+            <span>Java Server Administrator & DevOps (Lead)</span>
+            <span>July 2025 - December 2025</span>
+        </div>
+        <div class="job-company">Celestial Light (Game Server Infrastructure), Remote work</div>
+        <ul>
+            <li>Managed and optimised Java-based server software by configuring complex YAML-based plugin architectures, conducting reverse engineering of existing binaries to ensure compatibility and performance.</li>
+            <li>Continuous Delivery (CD): Implemented zero-downtime deployment strategies for content updates and patches, maintaining high availability for 10,000+ registered users. Achieved 99.9% uptime during update deployment.</li>
+            <li>Network Infrastructure: Orchestrated secure connectivity via HTTPS, managed Domain Name Systems (DNS), including TTL optimisation and CNAME/Alias records for improved routing and latency.</li>
+            <li>Proactively monitored server logs and traffic patterns (IP analysis) to identify and mitigate unauthorised access attempts and DDoS threats. Provided 100% protection of accounts from brute-force attacks.</li>
+            <li>Designed and developed a secure web platform for server monetisation, utilising AWS Cloud infrastructure (EC2, Lambda) to handle user traffic, digital sales, and static asset storage.</li>
+        </ul>
+    </article>
+
+    <article class="job">
+        <div class="job-header">
+            <span>AI Cognitive Automotive Racer Developer</span>
+            <span>January 2025 - June 2025</span>
+        </div>
+        <div class="job-company">IBM Academy of Technology, Remote work, Project-based experience</div>
+        <ul>
+            <li>Developed an automated road tracking module using machine learning algorithms on the Open Development Platform (Java and Python), as part of a highly structured team.</li>
+            <li>Participated in rigorous code reviews, automated testing, and version control management using Agile principles, reducing critical production bugs by 30%.</li>
+            <li>Improved team communication and task planning workflows, resulting in a 2x efficiency increase, through the strategic implementation of Jira.</li>
+        </ul>
+    </article>
+
+    <article class="job">
+        <div class="job-header">
+            <span>Spring Boot Video Hosting Developer</span>
+            <span>March 2024 - December 2024</span>
+        </div>
+        <div class="job-company">Freelance, Remote work</div>
+        <ul>
+            <li>Developed an internal video hosting platform using Spring Boot for the company's employee training system.</li>
+            <li>Implemented video streaming functionality and optimised system performance using PostgreSQL, improving scalability to handle concurrent video playback.</li>
+            <li>Reduced the time spent searching for necessary information by 20% by improving interface usability.</li>
+            <li>Participated in code review sessions, enhancing code cleanliness and readability, and improving scalability.</li>
+        </ul>
+    </article>
+
+    <article class="job">
+        <div class="job-header">
+            <span>Software Engineering Simulation Internship</span>
+            <span>October 2023 - November 2023</span>
+        </div>
+        <div class="job-company">Wells Fargo, Remote internship</div>
+        <ul>
+            <li>Redesigned database architecture by introducing new tables and establishing proper relational constraints, significantly enhancing overall database performance.</li>
+            <li>Resolved 3 critical bugs within a core Java application, preventing potential application failures and ensuring 99% data accuracy and integrity.</li>
+        </ul>
+    </article>
+</section>
+<section>
+    <h3>Project-Based Experience</h3>
+
+    <article class="project">
+        <div class="project-header">
+            <span>Surculus RPG Project: Backend & DevOps Developer</span>
+            <span>February 2025 - April 2026</span>
+        </div>
+        <div class="project-org">Macquarie University & "Beer and Pixels" Showcase</div>
+        <ul>
+            <li>Optimised core game loops and complex algorithmic systems (player physics, enemy AI states) in C#.</li>
+            <li>Showcased the game prototype at prominent local interactive media showcases, including "Beer and Pixels" and Macquarie University industry events.</li>
+            <li>Coordinated live playtesting sessions, gathered technical feedback, and resolved 20+ runtime bugs discovered during active community evaluation.</li>
+        </ul>
+    </article>
+
+    <article class="project">
+        <div class="project-header">
+            <span>.NET Enterprise Web Application - AWS Cloud & Infrastructure Cloud Developer & DevOps Engineer</span>
+            <span>September 2025 - November 2025</span>
+        </div>
+        <ul>
+            <li>Architected and deployed a scalable web application on AWS, utilising EC2 and AWS Lambda combined with Amazon API Gateway to host the .NET Core / ASP.NET MVC backend in a highly available, cost-effective serverless environment.</li>
+            <li>Authored reusable Terraform configurations to provision cloud resources, IAM roles, and Security Groups.</li>
+        </ul>
+    </article>
+</section>
+<section>
+    <h3>Education & Certifications</h3>
+
+    <div class="education-item">
+        <strong>AWS Certified Solutions Architect - Associate (SAA-C03)</strong> — Issued by Amazon Web Services (AWS)
+    </div>
+    <div class="education-item">
+        <strong>Open Project Developer</strong> — Issued by IBM
+    </div>
+    <div class="education-item">
+        <strong>Bachelor of Information Technology</strong> — Macquarie University, NSW, Sydney
+    </div>
+</section>
+<section>
+    <h3>Volunteering Experience</h3>
+
+    <article class="project">
+        <div class="project-header">
+            <span>IT Infrastructure & Systems Volunteer</span>
+            <span>November 2025 - January 2026</span>
+        </div>
+        <div class="project-org">United Russian Society Inc., Sydney, Australia</div>
+        <ul>
+            <li>Administered and optimised the organisation's digital infrastructure, website, and internal computer systems to ensure 100% operational uptime for the community language school and cultural events.</li>
+        </ul>
+    </article>
+
+    <article class="project">
+        <div class="project-header">
+            <span>Club Member & Event Coordinator</span>
+            <span>March 2024 - November 2025</span>
+        </div>
+        <div class="project-org">Macquarie University Slavic Society, Sydney, Australia</div>
+    </article>
+</section>
+<section>
+    <h3>Additional Information & Links</h3>
+    <ul>
+        <li><strong>Portfolio:</strong> <a href="https://portfolio.rodion-dev.org/" target="_blank">portfolio.rodion-dev.org</a></li>
+        <li><strong>Alternate CV Link:</strong> <a href="https://rod1on777.github.io/RodionCV/" target="_blank">rod1on777.github.io/RodionCV/</a></li>
+        <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/rodion-korshunov-4548b5292/" target="_blank">linkedin.com/in/rodion-korshunov-4548b5292/</a></li>
+        <li><strong>GitHub:</strong> <a href="https://github.com/Rod1on777" target="_blank">github.com/Rod1on777</a></li>
+    </ul>
+</section>
+</body>
+</html>
