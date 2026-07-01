@@ -49,26 +49,16 @@ async function tailorResume() {
     const description = document.getElementById('jobDescription').value;
 
     const spinner = document.getElementById('tailor-spinner');
-    const container = document.getElementById('tailored-resume-container');
-    const iframe = document.getElementById('resume-preview-frame');
+    const previewContainer = document.getElementById('tailored-resume-container');
 
     if (!title || !description) {
         alert("Пожалуйста, заполните заголовок и описание вакансии!");
         return;
     }
 
-    // Включаем лоадер и показываем контейнер
-    spinner.classList.remove('d-none');
-    container.classList.remove('d-none');
-
-    // Очищаем старое содержимое iframe и пишем туда заглушку ожидания
-    const iframeDoc = iframe.contentWindow.document;
-    iframeDoc.open();
-    iframeDoc.write("<p style='font-family: sans-serif; text-align: center; margin-top: 50px;'>Глубокий анализ Gemini 3.5 Flash... Пожалуйста, подождите, это занимает около 5-10 секунд.</p>");
-    iframeDoc.close();
+    if (spinner) spinner.classList.remove('d-none');
 
     try {
-        // Делаем POST запрос на наш .NET контроллер
         const response = await fetch('/Ai/TailorResume', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -82,38 +72,92 @@ async function tailorResume() {
         const result = await response.json();
 
         if (result.success) {
-            // Записываем полученный от ИИ HTML код прямо внутрь iframe
-            iframeDoc.open();
-            iframeDoc.write(result.html);
-            iframeDoc.close();
+            if (previewContainer) previewContainer.classList.remove('d-none');
 
-            // СОХРАНЯЕМ HTML ДЛЯ ПОСЛЕДУЮЩЕГО СКАЧИВАНИЯ
-            document.getElementById('hdn-html-content').value = result.html;
+            // 1. Изолированная вставка Резюме
+            const resumeDiv = document.getElementById('resume-div');
+            if (resumeDiv) {
+                // Если теневой купол еще не создан — создаем его (в режиме 'open')
+                let shadowRoot = resumeDiv.shadowRoot;
+                if (!shadowRoot) {
+                    shadowRoot = resumeDiv.attachShadow({ mode: 'open' });
+                }
+                // Записываем полный HTML внутрь изолированной зоны
+                shadowRoot.innerHTML = result.html;
 
-            // Показываем кнопку скачивания PDF вместо заглушки
-            document.getElementById('btn-download-pdf').classList.remove('d-none');
+                const hdnResume = document.getElementById('hdn-html-content');
+                if (hdnResume) hdnResume.value = result.html;
+            }
+
+            // 2. Изолированная вставка Сопроводительного письма
+            if (result.coverHtml) {
+                const coverDiv = document.getElementById('cover-div');
+                if (coverDiv) {
+                    let shadowRoot = coverDiv.shadowRoot;
+                    if (!shadowRoot) {
+                        shadowRoot = coverDiv.attachShadow({ mode: 'open' });
+                    }
+                    shadowRoot.innerHTML = result.coverHtml;
+
+                    const hdnCover = document.getElementById('hdn-cover-content');
+                    if (hdnCover) hdnCover.value = result.coverHtml;
+                }
+            }
+
+            // Показываем кнопку скачивания PDF
+            document.getElementById('btn-download-pdf')?.classList.remove('d-none');
+
         } else {
-            iframeDoc.open();
-            iframeDoc.write(`<p style='color: red;'>Ошибка: ${result.error}</p>`);
-            iframeDoc.close();
+            showErrorInPreview(result.error || "Неизвестная ошибка бэкенда.");
         }
     } catch (error) {
-        iframeDoc.open();
-        iframeDoc.write(`<p style='color: red;'>Критическая ошибка сети: ${error.message}</p>`);
-        iframeDoc.close();
+        showErrorInPreview(`Критическая ошибка: ${error.message}`);
     } finally {
-        // Прячем лоадер
-        spinner.classList.add('d-none');
+        if (spinner) spinner.classList.add('d-none');
+    }
+}
+
+// Вспомогательная функция вывода ошибок в div
+function showErrorInPreview(errorMessage) {
+    const previewContainer = document.getElementById('tailored-resume-container');
+    if (previewContainer) previewContainer.classList.remove('d-none');
+
+    const resumeDiv = document.getElementById('resume-div');
+    if (resumeDiv) {
+        resumeDiv.innerHTML = `<div class="alert alert-danger m-3">
+            <h3>⚠️ Ошибка генерации</h3>
+            <p>${errorMessage}</p>
+        </div>`;
+    } else {
+        alert(errorMessage);
     }
 }
 
 function triggerPdfDownload() {
-    const htmlContent = document.getElementById('hdn-html-content').value;
+    // Проверяем какой таб сейчас активен
+    const isResumeActive = document.getElementById('resume-tab').classList.contains('active');
+
+    const htmlContent = isResumeActive
+        ? document.getElementById('hdn-html-content').value
+        : document.getElementById('hdn-cover-content').value;
+
     if (!htmlContent) {
         alert("Нет данных для скачивания!");
         return;
     }
-    // Отправляем скрытую форму. Браузер сам поймет, что это скачивание файла, 
-    // и страница не перезагрузится.
-    document.getElementById('form-download-pdf').submit();
+
+    // Создаем динамическую форму для отправки
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = '/Ai/DownloadPdf';
+
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'htmlContent';
+    input.value = htmlContent;
+
+    form.appendChild(input);
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
 }

@@ -7,6 +7,7 @@ using HtmlAgilityPack;
 using System.Text.Json;
 using PuppeteerSharp;
 using PuppeteerSharp.Media;
+using System.Runtime.InteropServices;
 
 namespace WebAppV3.Controllers;
 
@@ -71,6 +72,22 @@ public class AiController : Controller
             }
             string originalHtml = await System.IO.File.ReadAllTextAsync(filePath);
 
+            var htmlDoc = new HtmlDocument();
+            htmlDoc.LoadHtml(originalHtml);
+
+            // Находим элемент <body>
+            var bodyNode = htmlDoc.DocumentNode.SelectSingleNode("//body");
+            if (bodyNode == null)
+            {
+                return BadRequest(new { error = "В шаблоне резюме не найден тег <body>." });
+            }
+
+            // Вытаскиваем ТОЛЬКО контент внутри body (без стилей из head)
+            string bodyHtmlOnly = bodyNode.InnerHtml;
+
+            // 3. Отправляем в Лямбду ТОЛЬКО контент body
+            Console.WriteLine($"[INFO]: Отправка в Лямбду. Размер body: {bodyHtmlOnly.Length} символов (вместо {originalHtml.Length})");
+            
             // 2. Отправляем запрос в Лямбду и получаем ЧИСТЫЙ JSON (благодаря нашему новому сервису)
             string aiJsonResponse = await _lambdaService.TailorResumeAsync(model.JobTitle, model.JobDescription, originalHtml);
             aiJsonResponse = aiJsonResponse.Trim();
@@ -83,7 +100,7 @@ public class AiController : Controller
 
             // 3. Десериализуем ответ от ИИ в C#-модель
             var jsonOptions = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
-            var aiData = JsonSerializer.Deserialize<TailorResponse>(aiJsonResponse, jsonOptions);
+            var aiData = JsonSerializer.Deserialize<TailorResponse>(aiJsonResponse);
 
             if (aiData == null)
             {
@@ -91,7 +108,7 @@ public class AiController : Controller
             }
 
             // 4. Загружаем оригинальный HTML в HtmlAgilityPack DOM
-            var htmlDoc = new HtmlDocument();
+            htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(originalHtml);
 
             // 5. ТОЧЕЧНАЯ ПРАВКА: Ищем элементы по классам и меняем только текст внутри них
@@ -109,6 +126,8 @@ public class AiController : Controller
             {
                 summaryNode.InnerHtml = aiData.SummaryText;
             }
+            
+            Console.WriteLine($"[INFO]: пытаемся адаптировать скиллы CloudComputingSkill... {aiData.Skills.ProgrammingLanguagesSkill}");
 
             // Карта соответствия классов в HTML и свойств из JSON
             var skillUpdates = new Dictionary<string, string>
@@ -122,6 +141,8 @@ public class AiController : Controller
                 { "other-skill", aiData.Skills.OtherSkill }
             };
 
+            
+            Console.WriteLine($"[INFO]: пытаемся адаптировать скиллы... {string.Join(", ", skillUpdates.Values)}");
             // Внедряем адаптированные навыки в HTML
             foreach (var update in skillUpdates)
             {
@@ -130,6 +151,7 @@ public class AiController : Controller
                     var skillNode = htmlDoc.DocumentNode.SelectSingleNode($"//*[contains(@class, '{update.Key}')]");
                     if (skillNode != null)
                     {
+                        Console.WriteLine($"[INFO]: обновлён скилл {update.Key} = {update.Value}");
                         skillNode.InnerHtml = update.Value;
                     }
                 }
@@ -138,8 +160,35 @@ public class AiController : Controller
             // 6. Генерируем финальную HTML-строку со всеми изменениями
             string tailoredHtml = htmlDoc.DocumentNode.OuterHtml;
 
+            var coverTemplatePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "templates", "cover-template.html");
+            string tailoredCoverHtml = string.Empty;
+
+            if (System.IO.File.Exists(coverTemplatePath))
+            {
+                string originalCoverHtml = await System.IO.File.ReadAllTextAsync(coverTemplatePath);
+                var coverDoc = new HtmlDocument();
+                coverDoc.LoadHtml(originalCoverHtml);
+
+                var coverMainNode = coverDoc.DocumentNode.SelectSingleNode("//*[contains(@class, 'cover-letter-main')]");
+                if (coverMainNode != null && !string.IsNullOrEmpty(aiData.CoverLetter))
+                {
+                    // Форматируем текст: превращаем обычные переносы строк \n в HTML-теги <br/>
+                    // Также заменяем переносы с дефисами на списки, если это необходимо
+                    string formattedText = aiData.CoverLetter
+                        .Replace("\r\n", "\n")
+                        .Replace("\n", "<br/>");
+
+                    coverMainNode.InnerHtml = formattedText;
+                }
+                tailoredCoverHtml = coverDoc.DocumentNode.OuterHtml;
+            }
+            
             // 🚀 ОТПРАВЛЯЕМ ГОТОВЫЙ HTML НА ФРОНТЕНД
-            return Json(new { success = true, html = tailoredHtml });
+            return Json(new { 
+                success = true, 
+                html = tailoredHtml, 
+                coverHtml = tailoredCoverHtml 
+            });
         }
         catch (Exception ex)
         {
@@ -243,59 +292,82 @@ public class AiController : Controller
 
         try
         {
-            // 1. Указываем путь к установленному Chrome на твоем Windows
-            // По умолчанию в Windows Chrome ставится по этому пути:
-            string chromePath = @"C:\Program Files\Google\Chrome\Application\chrome.exe";
+            string chromePath = "";
 
-            // Если ты хочешь использовать Microsoft Edge (он есть на любой Windows):
-            if (!System.IO.File.Exists(chromePath))
+            // 1. Автоматически определяем ОС для кроссплатформенности
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                chromePath = @"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe";
+                // Путь для твоей локальной Windows-машины
+                chromePath = @"C:\Program Files\Google\Chrome\Application\chrome.exe";
+                if (!System.IO.File.Exists(chromePath))
+                {
+                    chromePath = @"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe";
+                }
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                // Стандартные пути для Chromium в Linux (AWS EC2)
+                string[] linuxPaths = {
+                    "/usr/bin/chromium",
+                    "/usr/bin/chromium-browser",
+                    "/usr/bin/google-chrome"
+                };
+
+                foreach (var path in linuxPaths)
+                {
+                    if (System.IO.File.Exists(path))
+                    {
+                        chromePath = path;
+                        break;
+                    }
+                }
             }
 
-            // Если браузер вообще не найден по стандартным путям
-            if (!System.IO.File.Exists(chromePath))
+            // Если ни на одной ОС браузер не нашли
+            if (string.IsNullOrEmpty(chromePath) || !System.IO.File.Exists(chromePath))
             {
-                return StatusCode(500, "Локальный браузер (Chrome/Edge) не найден по стандартным путям. Пожалуйста, проверьте путь к chrome.exe.");
+                return StatusCode(500, $"Браузер для рендеринга PDF не найден. Текущая ОС: {RuntimeInformation.OSDescription}");
             }
 
-            // 2. Настраиваем запуск с указанием конкретного исполняемого файла
+            // 2. Настраиваем запуск Puppeteer с флагами безопасности для Linux
             var launchOptions = new LaunchOptions 
             { 
                 Headless = true,
-                ExecutablePath = chromePath // 🚀 Направляем Puppeteer на твой локальный браузер
+                ExecutablePath = chromePath,
+                // ⚠️ ВАЖНО ДЛЯ LINUX/EC2: Без этих аргументов Chrome внутри Linux-сервера 
+                // от имени root или службы systemd может отказаться запускаться
+                Args = new[] { 
+                    "--no-sandbox", 
+                    "--disable-setuid-sandbox", 
+                    "--disable-dev-shm-usage" 
+                }
             };
             
             await using var browser = await Puppeteer.LaunchAsync(launchOptions);
             await using var page = await browser.NewPageAsync();
 
-            // 3. Загружаем HTML-код в память
+            // 3. Загружаем изолированный HTML-код
             await page.SetContentAsync(htmlContent);
 
-            // 4. Настройки печати в PDF
+            // 4. Печать в PDF
             var pdfOptions = new PdfOptions
             {
                 Format = PaperFormat.A4,
                 PrintBackground = true,
                 MarginOptions = new MarginOptions
                 {
-                    Top = "0mm",
-                    Bottom = "0mm",
-                    Left = "0mm",
-                    Right = "0mm"
+                    Top = "0mm", Bottom = "0mm", Left = "0mm", Right = "0mm"
                 }
             };
 
-            // 5. Генерируем PDF
             byte[] pdfBytes = await page.PdfDataAsync(pdfOptions);
 
-            // 6. Отправляем файл пользователю
             string fileName = $"Resume_Tailored_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
             return File(pdfBytes, "application/pdf", fileName);
         }
         catch (Exception ex)
         {
-            return StatusCode(500, $"Критическая ошибка при генерации PDF: {ex.Message}");
+            return StatusCode(500, $"Критическая ошибка при генерации PDF на сервере: {ex.Message}");
         }
     }
 }
