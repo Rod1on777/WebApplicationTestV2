@@ -283,7 +283,7 @@ public class AiController : Controller
     }
     
     [HttpPost]
-    public async Task<IActionResult> DownloadPdf([FromForm] string htmlContent)
+    public async Task<IActionResult> DownloadPdf([FromForm] string htmlContent, [FromForm] string docType)
     {
         if (string.IsNullOrWhiteSpace(htmlContent))
         {
@@ -365,7 +365,7 @@ public class AiController : Controller
             
             await using var browser = await Puppeteer.LaunchAsync(launchOptions);
             await using var page = await browser.NewPageAsync();
-
+            await page.EmulateMediaTypeAsync(MediaType.Screen);
             // 3. Загружаем изолированный HTML-код
             await page.SetContentAsync(htmlContent);
 
@@ -374,6 +374,7 @@ public class AiController : Controller
             {
                 Format = PaperFormat.A4,
                 PrintBackground = true,
+                PreferCSSPageSize = true,
                 MarginOptions = new MarginOptions
                 {
                     Top = "0mm", Bottom = "0mm", Left = "0mm", Right = "0mm"
@@ -382,7 +383,18 @@ public class AiController : Controller
 
             byte[] pdfBytes = await page.PdfDataAsync(pdfOptions);
 
-            string fileName = $"Resume_Tailored_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
+            string timestamp = DateTime.Now.ToString("HHmmss");
+            string fileName = "Document.pdf";
+
+            if (docType == "cover")
+            {
+                fileName = $"Rodion_Korshunov_Cover_Letter_{timestamp}.pdf";
+            }
+            else
+            {
+                fileName = $"Rodion_Korshunov_CV_{timestamp}.pdf"; // По умолчанию скачиваем как резюме
+            }
+
             return File(pdfBytes, "application/pdf", fileName);
         }
         catch (Exception ex)

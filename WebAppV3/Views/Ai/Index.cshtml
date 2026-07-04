@@ -97,7 +97,7 @@
                 <div class="card-header ai-background-black">
                     <h5 class="mb-0">📋 AI Recruiter Verdict</h5>
                 </div>
-                <div class="ai-card-body card-body d-flex flex-column justify-content-center align-items-center" id="resultPlaceholder">
+                <div class="ai-card-body card-body d-flex flex-column justify-content-center align-items-center resume-card-body" id="resultPlaceholder">
                     <p class="text-center" id="initialMessage">Paste the job description and click the button to start the analysis.</p>
                     
                     <div id="analysisResult" class="w-100 d-none">
@@ -127,13 +127,16 @@
     </div>
 </div>
 
-<div style="margin-top: 30px;" class="card">
+<div style="margin-top: 30px; justify-content: center" class="card">
     <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
         <button type="button" class="btn btn-outline-info tailor-resume-button btn ai-button w-10" id="btn-tailor-resume" onclick="tailorResume()">
             📝 Tailor My Resume
             <span id="tailor-spinner" class="spinner-border spinner-border-sm d-none" role="status"></span>
         </button>
-        <button class="btn btn-sm btn-light d-none btn-outline-info tailor-resume-button btn ai-button" id="btn-download-pdf" onclick="triggerPdfDownload()">Download PDF</button>
+        <div id="download-buttons-group" class="">
+            <button class="btn btn-sm btn-light me-2" id="btn-download-resume" onclick="triggerPdfDownload('resume')">📄 Download CV (PDF)</button>
+            <button class="btn btn-sm btn-light" id="btn-download-cover" onclick="triggerPdfDownload('cover')">✉️ Download Cover Letter (PDF)</button>
+        </div>
         <ul class="nav nav-tabs card-header-tabs" id="previewTabs" role="tablist">
             <li class="nav-item">
                 <button class="nav-link active text-color-main" id="resume-tab" data-bs-toggle="tab" data-bs-target="#resume-container" type="button">📄 Resume</button>
@@ -144,7 +147,7 @@
         </ul>
     </div>
     
-    <div class="card-body p-4 tab-content" style="max-height: 850px; overflow-y: auto;">
+    <div class="card-body p-4 tab-content resume-card" style="max-width: 210mm; overflow-y: auto;">
         <div class="tab-pane fade show active" id="resume-container" role="tabpanel">
             <div id="resume-div"></div>
         </div>

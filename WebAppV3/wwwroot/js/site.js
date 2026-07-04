@@ -133,30 +133,37 @@ function showErrorInPreview(errorMessage) {
     }
 }
 
-function triggerPdfDownload() {
-    // Проверяем какой таб сейчас активен
-    const isResumeActive = document.getElementById('resume-tab').classList.contains('active');
+function triggerPdfDownload(type) {
+    let htmlContent = "";
 
-    const htmlContent = isResumeActive
-        ? document.getElementById('hdn-html-content').value
-        : document.getElementById('hdn-cover-content').value;
+    if (type === 'resume') {
+        htmlContent = document.getElementById('hdn-html-content').value;
+    } else if (type === 'cover') {
+        htmlContent = document.getElementById('hdn-cover-content').value;
+    }
 
     if (!htmlContent) {
-        alert("Нет данных для скачивания!");
+        alert("Content for downloading not found (press button 'Tailor My Resume' again!");
         return;
     }
 
-    // Создаем динамическую форму для отправки
     const form = document.createElement('form');
     form.method = 'POST';
     form.action = '/Ai/DownloadPdf';
 
-    const input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = 'htmlContent';
-    input.value = htmlContent;
+    // Поле с HTML контентом
+    const inputHtml = document.createElement('input');
+    inputHtml.type = 'hidden';
+    inputHtml.name = 'htmlContent';
+    inputHtml.value = htmlContent;
+    form.appendChild(inputHtml);
 
-    form.appendChild(input);
+    const inputType = document.createElement('input');
+    inputType.type = 'hidden';
+    inputType.name = 'docType';
+    inputType.value = type;
+    form.appendChild(inputType);
+
     document.body.appendChild(form);
     form.submit();
     document.body.removeChild(form);

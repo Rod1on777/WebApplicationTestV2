@@ -6,13 +6,28 @@
     <title>Resume - Rodion Korshunov</title>
     <style>
         body {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            /* Все отступы от краев листа настраиваешь только тут */
+            padding: 10mm 20mm;
+            box-sizing: border-box;
+            background-color: #f9f9f9;
+            color: #333333;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: #333;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f9f9f9;
+            -webkit-print-color-adjust: exact; /* ⚠️ Принудительно сохраняет цвета в PDF */
+            print-color-adjust: exact;
+            font-size: 10px;
+        }
+        /* Защита от некрасивых разрывов элементов (например, если карточка опыта рвется пополам) */
+        .resume-section-item, .work-experience, .education-block {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+        * {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         header {
             border-bottom: 2px solid #2b579a;
@@ -22,18 +37,18 @@
         h1 {
             margin: 0;
             color: #2b579a;
-            font-size: 28px;
+            font-size: 26px;
             text-align: center;
         }
         h2 {
             margin: 5px 0 10px 0;
             color: #555;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: normal;
             text-align: center;
         }
         .contact-info {
-            font-size: 14px;
+            font-size: 10px;
             color: #666;
             text-align: center;
         }
@@ -46,18 +61,19 @@
             text-decoration: underline;
         }
         section {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
         h3 {
             border-bottom: 1px solid #ddd;
             color: #2b579a;
-            font-size: 18px;
-            margin-bottom: 10px;
+            font-size: 12px;
+            margin-bottom: 8px;
             padding-bottom: 3px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
         .summary p {
+            font-size: 10px;
             margin: 0;
             text-align: justify;
         }
@@ -72,7 +88,7 @@
         }
         
         .skills-item {
-            font-size: 14px;
+            font-size: 10px;
         }
         .skills-item strong {
             color: #444;
@@ -80,7 +96,8 @@
         .job, .project {
             margin-bottom: 15px;
         }
-        .job-header, .project-header {
+        .job-header, .project-header, .education-header {
+            font-size: 12px;
             display: flex;
             justify-content: space-between;
             align-items: baseline;
@@ -90,20 +107,19 @@
         .job-company, .project-org {
             font-style: italic;
             color: #666;
-            font-size: 14px;
+            font-size: 12px;
             margin-bottom: 5px;
         }
         ul {
             margin: 5px 0 0 0;
             padding-left: 20px;
-            font-size: 14px;
+            font-size: 10px;
         }
         li {
             margin-bottom: 5px;
         }
         .education-item {
-            margin-bottom: 10px;
-            font-size: 14px;
+            font-size: 12px;
         }
     </style>
 </head>
@@ -122,11 +138,7 @@
 <section class="summary">
     <h3>Summary</h3>
     <p class="summary-text">
-        AWS Certified Solutions Architect and Java Developer with over 3 years of commercial and project-based experience
-        building scalable web applications, cloud infrastructure, and deploying automated systems. Holding a Bachelor of
-        Information Technology from Macquarie University with hands-on expertise in backend ecosystems (Spring Boot, .NET),
-        continuous delivery (CD), maintaining 99.9% uptime, and collaborative software engineering within the IBM ecosystem.
-        Eager to build and operate scalable distributed systems at scale.
+        AWS Certified Solutions Architect and Java Developer with over 3 years of commercial and project-based experience building scalable web applications, cloud infrastructure, and deploying automated systems. Holding a Bachelor of Information Technology from Macquarie University with hands-on expertise in backend ecosystems (Spring Boot, .NET), continuous delivery (CD), maintaining 99.9% uptime, and collaborative software engineering within the IBM ecosystem. Eager to build and operate scalable distributed systems at scale.
     </p>
 </section>
 <section>
@@ -230,7 +242,7 @@
 
     <article class="project">
         <div class="project-header">
-            <span>.NET Enterprise Web Application - AWS Cloud & Infrastructure Cloud Developer & DevOps Engineer</span>
+            <span>.NET Enterprise Web Application - AWS Cloud & Infrastructure</span>
             <span>September 2025 - November 2025</span>
         </div>
         <ul>
@@ -242,15 +254,30 @@
 <section>
     <h3>Education & Certifications</h3>
 
-    <div class="education-item">
-        <strong>AWS Certified Solutions Architect - Associate (SAA-C03)</strong> — Issued by Amazon Web Services (AWS)
-    </div>
-    <div class="education-item">
-        <strong>Open Project Developer</strong> — Issued by IBM
-    </div>
-    <div class="education-item">
-        <strong>Bachelor of Information Technology</strong> — Macquarie University, NSW, Sydney
-    </div>
+    <article class="education">
+        <div class="education-header education-item">
+            <span>AWS Certified Solutions Architect - Associate (SAA-C03)</span>
+            <span>March 2026</span>
+        </div>
+        <div class="project-org">Issued by Amazon Web Services (AWS)</div>
+    </article>
+    
+    <article class="education">
+        <div class="education-header education-item">
+            <span>Open Project Developer</span>
+            <span>August 2025</span>
+        </div>
+        <div class="project-org">Issued by IBM</div>
+    </article>
+    
+    <article class="education">
+        <div class="education-header education-item">
+            <span>Bachelor of Information Technology</span>
+            <span>January 2026</span>
+        </div>
+        <div class="project-org">Macquarie University, NSW, Sydney</div>
+    </article>
+    
 </section>
 <section>
     <h3>Volunteering Experience</h3>
@@ -277,10 +304,10 @@
 <section>
     <h3>Additional Information & Links</h3>
     <ul>
-        <li><strong>Portfolio:</strong> <a href="https://portfolio.rodion-dev.org/" target="_blank">portfolio.rodion-dev.org</a></li>
-        <li><strong>Alternate CV Link:</strong> <a href="https://rod1on777.github.io/RodionCV/" target="_blank">rod1on777.github.io/RodionCV/</a></li>
-        <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/rodion-korshunov-4548b5292/" target="_blank">linkedin.com/in/rodion-korshunov-4548b5292/</a></li>
-        <li><strong>GitHub:</strong> <a href="https://github.com/Rod1on777" target="_blank">github.com/Rod1on777</a></li>
+        <li><strong>Portfolio:</strong> <a href="https://portfolio.rodion-dev.org/" target="_blank">https://portfolio.rodion-dev.org/</a></li>
+        <li><strong>Alternate CV Link:</strong> <a href="https://rod1on777.github.io/RodionCV/" target="_blank">https://rod1on777.github.io/RodionCV/</a></li>
+        <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/rodion-korshunov-4548b5292/" target="_blank">https://www.linkedin.com/in/rodion-korshunov-4548b5292/</a></li>
+        <li><strong>GitHub:</strong> <a href="https://github.com/Rod1on777" target="_blank">https://github.com/Rod1on777</a></li>
     </ul>
 </section>
 </body>

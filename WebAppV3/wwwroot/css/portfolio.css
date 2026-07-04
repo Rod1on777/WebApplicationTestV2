@@ -1308,6 +1308,11 @@ nav.navbar-collapse{
     color: var(--header-text-color);
 }
 
+.resume-card-body{
+    max-width: 210mm;
+}
+
+
 
 /* Класс для скрытия элементов (замена d-none) */
 .hidden {
